@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 //Modelos
 use App\Models\Consignacion;
 
@@ -41,7 +39,8 @@ class ConsignacionController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     *Se encarga de contruir un select con
+     *los parámetros recibidos en el index
      *
      * @param string $Av_Previa
      * @param int $Detenido
@@ -63,6 +62,7 @@ class ConsignacionController extends Controller
 
     /**
      * Se encarga de registrar una consignación
+     * recibida mediante un JSON
      *
      * @param string $Consignacion
      * @return bool
@@ -118,7 +118,8 @@ class ConsignacionController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra la información de una consignación
+     * en específico.
      *
      * @param int $id
      * @return array
@@ -130,6 +131,7 @@ class ConsignacionController extends Controller
         $Delito = new DelitoController;
 
         $ConsignacionBusqueda = Consignacion::findOrFail($id);
+        $Consignacion['Error'] = '';
 
         if ($ConsignacionBusqueda->Estatus == 1) {
 
@@ -159,20 +161,21 @@ class ConsignacionController extends Controller
             $Consignacion['Fecha_Entrega'] = $ConsignacionBusqueda->Fecha_Entrega ?: '';
             $Consignacion['Nota'] = $ConsignacionBusqueda->Nota ?: '';
 
-            return $Consignacion;
         } else {
-            return "Esa consignación se encuentra desactivada";
+            $Consignacion['Error'] = 'Esa consignación se encuentra desactivada';
         }
+        return $Consignacion;
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza la información de una consignación. De igual manera, detecta
+     * cambios nuevos en las personas involucradas y los registra
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return Response
+     * @param string $ConsignacionActualizada
+     * @param int $id
+     * @return bool
      */
-    public function update($ConsignacionActualizada, $id)
+    public function update(string $ConsignacionActualizada, int $id):bool
     {
         $ConsignacionBusqueda = Consignacion::findOrFail($id);
 
@@ -211,20 +214,22 @@ class ConsignacionController extends Controller
             $ConsignacionBusqueda->Nota = $ConsignacionActualizada->Nota;
             $ConsignacionBusqueda->save();
         } else {
-            return "Esa consignación se encuentra desactivada";
+            return false;
         }
+        return true;
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Desactiva una consignación.
      *
-     * @param  int  $id
-     * @return Response
+     * @param int $id
+     * @return bool
      */
-    public function destroy($id)
+    public function destroy(int $id):bool
     {
         $Consignacion = Consignacion::findOrFail($id);
         $Consignacion->Estatus = 0;
         $Consignacion->save();
+        return true;
     }
 }
