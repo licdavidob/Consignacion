@@ -11,6 +11,7 @@ use App\Http\Controllers\AntecedenteController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\DelitoController;
 use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 
 class ConsignacionController extends Controller
 {
@@ -67,7 +68,7 @@ class ConsignacionController extends Controller
      * @param string $Consignacion
      * @return bool
      */
-    public function store(string $Consignacion = ''): bool
+    public function store($Consignacion): bool
     {
         if($Consignacion == ''){return false;}
 

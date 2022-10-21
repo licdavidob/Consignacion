@@ -23,50 +23,52 @@
                     </div>
                 </div>
                 <div>
-
-                <table class="table-auto border-separate border border-slate-500">
-                    <thead>
-                        <tr>
-                            <th class="border border-slate-600">ID_Consignación</th>
-                            <th class="border border-slate-600">Con detenido</th>
-                            <th class="border border-slate-600">Agencia</th>
-                            <th class="border border-slate-600">No. Averiguación Previa</th>
-                            <th class="border border-slate-600">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td> 1 </td>
-                            <td> Con detenido </td>
-                            <td> Agencia 01 </td>
-                            <td> Prueba 01 </td>
-                            <td> Acciones </td>
-                        </tr>
-                        <tr>
-                            <td> 2 </td>
-                            <td> Con detenido </td>
-                            <td> Agencia 02 </td>
-                            <td> Prueba 02 </td>
-                            <td> Acciones </td>
-                        </tr>
-                        <tr>
-                            <td> 3 </td>
-                            <td> Con detenido </td>
-                            <td> Agencia 03 </td>
-                            <td> Prueba 03 </td>
-                            <td> Acciones </td>
-                        </tr>
-                        {{-- @foreach ( $consignaciones as $consignacion )
-                        <tr>
-                            <td> {{ $consignacion->ID_Consignacion}} </td>
-                            <td> {{ $consignacion['Con Detenido']}} </td>
-                            <td> {{ $consignacion->Agencia }} </td>
-                            <td> {{ $consignacion->Averiguacion }} </td>
-                            <td> Acciones </td>
-                        </tr>
-                        @endforeach --}}
-                    </tbody>
-                </table>
+                    <a href="{{ route('crear') }}">Crear registro</a>
+                </div>
+                <div>
+                    
+                </div>
+                <div class="px-5 py-3 w-full">
+                    <table class="w-full bg-cyan-900">
+                        <thead class="text-white">
+                            <tr class="">
+                                <th class="py-5">ID_Consignación</th>
+                                <th class="py-5">Con detenido</th>
+                                <th class="py-5">Agencia</th>
+                                <th class="py-5">No. Averiguación Previa</th>
+                                <th class="py-5">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white text-center">
+                            @foreach ( $consignaciones as $consignacion )
+                            <tr>
+                                <td class="border-b-2  py-2"> {{ $consignacion->ID_Consignacion}} </td>
+                                <td class="border-b-2  py-2"> {{ $consignacion['Con Detenido']}} </td>
+                                <td class="border-b-2  py-2"> {{ $consignacion->Agencia }} </td>
+                                <td class="border-b-2  py-2"> {{ $consignacion->Averiguacion }} </td>
+                                <td class="border-b-2  py-2">
+                                    <div class="flex item-center justify-center">
+                                        <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                                            <a><img src="img/show.svg" alt=""></a>
+                                        </div>
+                                        <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                                            <a><img src="img/edit.svg" alt=""></a>
+                                        </div>
+                                        <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                                            {{-- <a><img src="img/delete.svg" alt=""> --}}
+                                                <form action="{{ route('consignaciones.destroy', $consignacion) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input type="submit" value="x" class=" bg-gray-800 text-white rounded px-4 py-2" onclick="return confirm('Desea eliominar')">
+                                                    </form>
+                                            {{-- </a> --}}
+                                        </div>
+                                    </div> 
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
 
             </div>
