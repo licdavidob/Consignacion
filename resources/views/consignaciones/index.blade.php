@@ -23,10 +23,30 @@
                     </div>
                 </div>
                 <div>
-                    @foreach ($consignaciones as $consignacion)
-                        {{ $consignacion->Agencia }}
-                    @endforeach
-                    {{-- {{ var_dump($consignaciones) }} --}}
+
+                <table class="table-auto">
+                    <thead>
+                        <tr>
+                            <th>ID_Consignación</th>
+                            <th>Con detenido</th>
+                            <th>Agencia</th>
+                            <th>No. Averiguación Previa</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{-- @dd($consignaciones) --}}
+                        @foreach ( $consignaciones as $consignacion )
+                        <tr>
+                            <td> {{ $consignacion->ID_Consignacion}} </td>
+                            <td> {{ $consignacion['Con Detenido']}} </td>
+                            <td> {{ $consignacion->Agencia }} </td>
+                            <td> {{ $consignacion->Averiguacion }} </td>
+                            <td> Acciones </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
                 </div>
 
             </div>
