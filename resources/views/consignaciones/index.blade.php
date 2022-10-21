@@ -24,14 +24,14 @@
                 </div>
                 <div>
 
-                <table class="table-auto">
+                <table class="table-auto border-separate border border-slate-500">
                     <thead>
                         <tr>
-                            <th>ID_Consignación</th>
-                            <th>Con detenido</th>
-                            <th>Agencia</th>
-                            <th>No. Averiguación Previa</th>
-                            <th>Acciones</th>
+                            <th class="border border-slate-600">ID_Consignación</th>
+                            <th class="border border-slate-600">Con detenido</th>
+                            <th class="border border-slate-600">Agencia</th>
+                            <th class="border border-slate-600">No. Averiguación Previa</th>
+                            <th class="border border-slate-600">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
