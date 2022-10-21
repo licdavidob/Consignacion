@@ -12,53 +12,65 @@ use App\Http\Controllers\AveriguacionController;
 use App\Http\Controllers\AntecedenteController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\DelitoController;
+use Illuminate\Http\Response;
 
 class ConsignacionController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param string $Av_Previa
+     * @param int $Detenido
+     * @param int $Agencia
+     * @return array
      */
-    public function index($Av_Previa = '', $Detenido = 0, $Agencia = 0)
+    public function index(string $Av_Previa = '', int $Detenido = 0, int $Agencia = 0):array
     {
-        $Consignacion_Busqueda = $this->QueryBuilder($Av_Previa, $Detenido, $Agencia);
+        $Consignacion_Busqueda = $this->QueryBuilderSearch($Av_Previa, $Detenido, $Agencia);
         $Consignaciones = array();
         $i = 0;
         foreach ($Consignacion_Busqueda as $Consignacion) {
             $Agencia = $Consignacion->Agencia()->select('Nombre')->get();
-
             $Consignacion['Con Detenido'] = $Consignacion->Detenido == 1 ? 'Con Detenido' : 'Sin Detenido';
             $Consignacion['Agencia'] = $Agencia[0]["Nombre"];
             $Consignacion['Averiguacion'] = $Consignacion->Averiguacion;
             $Consignaciones[$i] = $Consignacion;
             $i++;
         }
-        return json_encode($Consignaciones);
+        return $Consignaciones;
     }
 
-    public function QueryBuilder($Av_Previa, $Detenido, $Agencia)
+    /**
+     * Display a listing of the resource.
+     *
+     * @param string $Av_Previa
+     * @param int $Detenido
+     * @param int $Agencia
+     * @return object
+     */
+    public function QueryBuilderSearch(string $Av_Previa, int $Detenido, int $Agencia):object
     {
         $Operador_Detenido = $Detenido == 0 ? '>=' : '=';
         $Operador_Agencia = $Agencia == 0 ? '>=' : '=';
-        $Consignaciones = Consignacion::select('ID_Consignacion', 'ID_Agencia', 'Averiguacion', 'ID_Juzgado', 'Detenido')
+        return Consignacion::select('ID_Consignacion', 'ID_Agencia', 'Averiguacion', 'ID_Juzgado', 'Detenido')
             ->join('averiguacion_previa', 'consignacion.ID_Averiguacion', '=', 'averiguacion_previa.ID_Averiguacion')
             ->where('Detenido', $Operador_Detenido, $Detenido)
             ->where('ID_Agencia', $Operador_Agencia, $Agencia)
             ->Where('Averiguacion', 'like', '%' . $Av_Previa . '%')
             ->Where('Estatus', 1)
             ->get();
-        return $Consignaciones;
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Se encarga de registrar una consignación
      *
-     * @param  \Illuminate\Http\Requdft  $request
-     * @return \Illuminate\Http\Response
+     * @param string $Consignacion
+     * @return bool
      */
-    public function store($Consignacion)
+    public function store(string $Consignacion = ''): bool
     {
+        if($Consignacion == ''){return false;}
+
         //Se obtiene la informacion de la averiguacion previa insertada
         $Averiguacion = new AveriguacionController;
         $Averiguacion = $Averiguacion->store($Consignacion->Av_Previa);
@@ -102,15 +114,16 @@ class ConsignacionController extends Controller
                 $Consignacion_Insertada->Delito()->attach($Delito);
             }
         }
+        return true;
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return array
      */
-    public function show($id)
+    public function show(int $id): array
     {
         $AntecedenteBusqueda = new AntecedenteController;
         $Persona = new PersonaController;
@@ -157,7 +170,7 @@ class ConsignacionController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update($ConsignacionActualizada, $id)
     {
@@ -206,7 +219,7 @@ class ConsignacionController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {
