@@ -49,7 +49,7 @@
                                 <td class="border-b-2  py-2">
                                     <div class="flex item-center justify-center">
                                         <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                                            <a><img src="img/show.svg" alt=""></a>
+                                            <a  href="{{ route('mostrar', $consignacion) }}"><img src="img/show.svg" alt=""></a>
                                         </div>
                                         <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                             <a><img src="img/edit.svg" alt=""></a>

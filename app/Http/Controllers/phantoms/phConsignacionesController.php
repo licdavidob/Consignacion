@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\phantoms;
 
 use App\Http\Controllers\Controller;
@@ -23,7 +22,8 @@ class phConsignacionesController extends Controller
     {
         $consignacion = new ConsignacionController;
         $consignaciones = $consignacion->show($consignacionId);
-        return $consignaciones;
+        // return $consignaciones;
+        return view('consignaciones.show', compact('consignaciones'));
         // var_dump($consignaciones);
         // return $consignacion;
     }
@@ -48,7 +48,8 @@ class phConsignacionesController extends Controller
     {
         $consignacion = new ConsignacionController;
         $consignaciones = $consignacion->destroy($consignacionId);
-        return $consignaciones;
+        $consignaciones;
+        return back();
     }
 
 }

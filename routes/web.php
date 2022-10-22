@@ -5,8 +5,8 @@ use App\Http\Controllers\phantoms\phConsignacionesController;
 use App\Http\Controllers\ConsignacionController;
 
 
-// Route::get('/', [phConsignacionesController::class, 'index'])->middleware('auth:sanctum')->name('dashboard');
-Route::get('/', [phConsignacionesController::class, 'index'])->name('dashboard');
+Route::get('/', [phConsignacionesController::class, 'index'])->middleware('auth:sanctum')->name('dashboard');
+// Route::get('/', [phConsignacionesController::class, 'index'])->name('dashboard');
 // Route::post('/', [ConsignacionController::class, 'store']);
 Route::post('/', [phConsignacionesController::class, 'store'])->name('guardar');
 Route::get('create', [phConsignacionesController::class, 'create'])->name('crear');
