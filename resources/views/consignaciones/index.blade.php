@@ -1,23 +1,23 @@
 
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="text-xl font-semibold leading-tight text-gray-800">
             {{ __('Consignaciones') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="overflow-hidden bg-white shadow-xl sm:rounded-lg">
 
                 {{-- Content --}}
 
                 {{-- Buscador --}}
                 <div class="grid grid-cols-1">
                     <div class="col-span-1">
-                        <div class="w-full px-6 py-4 flex items-center">
+                        <div class="flex items-center w-full px-6 py-4">
                             <input type="text"
-                                class="apparence-none  mt-1 px-3 py-2 border-none bg-white border shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 flex-1 mr-4"
+                                class="flex-1 block w-full px-3 py-2 mt-1 mr-4 bg-white border border-none rounded-md shadow-sm apparence-none focus:outline-none focus:border-sky-500 focus:ring-sky-500 sm:text-sm focus:ring-1"
                                 placeholder="Buscar">
                         </div>
                     </div>
@@ -28,7 +28,8 @@
                 <div>
                     
                 </div>
-                <div class="px-5 py-3 w-full">
+                {{-- ELEMENTO Tabla --}}
+                <div class="w-full px-5 py-3">
                     <table class="w-full bg-cyan-900">
                         <thead class="text-white">
                             <tr class="">
@@ -39,15 +40,15 @@
                                 <th class="py-5">Acciones</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white text-center">
+                        <tbody class="text-center bg-white">
                             @foreach ( $consignaciones as $consignacion )
                             <tr>
-                                <td class="border-b-2  py-2"> {{ $consignacion->ID_Consignacion}} </td>
-                                <td class="border-b-2  py-2"> {{ $consignacion['Con Detenido']}} </td>
-                                <td class="border-b-2  py-2"> {{ $consignacion->Agencia }} </td>
-                                <td class="border-b-2  py-2"> {{ $consignacion->Averiguacion }} </td>
-                                <td class="border-b-2  py-2">
-                                    <div class="flex item-center justify-center">
+                                <td class="py-2 border-b-2"> {{ $consignacion->ID_Consignacion}} </td>
+                                <td class="py-2 border-b-2"> {{ $consignacion['Con Detenido']}} </td>
+                                <td class="py-2 border-b-2"> {{ $consignacion->Agencia }} </td>
+                                <td class="py-2 border-b-2"> {{ $consignacion->Averiguacion }} </td>
+                                <td class="py-2 border-b-2">
+                                    <div class="flex justify-center item-center">
                                         <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                             <a  href="{{ route('mostrar', $consignacion) }}"><img src="img/show.svg" alt=""></a>
                                         </div>
@@ -59,7 +60,7 @@
                                                 <form action="{{ route('consignaciones.destroy', $consignacion) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <input type="submit" value="x" class=" bg-gray-800 text-white rounded px-4 py-2" onclick="return confirm('Desea eliominar')">
+                                                    <input type="submit" value="x" class="px-4 py-2 text-white bg-gray-800 rounded " onclick="return confirm('Desea eliominar')">
                                                     </form>
                                             {{-- </a> --}}
                                         </div>

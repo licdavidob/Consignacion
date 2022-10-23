@@ -68,7 +68,8 @@ class ConsignacionController extends Controller
      * @param string $Consignacion
      * @return bool
      */
-    public function store($Consignacion): bool
+    // public function store($Consignacion): bool
+    public function store(Request $Consignacion): bool
     {
         if($Consignacion == ''){return false;}
 
