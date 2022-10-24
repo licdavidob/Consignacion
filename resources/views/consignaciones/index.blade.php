@@ -35,8 +35,28 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- @dd($consignaciones) --}}
-                        @foreach ( $consignaciones as $consignacion )
+                        <tr>
+                            <td> 1 </td>
+                            <td> Con detenido </td>
+                            <td> Agencia 01 </td>
+                            <td> Prueba 01 </td>
+                            <td> Acciones </td>
+                        </tr>
+                        <tr>
+                            <td> 2 </td>
+                            <td> Con detenido </td>
+                            <td> Agencia 02 </td>
+                            <td> Prueba 02 </td>
+                            <td> Acciones </td>
+                        </tr>
+                        <tr>
+                            <td> 3 </td>
+                            <td> Con detenido </td>
+                            <td> Agencia 03 </td>
+                            <td> Prueba 03 </td>
+                            <td> Acciones </td>
+                        </tr>
+                        {{-- @foreach ( $consignaciones as $consignacion )
                         <tr>
                             <td> {{ $consignacion->ID_Consignacion}} </td>
                             <td> {{ $consignacion['Con Detenido']}} </td>
@@ -44,7 +64,7 @@
                             <td> {{ $consignacion->Averiguacion }} </td>
                             <td> Acciones </td>
                         </tr>
-                        @endforeach
+                        @endforeach --}}
                     </tbody>
                 </table>
                 </div>

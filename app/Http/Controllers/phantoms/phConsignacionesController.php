@@ -16,6 +16,6 @@ class phConsignacionesController extends Controller
         // return $consignaciones;
 
         return view('consignaciones.index', ['consignaciones' => $consignaciones ]);
-        // return view('consignaciones.index');
+        // return 'cadena';
     }
 }
