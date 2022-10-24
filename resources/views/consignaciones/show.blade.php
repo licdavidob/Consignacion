@@ -69,7 +69,7 @@
                             <hr class="self-end w-11/12 my-5 mr-2 border-blue-400">
                         </div>
 
-                        {{-- ELEMENTO Tabla --}}
+                        {{-- ELEMENTO Tabla Participantes --}}
                         <div class="w-full px-5 py-3">
                             <table class="w-full bg-cyan-900">
                                 <thead class="text-white">
@@ -89,7 +89,7 @@
                                         <td class="py-2 border-b-2"> {{ $persona['Ap_Paterno'] }} </td>
                                         <td class="py-2 border-b-2"> {{ $persona['Ap_Materno'] }} </td>
                                         <td class="py-2 border-b-2"> {{ $persona['Calidad'] }} </td>
-                                        <td>
+                                        <td class="py-2 border-b-2">
                                             @foreach ( $persona['Alias'] as $alias)
                                             {{ $alias }},
                                             @endforeach

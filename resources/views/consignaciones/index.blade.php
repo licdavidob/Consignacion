@@ -19,14 +19,13 @@
                             <input type="text"
                                 class="flex-1 block w-full px-3 py-2 mt-1 mr-4 bg-white border border-none rounded-md shadow-sm apparence-none focus:outline-none focus:border-sky-500 focus:ring-sky-500 sm:text-sm focus:ring-1"
                                 placeholder="Buscar">
+                                {{-- {{ $buscar }} --}}
                         </div>
                     </div>
                 </div>
-                <div>
-                    <a href="{{ route('crear') }}">Crear registro</a>
-                </div>
-                <div>
-                    
+                {{-- ELEMENTO Botón --}}
+                <div class="flex justify-end mr-3">
+                    <a href="{{ route('crear') }}" class="px-10 w-1/5 py-2.5 bg-green-600 text-white font-medium text-lg leading-tight uppercase rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out text-center">Crear registro</a>
                 </div>
                 {{-- ELEMENTO Tabla --}}
                 <div class="w-full px-5 py-3">
