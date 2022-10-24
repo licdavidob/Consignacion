@@ -14,33 +14,34 @@
             <div class="py-5 overflow-hidden bg-white shadow-xl sm:rounded-lg">
 
                 <div class="px-5">
-                    <div class="w-full py-5 bg-gray-100">
+                    <div class="w-full py-2 bg-gray-100">
+                        
+                        <div class="flex justify-end mb-5 pt-2">
+                            {{-- DATOS Agencia --}}
+                            <div class="flex items-center">
+                                <p><span class="inline-flex items-center mr-10 justify-center p-2 text-sm font-bold leading-none text-blue-100 bg-blue-700 rounded-md">Agencia: {{ $consignaciones['Agencia'] }}</span></p>
+                            </div>
+                            {{-- DATOS Fecha registro --}}
+                            <div>
+                                <p><span class="inline-flex items-center justify-center p-2 mr-1 text-sm font-bold leading-none text-blue-100 bg-blue-700 rounded-md">Fecha: {{ $consignaciones['Fecha'] }}</span></p>
+                            </div>
+                        </div>
+                        
                         {{-- DATOS Con Detenido --}}
                         @if($consignaciones['Detenido'] === 'Si')
-                        <div class="flex justify-end mb-10 mr-1">
-                            <p><span class="inline-flex items-center justify-center p-2 text-xl font-bold leading-none text-red-100 bg-red-600 rounded-sm">Con detenido: {{ $consignaciones['Detenido'] }}</span></p>
+                        <div class="flex justify-end mb-5 mr-1">
+                            <p><span class="inline-flex items-center justify-center p-2 text-xl font-bold leading-none text-red-100 bg-red-600 rounded-l-full">Con detenido: {{ $consignaciones['Detenido'] }}</span></p>
                         </div>
                         @else
+                        {{-- DATOS Sin detenido --}}
                         <div class="flex justify-end mb-10 mr-1">
                             <p><span class="inline-flex items-center justify-center p-2 text-xl font-bold leading-none text-red-100 bg-green-600 rounded-sm">Con detenido: {{ $consignaciones['Detenido'] }}</span></p>
                         </div>
                         @endif
-                        <div class="flex justify-end mb-10">
-
-                            {{-- DATOS Agencia --}}
-                            <div>
-                                <p class=""><span class="inline-flex items-center justify-center p-2 mr-40 text-xl font-bold leading-none text-red-100 bg-blue-600 rounded-md">Agencia: {{ $consignaciones['Agencia'] }}</span></p>
-                            </div>
-                            {{-- DATOS Fecha registro --}}
-                            <div>
-                                <p><span class="inline-flex items-center justify-center p-2 mr-10 text-xl font-bold leading-none text-red-100 bg-blue-600 rounded-md">Fecha: {{ $consignaciones['Fecha'] }}</span></p>
-                            </div>
-                        </div>
-
 
 
                         {{-- ELEMENTO Seccion --}}
-                        <div class="flex flex-col justify-end">
+                        <div class="flex flex-col justify-end  my-10">
                             <p class="self-end h-3 pr-5 text-xl font-bold text-blue-700">Datos Generales</p>
                             <hr class="self-end w-11/12 my-5 mr-2 border-blue-400">
                         </div>
@@ -64,7 +65,7 @@
                             </div>
                         </div>
                         {{-- ELEMENTO Seccion --}}
-                        <div class="flex flex-col justify-end">
+                        <div class="flex flex-col justify-end  my-10">
                             <p class="self-end h-3 pr-5 mt-5 text-xl font-bold text-blue-700">Participantes</p>
                             <hr class="self-end w-11/12 my-5 mr-2 border-blue-400">
                         </div>
@@ -79,7 +80,7 @@
                                         <th class="w-1/6 py-5">Apellido Materno</th>
                                         <th class="w-1/6 py-5">Tipo</th>
                                         <th class="w-1/6 py-5">Alias</th>
-                                        <th class="w-1/6 py-5">Delito</th>
+                                        {{-- <th class="w-1/6 py-5">Delito</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody class="text-center bg-white">
@@ -94,38 +95,82 @@
                                             {{ $alias }},
                                             @endforeach
                                         </td>
-                                        <td class="py-2 border-b-2"> Pendiente delito </td>
+                                        @endforeach
+                                        {{-- <td class="py-2 border-b-2">
+                                            @foreach ($consignaciones['Delitos'] as $delito)
+                                            {{ $delito }}
+                                            @endforeach
+                                        </td> --}}
                                     </tr>
-                                    @endforeach
                                 </tbody>
                             </table>
-                        </div>
 
-                        {{-- ELEMENTO Seccion --}}
-                        <div class="flex flex-col justify-end">
-                            <p class="self-end h-3 pr-5 mt-5 text-xl font-bold text-blue-700">Antecedente</p>
-                            <hr class="self-end w-11/12 my-5 mr-2 border-blue-400">
-                        </div>
-                        {{-- ELEMENTO Antecedente  --}}
-                        <div class="flex justify-start w-full px-5 py-3">
-                            <div class="w-2/4 ml-10 ">
-                                <div class="flex w-11/12 py-1">
-                                    <p class="w-1/2 py-3 text-xl font-bold text-blue-400">Fecha</p>
-                                    <p class="w-1/2 py-3 pl-5 bg-white rounded">{{ $consignaciones['Antecedente']['Fecha'] }}</p>
-                                </div>
-                                <div class="flex w-11/12 py-1">
-                                    <p class="w-1/2 py-3 text-xl font-bold text-blue-400">Juzgado</p>
-                                    <p class="w-1/2 py-3 pl-5 bg-white rounded">{{ $consignaciones['Antecedente']['Juzgado'] }}</p>
-                                </div>
-                                <div class="flex w-11/12 py-1">
-                                    <p class="w-1/2 py-3 text-xl font-bold text-blue-400">Con detenido</p>
-                                    <p class="w-1/2 py-3 pl-5 bg-white rounded">{{ $consignaciones['Antecedente']['Con Detenido'] }}</p>
-                                </div>
+                            {{-- ELEMENTO Seccion --}}
+                            <div class="flex flex-col justify-end my-10">
+                                <p class="self-end h-3 pr-5 mt-5 text-xl font-bold text-blue-700">Delitos</p>
+                                <hr class="self-end w-11/12 my-5 mr-2 border-blue-400">
+                            </div>
+
+                            {{-- TABLA de delitos --}}
+                            <div class="flex justify-center">
+                                <table class="w-10/12 bg-cyan-900">
+                                    <thead class="text-white">
+                                        <tr class="">
+                                            <th class="w-1/2 py-5">ID</th>
+                                            <th class="w-1/2 py-5">Nombre</th>
+                                            {{-- <th class="w-1/6 py-5">Delito</th> --}}
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-center bg-white">
+                                        @foreach ($consignaciones['Delitos'] as $delito)
+                                        <tr>
+                                            {{-- <td class="py-2 border-b-2"> {{ $delito['ID_Delito'] }} </td> --}}
+                                            <td class="py-2 border-b-2"> {{ $delito }} </td>
+                                            <td class="py-2 border-b-2"> {{ $delito }} </td>
+                                            @endforeach
+                                            {{-- <td class="py-2 border-b-2">
+                                                @foreach ($consignaciones['Delitos'] as $delito)
+                                                {{ $delito }}
+                                                @endforeach
+                                            </td> --}}
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 
                         {{-- ELEMENTO Seccion --}}
-                        <div class="flex flex-col justify-end">
+                        <div class="flex flex-col justify-end  my-10">
+                            <p class="self-end h-3 pr-5 mt-5 text-xl font-bold text-blue-700">Antecedentes</p>
+                            <hr class="self-end w-11/12 my-5 mr-2 border-blue-400">
+                        </div>
+                        {{-- ELEMENTO Antecedente  --}}
+                        @if (!empty($consignaciones['Antecedente']))
+                        <div class="flex justify-center w-full px-5">
+                            <div class="w-2/4 ml-10 ">
+                                <div class="flex w-12/12 py-1">
+                                    <p class="w-2/5 py-1 text-xl font-bold text-blue-400">Fecha</p>
+                                    <p class="w-3/5 py-1 pl-5 bg-white rounded">{{ $consignaciones['Antecedente']['Fecha'] }}</p>
+                                </div>
+                                <div class="flex w-12/12 py-1">
+                                    <p class="w-2/5 py-1 text-xl font-bold text-blue-400">Juzgado</p>
+                                    <p class="w-3/5 py-1 pl-5 bg-white rounded">{{ $consignaciones['Antecedente']['Juzgado'] }}</p>
+                                </div>
+                                <div class="flex w-12/12 py-1">
+                                    <p class="w-2/5 py-1 text-xl font-bold text-blue-400">Con detenido</p>
+                                    <p class="w-3/5 py-1 pl-5 bg-white rounded">{{ $consignaciones['Antecedente']['Con Detenido'] }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        @else
+                        <div class="flex w-full justify-center ">
+                            <p class="text-white font-bold px-5 bg-red-500 w-full text-center py-3">Sin antecedente</p>
+
+                        </div>
+                        @endif
+
+                        {{-- ELEMENTO Seccion --}}
+                        <div class="flex flex-col justify-end  my-10">
                             <p class="self-end h-3 pr-5 mt-5 text-xl font-bold text-blue-700">Datos adicionales</p>
                             <hr class="self-end w-11/12 my-5 mr-2 border-blue-400">
                         </div>

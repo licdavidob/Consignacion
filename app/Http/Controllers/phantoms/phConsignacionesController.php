@@ -16,24 +16,16 @@ class phConsignacionesController extends Controller
     // public function index(Request $request)
     public function index()
     {
-        // $buscar = $request;
         $consignacion = new ConsignacionController;
         $consignaciones = $consignacion->index();
-        // return $consignaciones;
-        
-        // return view('consignaciones.index', ['consignaciones' => $consignaciones, 'buscar' => $buscar ]);
         return view('consignaciones.index', ['consignaciones' => $consignaciones]);
-        // return 'cadena';
     }
     
     public function show($consignacionId)
     {
         $consignacion = new ConsignacionController;
         $consignaciones = $consignacion->show($consignacionId);
-        // return $consignaciones;
         return view('consignaciones.show', compact('consignaciones'));
-        // var_dump($consignaciones);
-        // return $consignacion;
     }
 
     public function create()
@@ -50,6 +42,14 @@ class phConsignacionesController extends Controller
         // $juzgados = Juzgado::select('Nombre', 'ID_Juzgado')->get();
         // return view('consignaciones.create', compact('agencias', 'reclusorios', 'juzgados'));
         return view('consignaciones.createPerson');
+    }
+    public function createDelito()
+    {
+        // $agencias = Agencia::select('Nombre', 'ID_Agencia')->get();
+        // $reclusorios = Reclusorio::select('Nombre', 'ID_Reclusorio')->get();
+        // $juzgados = Juzgado::select('Nombre', 'ID_Juzgado')->get();
+        // return view('consignaciones.create', compact('agencias', 'reclusorios', 'juzgados'));
+        return view('consignaciones.createDelito');
     }
 
     public function store(Request $request)
