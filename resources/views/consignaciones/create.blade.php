@@ -15,8 +15,8 @@
                     <div class="w-full py-5 bg-gray-100">
                         {{-- ELEMENTO Seccion --}}
                         <div class="flex flex-col justify-end">
-                            <p class="self-end h-3 pr-5 text-xl font-bold text-blue-700">Datos Generales</p>
-                            <hr class="self-end w-11/12 my-5 mr-2 border-blue-400">
+                            <p class="self-end h-3 pr-5 text-xl font-bold text-cyan-700">Datos Generales</p>
+                            <hr class="self-end w-11/12 my-5 mr-2 border-cyan-700">
                         </div>
 
                         {{-- @dd($agencias) --}}
@@ -86,15 +86,15 @@
 
                                                     {{-- ELEMENTO Seccion --}}
                                                     <div class="flex flex-col justify-end col-span-6">
-                                                        <p class="self-end h-3 pr-5 text-xl font-bold text-blue-700">Participantes</p>
-                                                        <hr class="self-end w-11/12 my-5 mr-2 border-blue-400">
+                                                        <p class="self-end h-3 pr-5 text-xl font-bold text-cyan-700">Participantes</p>
+                                                        <hr class="self-end w-11/12 my-5 mr-2 border-cyan-700">
                                                     </div>
 
                                                     {{-- Tabla Participantes --}}
                                                     <div class="w-full col-span-6 px-5 py-3">
                                                         {{-- ELEMENTO Boton --}}
                                                         <div class="flex justify-end py-2 mr-3">
-                                                            <a href="{{ route('participante') }}" class="px-3 py-2.5 bg-green-600 text-white font-medium text-lg leading-tight uppercase rounded-3xl shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out text-center"><img src="img/add.svg" alt=""></a>
+                                                            <a href="{{ route('participante') }}" class="px-3 py-2.5 bg-cyan-600 text-white font-medium text-lg leading-tight uppercase rounded-3xl shadow-md hover:bg-cyan-700 hover:shadow-lg focus:bg-cyan-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-cyan-800 active:shadow-lg transition duration-150 ease-in-out text-center"><img src="img/add.svg" alt=""></a>
                                                         </div>
                                                         <table class="w-full bg-cyan-900">
                                                             <thead class="text-white">
@@ -127,14 +127,14 @@
                                                         
                                                         {{-- ELEMENTO Seccion --}}
                                                         <div class="flex flex-col justify-end my-10">
-                                                            <p class="self-end h-3 pr-5 mt-5 text-xl font-bold text-blue-700">Delitos</p>
-                                                            <hr class="self-end w-11/12 my-5 mr-2 border-blue-400">
+                                                            <p class="self-end h-3 pr-5 mt-5 text-xl font-bold text-cyan-700">Delitos</p>
+                                                            <hr class="self-end w-11/12 my-5 mr-2 border-cyan-700">
                                                         </div>
                                                         
                                                         {{-- TABLA de delitos --}}
                                                         {{-- ELEMENTO Boton --}}
                                                         <div class="flex justify-center py-2 mr-3">
-                                                            <a href="{{ route('delitos') }}" class="p-3 bg-green-600 text-white font-medium text-lg leading-tight uppercase rounded-3xl shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out text-center"><img src="img/new.svg" alt=""></a>
+                                                            <a href="{{ route('delitos') }}" class="p-3 bg-cyan-600 text-white font-medium text-lg leading-tight uppercase rounded-3xl shadow-md hover:bg-cyan-700 hover:shadow-lg focus:bg-cyan-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-cyan-800 active:shadow-lg transition duration-150 ease-in-out text-center"><img src="img/new.svg" alt=""></a>
                                                         </div>
                                                         <div class="flex justify-center">
                                                             <table class="w-10/12 bg-cyan-900">
@@ -162,8 +162,8 @@
                                                     </div>
                                                     {{-- ELEMENTO Seccion --}}
                                                     <div class="flex flex-col justify-end my-10 col-span-6">
-                                                        <p class="self-end h-3 pr-5 mt-5 text-xl font-bold text-blue-700">Antecedentes</p>
-                                                        <hr class="self-end w-11/12 my-5 mr-2 border-blue-400">
+                                                        <p class="self-end h-3 pr-5 mt-5 text-xl font-bold text-cyan-700">Antecedentes</p>
+                                                        <hr class="self-end w-11/12 my-5 mr-2 border-cyan-700">
                                                     </div>
 
                                                     {{-- INFORMACION antecedentes --}}
@@ -192,10 +192,10 @@
                                                         <input type="text" name="fecha_recibo_Ant" id="fecha_recibo_Ant" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                                     </div>
 
-                                                     {{-- ELEMENTO Seccion --}}
-                                                     <div class="flex flex-col justify-end my-10 col-span-6">
-                                                        <p class="self-end h-3 pr-5 mt-5 text-xl font-bold text-blue-700">Datos adicionales</p>
-                                                        <hr class="self-end w-11/12 my-5 mr-2 border-blue-400">
+                                                    {{-- ELEMENTO Seccion --}}
+                                                    <div class="flex flex-col justify-end my-10 col-span-6">
+                                                        <p class="self-end h-3 pr-5 mt-5 text-xl font-bold text-cyan-700">Datos adicionales</p>
+                                                        <hr class="self-end w-11/12 my-5 mr-2 border-cyan-700">
                                                     </div>
 
                                                     {{-- ELEMENTO fechas --}}
@@ -241,10 +241,10 @@
                                             </div>
                                             <div class="grid grid-cols-6 gap-6 w-full">
                                                 <div class="col-span-3 w-full flex justify-center py-5">
-                                                    <button type="submit" class=" py-4 px-6 w-1/2 bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"><a href="{{ route('dashboard') }}" class=" py-4 px-6 text-md font-medium text-white ">  Volver </a></button>
+                                                    <a href="{{ route('dashboard') }}" class=" py-4 px-6 text-md font-medium text-white w-1/2 bg-red-600 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 text-center">Volver </a>
                                                 </div>
                                                 <div class="col-span-3 w-full flex justify-center py-5">
-                                                    <button type="submit" class=" py-4 px-6 w-1/2 bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"><a href="{{ route('dashboard') }}" class=" py-4 px-6 text-md font-medium text-white ">  Volver </a></button>
+                                                    <a href="{{ route('dashboard') }}" class=" py-4 px-6 text-md font-medium text-white w-1/2 bg-cyan-800 border border-transparent rounded-md shadow-sm hover:bg-cyan-900 focus:outline-none focus:ring-2 focus:ring-cyan-700 focus:ring-offset-2 text-center">Guardar </a>
                                                 </div>
                                             </div>
                                         </div>

@@ -10,6 +10,7 @@ use App\Http\Controllers\ConsignacionController;
 use App\Models\Agencia;
 use App\Models\Reclusorio;
 use App\Models\Juzgado;
+use App\Models\Delito;
 
 class phConsignacionesController extends Controller
 {
@@ -45,11 +46,11 @@ class phConsignacionesController extends Controller
     }
     public function createDelito()
     {
-        // $agencias = Agencia::select('Nombre', 'ID_Agencia')->get();
+        $delitos = Delito::select('Nombre', 'ID_Delito')->get();
         // $reclusorios = Reclusorio::select('Nombre', 'ID_Reclusorio')->get();
         // $juzgados = Juzgado::select('Nombre', 'ID_Juzgado')->get();
         // return view('consignaciones.create', compact('agencias', 'reclusorios', 'juzgados'));
-        return view('consignaciones.createDelito');
+        return view('consignaciones.createDelito', compact('delitos'));
     }
 
     public function store(Request $request)

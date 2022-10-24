@@ -34,10 +34,35 @@
                                             <label for="ap_materno" class="block text-sm font-medium text-gray-700">Apellido Materno</label>
                                             <input type="text" name="ap_materno" id="ap_materno" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                         </div>
-                                        {{-- Boton --}}
-                                        <div class="px-4 py-3 text-right bg-gray-50 sm:px-6">
-                                            <button type="submit" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Agregar</button>
+                                        {{-- Tipo de participante --}}
+                                        <div class="col-span-6 sm:col-span-2">
+                                            <label for="con_detenido_Ant" class="block text-sm font-medium text-gray-700">Calidad jurídica</label>
+                                            <select id="con_detenido_Ant" name="con_detenido_Ant" autocomplete="con_detenido_Ant-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                                <option>Seleccionar</option>
+                                                <option>Inculpado</option>
+                                                <option>Actor</option>
+                                                <option>Demandado</option>
+                                                <option>No</option>
+                                            </select>
                                         </div>
+                                        {{-- Alias --}}
+                                        <div class="col-span-6 sm:col-span-4">
+                                            <label for="alias" class="block text-sm font-medium text-gray-700">Alias</label>
+                                            <input type="text" name="alias" id="alias" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                        </div>
+                                        {{-- Botones --}}
+                                        <div class="col-span-6 flex">
+                                            {{-- Boton Volver--}}
+                                            <div class="w-1/2 flex justify-center py-5">
+                                                <a href="{{ route('crear') }}" class=" py-4 px-6 text-md font-medium text-white w-1/2 bg-red-600 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 text-center">  Volver </a>
+                                            </div>
+                                            
+                                            {{-- Boton Guardar--}}
+                                            <div class="w-1/2 flex justify-center py-5">
+                                                <button type="submit" class="inline-flex justify-center px-6 py-4 text-md font-medium text-white bg-emerald-600 border border-transparent rounded-md shadow-sm hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 w-1/2">Agregar</button>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
