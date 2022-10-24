@@ -1,6 +1,3 @@
-
-
-  
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
@@ -56,7 +53,6 @@
                                             <div class="w-1/2 flex justify-center py-5">
                                                 <a href="{{ route('crear') }}" class=" py-4 px-6 text-md font-medium text-white w-1/2 bg-red-600 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 text-center">  Volver </a>
                                             </div>
-                                            
                                             {{-- Boton Guardar--}}
                                             <div class="w-1/2 flex justify-center py-5">
                                                 <button type="submit" class="inline-flex justify-center px-6 py-4 text-md font-medium text-white bg-emerald-600 border border-transparent rounded-md shadow-sm hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 w-1/2">Agregar</button>
