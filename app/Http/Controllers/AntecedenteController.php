@@ -43,7 +43,7 @@ class AntecedenteController extends Controller
     {
         $Antecedente = array();
         $AntecedenteBusqueda = Antecedente::select('Fecha_Antecendente', 'ID_Juzgado', 'Detenido')->where('ID_Consignacion', $id)->with('Juzgado')->first();
-        if ($AntecedenteBusqueda->exists()) {
+        if (!$AntecedenteBusqueda == null) {
             $Juzgado = $AntecedenteBusqueda['Juzgado'];
             $Antecedente['Fecha'] = $AntecedenteBusqueda->Fecha_Antecendente;
             $Antecedente['Con Detenido'] = $AntecedenteBusqueda->Detenido == 1 ? 'Si' : 'No';

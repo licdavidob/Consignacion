@@ -38,7 +38,7 @@ class DelitoController extends Controller
      */
     public function show($Consignación)
     {
-        $DelitoBusqueda = $Consignación->Delito()->select('Nombre')->get();
+        $DelitoBusqueda = $Consignación->Delito()->select('Nombre','ID_Delito')->get();
         $i = 0;
         foreach ($DelitoBusqueda as $Delito) {
             $Delitos[$i] = $Delito['Nombre'];
