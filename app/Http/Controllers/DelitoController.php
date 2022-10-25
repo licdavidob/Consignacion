@@ -34,14 +34,16 @@ class DelitoController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return array
      */
-    public function show($Consignación)
+    public function show($Consignacion)
     {
-        $DelitoBusqueda = $Consignación->Delito()->select('Nombre')->get();
+        $DelitoBusqueda = $Consignacion->Delito()->select('Nombre')->get();
         $i = 0;
         foreach ($DelitoBusqueda as $Delito) {
-            $Delitos[$i] = $Delito['Nombre'];
+            $Datos['Nombre'] = $Delito['Nombre'];
+            $Datos['ID_Delito'] = $Delito['pivot']['ID_Delito'];
+            $Delitos[$i] = $Datos;
             $i++;
         }
         return $Delitos;
