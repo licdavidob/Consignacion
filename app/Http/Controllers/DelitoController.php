@@ -33,7 +33,7 @@ class DelitoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param $Consignacion
      * @return array
      */
     public function show($Consignacion)
