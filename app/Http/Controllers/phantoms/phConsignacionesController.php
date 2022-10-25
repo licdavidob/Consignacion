@@ -36,16 +36,24 @@ class phConsignacionesController extends Controller
         $juzgados = Juzgado::select('Nombre', 'ID_Juzgado')->get();
         return view('consignaciones.create', compact('agencias', 'reclusorios', 'juzgados'));
     }
-    public function createPerson(Request $request)
+    public function createPerson()
     {
         // $agencias = Agencia::select('Nombre', 'ID_Agencia')->get();
         // $reclusorios = Reclusorio::select('Nombre', 'ID_Reclusorio')->get();
         // $juzgados = Juzgado::select('Nombre', 'ID_Juzgado')->get();
         // return view('consignaciones.create', compact('agencias', 'reclusorios', 'juzgados'));
-        $datos = $request;
+        // $datos = $request;
         // return $request;
-        return view('consignaciones.createPerson', compact('datos'));
+        return view('consignaciones.createPerson');
     }
+
+    public function storePerson(Request $request)
+    {
+        // var_dump($request);
+        return $request;
+        // return view('consignaciones.create', compact('datos'));
+    }
+
     public function createDelito()
     {
         $delitos = Delito::select('Nombre', 'ID_Delito')->get();

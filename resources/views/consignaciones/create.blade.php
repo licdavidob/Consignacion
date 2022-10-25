@@ -1,3 +1,4 @@
+{{-- @dd('datos') --}}
 
 <x-app-layout>
     <x-slot name="header">
@@ -123,14 +124,11 @@
                                                                 {{-- @endforeach --}}
                                                             </tbody>
                                                         </table>
-                                                        
-                                                        
                                                         {{-- ELEMENTO Seccion --}}
                                                         <div class="flex flex-col justify-end my-10">
                                                             <p class="self-end h-3 pr-5 mt-5 text-xl font-bold text-cyan-700">Delitos</p>
                                                             <hr class="self-end w-11/12 my-5 mr-2 border-cyan-700">
                                                         </div>
-                                                        
                                                         {{-- TABLA de delitos --}}
                                                         {{-- ELEMENTO Boton --}}
                                                         <div class="flex justify-center py-2 mr-3">

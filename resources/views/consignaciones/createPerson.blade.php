@@ -4,7 +4,7 @@
             {{ __('Nuevo Participante') }}
         </h2>
     </x-slot>
-
+{{-- @dd('datos') --}}
     <div class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="overflow-hidden bg-white shadow-xl sm:rounded-lg">
@@ -12,7 +12,8 @@
                 {{-- Agregar personas --}}
                 <div class="mt-10 sm:mt-0">
                     <div class="mt-5 md:col-span-2 md:mt-0">
-                        <form action="#" method="POST">
+                        <form action="{{ route('guardaParticipante') }}" method="POST">
+                            @csrf
                             <div class="overflow-hidden shadow sm:rounded-md">
                                 <div class="px-4 py-5 bg-white sm:p-6">
                                     <div class="grid grid-cols-6 gap-6">
@@ -66,6 +67,7 @@
                     </div>
                 </div>
             </div>
+            {{-- @dd($request) --}}
         </div>
     </div>
 </x-app-layout>
