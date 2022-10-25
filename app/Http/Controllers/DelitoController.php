@@ -33,11 +33,12 @@ class DelitoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param $Consignacion
      * @return array
      */
     public function show($Consignacion)
     {
+        $Delitos = array();
         $DelitoBusqueda = $Consignacion->Delito()->select('Nombre')->get();
         $i = 0;
         foreach ($DelitoBusqueda as $Delito) {
