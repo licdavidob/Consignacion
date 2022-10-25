@@ -15,7 +15,6 @@
 
                 <div class="px-5">
                     <div class="w-full py-2 bg-gray-100">
-                        
                         <div class="flex justify-end mb-5 pt-2">
                             {{-- DATOS Agencia --}}
                             <div class="flex items-center">
@@ -26,7 +25,6 @@
                                 <p><span class="inline-flex items-center justify-center p-2 mr-1 text-sm font-bold leading-none text-cyan-100 bg-cyan-700 rounded-md">Fecha: {{ $consignaciones['Fecha'] }}</span></p>
                             </div>
                         </div>
-                        
                         {{-- DATOS Con Detenido --}}
                         @if($consignaciones['Detenido'] === 'Si')
                         <div class="flex justify-end mb-5 mr-1">
@@ -80,7 +78,6 @@
                                         <th class="w-1/6 py-5">Apellido Materno</th>
                                         <th class="w-1/6 py-5">Tipo</th>
                                         <th class="w-1/6 py-5">Alias</th>
-                                        {{-- <th class="w-1/6 py-5">Delito</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody class="text-center bg-white">
@@ -96,11 +93,6 @@
                                             @endforeach
                                         </td>
                                         @endforeach
-                                        {{-- <td class="py-2 border-b-2">
-                                            @foreach ($consignaciones['Delitos'] as $delito)
-                                            {{ $delito }}
-                                            @endforeach
-                                        </td> --}}
                                     </tr>
                                 </tbody>
                             </table>
@@ -112,31 +104,31 @@
                             </div>
 
                             {{-- TABLA de delitos --}}
+                            @if (!empty($consignaciones['Delitos']))
                             <div class="flex justify-center">
                                 <table class="w-10/12 bg-cyan-900">
                                     <thead class="text-white">
                                         <tr class="">
                                             <th class="w-1/2 py-5">ID</th>
                                             <th class="w-1/2 py-5">Nombre</th>
-                                            {{-- <th class="w-1/6 py-5">Delito</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody class="text-center bg-white">
                                         @foreach ($consignaciones['Delitos'] as $delito)
                                         <tr>
-                                            {{-- <td class="py-2 border-b-2"> {{ $delito['ID_Delito'] }} </td> --}}
-                                            <td class="py-2 border-b-2"> {{ $delito }} </td>
-                                            <td class="py-2 border-b-2"> {{ $delito }} </td>
+                                            <td class="py-2 border-b-2"> {{ $delito['ID_Delito'] }} </td>
+                                            <td class="py-2 border-b-2"> {{ $delito['Nombre'] }} </td>
                                             @endforeach
-                                            {{-- <td class="py-2 border-b-2">
-                                                @foreach ($consignaciones['Delitos'] as $delito)
-                                                {{ $delito }}
-                                                @endforeach
-                                            </td> --}}
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
+                            @else
+                            <div class="flex w-full justify-center ">
+                                <p class="text-white font-bold px-5 bg-red-500 w-full text-center py-3">Sin delitos</p>
+
+                            </div>
+                            @endif
                         </div>
 
                         {{-- ELEMENTO Seccion --}}
@@ -163,7 +155,7 @@
                             </div>
                         </div>
                         @else
-                        <div class="flex w-full justify-center ">
+                        <div class="flex w-full justify-center px-5">
                             <p class="text-white font-bold px-5 bg-red-500 w-full text-center py-3">Sin antecedente</p>
 
                         </div>

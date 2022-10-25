@@ -26,6 +26,7 @@ class phConsignacionesController extends Controller
     {
         $consignacion = new ConsignacionController;
         $consignaciones = $consignacion->show($consignacionId);
+        // return view('consignaciones.show', compact('consignaciones'));
         return view('consignaciones.show', compact('consignaciones'));
     }
 
