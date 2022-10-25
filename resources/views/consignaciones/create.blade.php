@@ -26,22 +26,25 @@
                         <div class="px-3 mt-10 sm:mt-0">
                             <div class="md:grid md:grid-cols-2 md:gap-6">
                                 <div class="mt-5 md:col-span-2 md:mt-0">
-                                    <form action="#" method="POST">
+                                    <form action="{{ route('guardar') }}" method="POST">
+                                        @csrf
                                         <div class="overflow-hidden shadow sm:rounded-md">
                                             <div class="px-4 py-5 bg-white sm:p-6">
                                                 <div class="grid grid-cols-6 gap-6">
                                                     {{-- Averiguación previa --}}
                                                     <div class="col-span-6 sm:col-span-6">
-                                                        <label for="averiguacion" class="block text-sm font-medium text-gray-700">Averiguación Previa</label>
-                                                        <input type="text" name="averiguacion" id="averiguacion" autocomplete="given-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                        <label for="Av_Previa" class="block text-sm font-medium text-gray-700">Averiguación Previa</label>
+                                                        <span class=" text-xs text-red-600">@error('Av_Previa') {{ $message }} @enderror</span>
+                                                        <input type="text" name="Av_Previa" id="Av_Previa" autocomplete="given-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                                     </div>
                                                     {{-- Con detenido --}}
                                                     <div class="col-span-6 sm:col-span-2">
                                                         <label for="con_detenido" class="block text-sm font-medium text-gray-700">Con detenido</label>
+                                                        <span class=" text-xs text-red-600">@error('con_detenido') {{ $message }} @enderror</span>
                                                         <select id="con_detenido" name="con_detenido" autocomplete="con_detenido-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                                                             <option>Seleccionar</option>
-                                                            <option>Si</option>
-                                                            <option>No</option>
+                                                            <option value="1">Si</option>
+                                                            <option value="0">No</option>
                                                         </select>
                                                     </div>
                                                     {{-- Agencia --}}
@@ -170,17 +173,17 @@
                                                         <label for="con_detenido_Ant" class="block text-sm font-medium text-gray-700">Con detenido</label>
                                                         <select id="con_detenido_Ant" name="con_detenido_Ant" autocomplete="con_detenido_Ant-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                                                             <option>Seleccionar</option>
-                                                            <option>Si</option>
-                                                            <option>No</option>
+                                                            <option value="1">Si</option>
+                                                            <option value="0">No</option>
                                                         </select>
                                                     </div>
-                                                    {{-- Agencia --}}
+                                                    {{-- Juzgado --}}
                                                     <div class="col-span-6 sm:col-span-2">
-                                                        <label for="agencia_Ant" class="block text-sm font-medium text-gray-700">Agencia</label>
+                                                        <label for="agencia_Ant" class="block text-sm font-medium text-gray-700">Juzgado</label>
                                                         <select id="agencia_Ant" name="agencia_Ant" autocomplete="agencia-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                                                             <option value="">Seleccionar</option>
-                                                            @foreach ($agencias as $agencia)
-                                                            <option value="{{ $agencia->ID_Agencia }}">{{ $agencia->Nombre }}</option>
+                                                            @foreach ($juzgados as $juzgado)
+                                                            <option value="{{ $juzgado->ID_Juzgado }}">{{ $juzgado->Nombre }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -241,8 +244,8 @@
                                                 <div class="col-span-3 w-full flex justify-center py-5">
                                                     <a href="{{ route('dashboard') }}" class=" py-4 px-6 text-md font-medium text-white w-1/2 bg-red-600 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 text-center">Volver </a>
                                                 </div>
-                                                <div class="col-span-3 w-full flex justify-center py-5">
-                                                    <a href="{{ route('dashboard') }}" class=" py-4 px-6 text-md font-medium text-white w-1/2 bg-cyan-800 border border-transparent rounded-md shadow-sm hover:bg-cyan-900 focus:outline-none focus:ring-2 focus:ring-cyan-700 focus:ring-offset-2 text-center">Guardar </a>
+                                                <div class="col-span-3 flex justify-center py-5">
+                                                    <button type="submit" class="inline-flex justify-center px-6 py-4 text-md font-medium text-white bg-emerald-600 border border-transparent rounded-md shadow-sm hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 w-1/2">Guardar</button>
                                                 </div>
                                             </div>
                                         </div>

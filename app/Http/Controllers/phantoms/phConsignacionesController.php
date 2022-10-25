@@ -48,10 +48,13 @@ class phConsignacionesController extends Controller
         return view('consignaciones.createPerson');
     }
 
-    public function storePerson(Request $request)
+    public function storePerson()
     {
+        // $request->name;
+        $dato = 'Pepito';
+        return $dato;
         // var_dump($request);
-        return $request;
+        // return $request;
         // return view('consignaciones.create', compact('datos'));
     }
 
@@ -66,13 +69,39 @@ class phConsignacionesController extends Controller
 
     public function store(Request $request)
     {
-        $consignacion = new ConsignacionController;
-        $consignacion->store($request);
 
-        // return $request;
-        // return 'success';
-        // return view('consignaciones.index', ['consignaciones' => $consignaciones ]);
-        // return 'cadena';
+        $datos = array(
+            'Fecha' => $request->fecha_recibo,
+            'Agencia' => $request->agencia,
+            'Fojas' => $request->fojas,
+            'Av_Previa' => $request->averiguacion,
+            'Detenido' => $request->con_detenido,
+            'Juzgado' => $request->juzgado,
+            'Reclusorio' => $request->reclusorio,
+            'Antecedente' => array([
+                'Juzgado' => $request->agencia_Ant,
+                'Fecha' => $request->fecha_recibo_Ant,
+                'Detenido' => $request->con_detenido_Ant,
+            ]),
+            'Personas' => array([
+                "Nombre" => 'Uriel',
+                "Ap_Paterno" => 'Sanjuan',
+                "Ap_Materno" => 'Morales',
+                "Calidad" => '1',
+                "Alias" => array(['Nombre','nombre2']),
+            ]),
+            'Delitos' => array(1, 4, 9),
+            'Hora_Recibo' => $request->horaRecibo,
+            'Hora_Entrega' => $request->horaEntrega,
+            'Hora_Salida' => $request->horaSalida,
+            'Hora_Regreso' => $request->hora_regreso,
+            'Hora_Llegada' => $request->horaLlegada,
+            'Fecha_Entrega' => $request->fechaEntrega,
+            'Nota' => $request->notas,
+        );
+
+        $consignacion = new ConsignacionController;
+        return $consignacion->store($request);
     }
 
     public function destroy($consignacionId)
