@@ -18,11 +18,11 @@
                         <div class="flex justify-end mb-5 pt-2">
                             {{-- DATOS Agencia --}}
                             <div class="flex items-center">
-                                <p><span class="inline-flex items-center mr-10 justify-center p-2 text-sm font-bold leading-none text-cyan-100 bg-cyan-700 rounded-md">Agencia: {{ $consignaciones['Agencia'] }}</span></p>
+                                <p><span class="inline-flex items-center mr-10 justify-center p-2 text-sm font-bold leading-none text-white bg-cyan-700 rounded-md">Agencia: {{ $consignaciones['Agencia'] }}</span></p>
                             </div>
                             {{-- DATOS Fecha registro --}}
                             <div>
-                                <p><span class="inline-flex items-center justify-center p-2 mr-1 text-sm font-bold leading-none text-cyan-100 bg-cyan-700 rounded-md">Fecha: {{ $consignaciones['Fecha'] }}</span></p>
+                                <p><span class="inline-flex items-center justify-center p-2 mr-1 text-sm font-bold leading-none text-white bg-cyan-700 rounded-md">Fecha: {{ $consignaciones['Fecha'] }}</span></p>
                             </div>
                         </div>
                         {{-- DATOS Con Detenido --}}
@@ -33,7 +33,7 @@
                         @else
                         {{-- DATOS Sin detenido --}}
                         <div class="flex justify-end mb-10 mr-1">
-                            <p><span class="inline-flex items-center justify-center p-2 text-xl font-bold leading-none text-red-100 bg-green-600 rounded-sm">Con detenido: {{ $consignaciones['Detenido'] }}</span></p>
+                            <p><span class="inline-flex items-center justify-center p-2 text-xl font-bold leading-none text-green-100 bg-green-600 rounded-l-full">Con detenido: {{ $consignaciones['Detenido'] }}</span></p>
                         </div>
                         @endif
 

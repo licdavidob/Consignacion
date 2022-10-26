@@ -35,37 +35,39 @@
                                                     <div class="col-span-6 sm:col-span-6">
                                                         <label for="Av_Previa" class="block text-sm font-medium text-gray-700">Averiguación Previa</label>
                                                         <span class=" text-xs text-red-600">@error('Av_Previa') {{ $message }} @enderror</span>
-                                                        <input type="text" name="Av_Previa" id="Av_Previa" autocomplete="given-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                        <input type="text" name="Av_Previa" id="Av_Previa" autocomplete="given-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ old('Av_Previa', @$consignacion->Av_Previa) }}">
                                                     </div>
                                                     {{-- Con detenido --}}
                                                     <div class="col-span-6 sm:col-span-2">
-                                                        <label for="con_detenido" class="block text-sm font-medium text-gray-700">Con detenido</label>
-                                                        <span class=" text-xs text-red-600">@error('con_detenido') {{ $message }} @enderror</span>
-                                                        <select id="con_detenido" name="con_detenido" autocomplete="con_detenido-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                                                            <option>Seleccionar</option>
+                                                        <label for="Detenido" class="block text-sm font-medium text-gray-700">Con detenido</label>
+                                                        <select id="Detenido" name="Detenido" autocomplete="Detenido-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                                            <option value="">Seleccionar</option>
                                                             <option value="1">Si</option>
                                                             <option value="0">No</option>
                                                         </select>
+                                                        <span class=" text-xs text-red-600">@error('Detenido') {{ $message }} @enderror</span>
                                                     </div>
                                                     {{-- Agencia --}}
                                                     <div class="col-span-6 sm:col-span-2">
-                                                        <label for="agencia" class="block text-sm font-medium text-gray-700">Agencia</label>
-                                                        <select id="agencia" name="agencia" autocomplete="agencia-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                                        <label for="Agencia" class="block text-sm font-medium text-gray-700">Agencia</label>
+                                                        <select id="Agencia" name="Agencia" autocomplete="Agencia-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                                                             <option value="">Seleccionar</option>
                                                             @foreach ($agencias as $agencia)
                                                             <option value="{{ $agencia->ID_Agencia }}">{{ $agencia->Nombre }}</option>
                                                             @endforeach
                                                         </select>
+                                                        <span class=" text-xs text-red-600">@error('Agencia') {{ $message }} @enderror</span>
                                                     </div>
                                                     {{-- Fecha --}}
                                                     <div class="col-span-6 sm:col-span-2">
-                                                        <label for="fecha_recibo" class="block text-sm font-medium text-gray-700">Fecha</label>
-                                                        <input type="text" name="fecha_recibo" id="fecha_recibo" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                        <label for="Fecha" class="block text-sm font-medium text-gray-700">Fecha</label>
+                                                        <input type="text" name="Fecha" id="Fecha" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ old('Fecha', @$consignacion->Fecha) }}">
+                                                        <span class=" text-xs text-red-600">@error('Agencia') {{ $message }} @enderror</span>
                                                     </div>
                                                     {{-- Reclusorio --}}
                                                     <div class="col-span-6 sm:col-span-2">
-                                                        <label for="reclusorio" class="block text-sm font-medium text-gray-700">Reclusorio</label>
-                                                        <select id="reclusorio" name="reclusorio" autocomplete="reclusorio-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                                        <label for="Reclusorio" class="block text-sm font-medium text-gray-700">Reclusorio</label>
+                                                        <select id="Reclusorio" name="Reclusorio" autocomplete="reclusorio-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                                                             <option value="">Seleccionar</option>
                                                             @foreach ($reclusorios as $reclusorio)
                                                             <option value="{{ $reclusorio->ID_Reclusorio }}">{{ $reclusorio->Nombre }}</option>
@@ -74,8 +76,8 @@
                                                     </div>
                                                     {{-- Juzgado --}}
                                                     <div class="col-span-6 sm:col-span-2">
-                                                        <label for="juzgado" class="block text-sm font-medium text-gray-700">Juzgado</label>
-                                                        <select id="juzgado" name="juzgado" autocomplete="juzgado-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                                        <label for="Juzgado" class="block text-sm font-medium text-gray-700">Juzgado</label>
+                                                        <select id="Juzgado" name="Juzgado" autocomplete="juzgado-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                                                             <option value="">Seleccionar</option>
                                                             @foreach ($juzgados as $juzgado)
                                                             <option value="{{ $juzgado->ID_Juzgado }}">{{ $juzgado->Nombre }}</option>
@@ -84,8 +86,8 @@
                                                     </div>
                                                     {{-- Fojas --}}
                                                     <div class="col-span-6 sm:col-span-2">
-                                                        <label for="fojas" class="block text-sm font-medium text-gray-700">Fojas</label>
-                                                        <input type="text" name="fojas" id="fojas" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                        <label for="Fojas" class="block text-sm font-medium text-gray-700">Fojas</label>
+                                                        <input type="text" name="Fojas" id="Fojas" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                                     </div>
 
                                                     {{-- ELEMENTO Seccion --}}
@@ -111,20 +113,48 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody class="text-center bg-white">
-                                                                {{-- @foreach ($consignaciones['Personas'] as $persona) --}}
+
+                                                                {{-- PARTICIPANTES > REGISTROS --}}
+                                                                @for ($i = 0; $i < 5; $i++)
                                                                 <tr>
-                                                                    <td class="py-2 border-b-2"> Nombre </td>
-                                                                    <td class="py-2 border-b-2"> Ap_Paterno </td>
-                                                                    <td class="py-2 border-b-2"> Ap_Materno </td>
-                                                                    <td class="py-2 border-b-2"> Calidad </td>
-                                                                    <td class="py-2 border-b-2"> Alias   </td>
-                                                                    {{-- <td>
-                                                                        @foreach ( $persona['Alias'] as $alias)
-                                                                        {{ $alias }},
-                                                                        @endforeach
-                                                                    </td> --}}
+                                                                    <td class="py-2 border-b-2"><input type="text" name="Nombre{{ $i }}" id="Nombre{{ $i }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></td>
+                                                                    <td class="py-2 border-b-2"><input type="text" name="Ap_Paterno{{ $i }}" id="Ap_Paterno{{ $i }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></td>
+                                                                    <td class="py-2 border-b-2"><input type="text" name="Ap_Materno{{ $i }}" id="Ap_Materno{{ $i }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></td>
+
+                                                                    <td class="py-2 border-b-2">
+                                                                        <select id="Calidad{{ $i }}" name="Calidad{{ $i }}" autocomplete="Calidad{{ $i }}-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                                                            <option value="">Seleccionar</option>
+                                                                            @foreach ($tipoParticipante as $participante)
+                                                                            <option value="{{ $participante->ID_Calidad }}">{{ $participante->Calidad }}</option>
+                                                                            @endforeach
+                                                                        </select>
+
+                                                                    </td>
+                                                                    <td class="py-2 border-b-2"><input type="text" name="Alias{{ $i }}" id="Alias{{ $i }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></td>
                                                                 </tr>
-                                                                {{-- @endforeach --}}
+                                                                @endfor
+                                                                
+
+                                                                {{-- Segundo participante Temporal --}}
+                                                                {{-- <tr>
+                                                                    <td class="py-2 border-b-2"><input type="text" name="Nombre2" id="Nombre2" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></td>
+                                                                    <td class="py-2 border-b-2"><input type="text" name="Ap_Paterno2" id="Ap_Paterno2" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></td>
+                                                                    <td class="py-2 border-b-2"><input type="text" name="Ap_Materno2" id="Ap_Materno2" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></td>
+
+                                                                    <td class="py-2 border-b-2">
+                                                                        <select id="Calidad2" name="Calidad2" autocomplete="Calidad2-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                                                            <option value="">Seleccionar</option>
+                                                                            @foreach ($tipoParticipante as $participante)
+                                                                            <option value="{{ $participante->ID_Calidad }}">{{ $participante->Calidad }}</option>
+                                                                            @endforeach
+                                                                        </select>
+
+                                                                    </td>
+                                                                    <td class="py-2 border-b-2"><input type="text" name="Alias2" id="Alias2" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></td>
+                                                                </tr> --}}
+
+
+
                                                             </tbody>
                                                         </table>
                                                         {{-- ELEMENTO Seccion --}}
@@ -141,7 +171,7 @@
                                                             <table class="w-10/12 bg-cyan-900">
                                                                 <thead class="text-white">
                                                                     <tr class="">
-                                                                        <th class="w-1/2 py-5">ID</th>
+                                                                        {{-- <th class="w-1/2 py-5">ID</th> --}}
                                                                         <th class="w-1/2 py-5">Nombre</th>
                                                                         {{-- <th class="w-1/6 py-5">Delito</th> --}}
                                                                     </tr>
@@ -149,8 +179,15 @@
                                                                 <tbody class="text-center bg-white">
                                                                     <tr>
                                                                         {{-- <td class="py-2 border-b-2"> {{ $delito['ID_Delito'] }} </td> --}}
-                                                                        <td class="py-2 border-b-2"> ID </td>
-                                                                        <td class="py-2 border-b-2"> Nombre </td>
+                                                                        {{-- <td class="py-2 border-b-2"> ID </td> --}}
+                                                                        <td class="py-2 border-b-2"> 
+                                                                            <select id="Delitos" name="Delitos" autocomplete="Delitos-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                                                                <option value="">Seleccionar</option>
+                                                                                @foreach ($delitos as $delito)
+                                                                                <option value="{{ $delito->ID_Delito }}">{{ $delito->Nombre }}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </td>
                                                                         {{-- <td class="py-2 border-b-2">
                                                                             @foreach ($consignaciones['Delitos'] as $delito)
                                                                             {{ $delito }}
@@ -170,17 +207,17 @@
                                                     {{-- INFORMACION antecedentes --}}
                                                     {{-- Con detenido --}}
                                                     <div class="col-span-6 sm:col-span-2">
-                                                        <label for="con_detenido_Ant" class="block text-sm font-medium text-gray-700">Con detenido</label>
-                                                        <select id="con_detenido_Ant" name="con_detenido_Ant" autocomplete="con_detenido_Ant-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                                                            <option>Seleccionar</option>
+                                                        <label for="Detenido" class="block text-sm font-medium text-gray-700">Con detenido</label>
+                                                        <select id="Detenido" name="Detenido" autocomplete="con_detenido_Ant-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                                            <option value="">Seleccionar</option>
                                                             <option value="1">Si</option>
                                                             <option value="0">No</option>
                                                         </select>
                                                     </div>
                                                     {{-- Juzgado --}}
                                                     <div class="col-span-6 sm:col-span-2">
-                                                        <label for="agencia_Ant" class="block text-sm font-medium text-gray-700">Juzgado</label>
-                                                        <select id="agencia_Ant" name="agencia_Ant" autocomplete="agencia-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                                        <label for="Juzgado" class="block text-sm font-medium text-gray-700">Juzgado</label>
+                                                        <select id="Juzgado" name="Juzgado" autocomplete="agencia-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                                                             <option value="">Seleccionar</option>
                                                             @foreach ($juzgados as $juzgado)
                                                             <option value="{{ $juzgado->ID_Juzgado }}">{{ $juzgado->Nombre }}</option>
@@ -189,8 +226,8 @@
                                                     </div>
                                                     {{-- Fecha --}}
                                                     <div class="col-span-6 sm:col-span-2">
-                                                        <label for="fecha_recibo_Ant" class="block text-sm font-medium text-gray-700">Fecha</label>
-                                                        <input type="text" name="fecha_recibo_Ant" id="fecha_recibo_Ant" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                        <label for="Antecedente" class="block text-sm font-medium text-gray-700">Fecha</label>
+                                                        <input type="text" name="Antecedente" id="Antecedente" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                                     </div>
 
                                                     {{-- ELEMENTO Seccion --}}
@@ -202,40 +239,41 @@
                                                     {{-- ELEMENTO fechas --}}
                                                     {{-- Hora recibo --}}
                                                     <div class="col-span-6 sm:col-span-3">
-                                                        <label for="horaRecibo" class="block text-sm font-medium text-gray-700">Hora recibo</label>
-                                                        <input type="text" name="horaRecibo" id="horaRecibo" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                        <label for="Hora_Recibo" class="block text-sm font-medium text-gray-700">Hora recibo</label>
+                                                        <input type="text" name="Hora_Recibo" id="Hora_Recibo" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                                     </div>
                                                     {{-- Hora entrega --}}
                                                     <div class="col-span-6 sm:col-span-3">
-                                                        <label for="horaEntrega" class="block text-sm font-medium text-gray-700">Hora entrega</label>
-                                                        <input type="text" name="horaEntrega" id="horaEntrega" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                        <label for="Hora_Entrega" class="block text-sm font-medium text-gray-700">Hora entrega</label>
+                                                        <input type="text" name="Hora_Entrega" id="Hora_Entrega" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                                     </div>
                                                     {{-- Hora salida --}}
                                                     <div class="col-span-6 sm:col-span-3">
-                                                        <label for="horaSalida" class="block text-sm font-medium text-gray-700">Hora salida</label>
-                                                        <input type="text" name="horaSalida" id="horaSalida" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                        <label for="Hora_Salida" class="block text-sm font-medium text-gray-700">Hora salida</label>
+                                                        <input type="text" name="Hora_Salida" id="Hora_Salida" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                                     </div>
                                                     {{-- Hora regreso --}}
                                                     <div class="col-span-6 sm:col-span-3">
-                                                        <label for="hora_regreso" class="block text-sm font-medium text-gray-700">Hora regreso</label>
-                                                        <input type="text" name="hora_regreso" id="hora_regreso" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                        <label for="Hora_Regreso" class="block text-sm font-medium text-gray-700">Hora regreso</label>
+                                                        <input type="text" name="Hora_Regreso" id="Hora_Regreso" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                                     </div>
                                                     {{-- Hora llegada --}}
                                                     <div class="col-span-6 sm:col-span-3">
-                                                        <label for="horaLlegada" class="block text-sm font-medium text-gray-700">Hora llegada</label>
-                                                        <input type="text" name="horaLlegada" id="horaLlegada" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                        <label for="Hora_Llegada" class="block text-sm font-medium text-gray-700">Hora llegada</label>
+                                                        <input type="text" name="Hora_Llegada" id="Hora_Llegada" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                                     </div>
                                                     {{-- Fecha entrega --}}
                                                     <div class="col-span-6 sm:col-span-3">
-                                                        <label for="fechaEntrega" class="block text-sm font-medium text-gray-700">Fecha entrega</label>
-                                                        <input type="text" name="fechaEntrega" id="fechaEntrega" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                        <label for="Fecha_Entrega" class="block text-sm font-medium text-gray-700">Fecha entrega</label>
+                                                        <input type="text" name="Fecha_Entrega" id="Fecha_Entrega" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                                     </div>
                                                     {{-- Notas --}}
                                                     <div class="col-span-6 sm:col-span-6">
-                                                        <label for="notas" class="block text-sm font-medium text-gray-700">Notas</label>
-                                                        <textarea id="notas" name="notas" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Notas opcionales"></textarea>
+                                                        <label for="Nota" class="block text-sm font-medium text-gray-700">Nota</label>
+                                                        <textarea id="Nota" name="Nota" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Notas opcionales"></textarea>
+                                                        <span class=" text-xs text-red-600">@error('Nota') {{ $message }} @enderror</span>
                                                     </div>
-
+                                                    
                                                     {{-- Pendientes --}}
 
                                                 </div>
@@ -255,7 +293,7 @@
                         </div>
                     </div>
                 </div>
-
+                
             </div>
         </div>
     </div>
