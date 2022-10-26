@@ -43,8 +43,13 @@
                             @foreach ( $consignaciones as $consignacion )
                             <tr>
                                 <td class="py-2 border-b-2"> {{ $consignacion->ID_Consignacion}} </td>
-                                <td class="py-2 border-b-2"> {{ $consignacion['Con Detenido']}} </td>
-                                <td class="py-2 border-b-2"> {{ $consignacion->Agencia }} </td>
+                                @if ($consignacion->Detenido === 1)
+                                <td class="py-2 border-b-2"> Con Detenido </td>
+                                @else
+                                <td class="py-2 border-b-2"> Sin Detenido </td>
+                                @endif
+                                {{-- <td class="py-2 border-b-2"> {{ $consignacion->Detenido }} </td> --}}
+                                <td class="py-2 border-b-2"> {{ $consignacion->Agencia->Nombre }} </td>
                                 <td class="py-2 border-b-2"> {{ $consignacion->Averiguacion }} </td>
                                 <td class="py-2 border-b-2">
                                     <div class="flex justify-center item-center align-middle">
@@ -58,7 +63,7 @@
                                             <form action="{{ route('consignaciones.destroy', $consignacion) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <input type="submit" value="x" class="px-2 text-white bg-gray-800 rounded " onclick="return confirm('Desea eliominar')">
+                                                <input type="submit" value="x" class="px-2 text-white bg-gray-800 rounded " onclick="return confirm('Desea eliminar el registro')">
                                             </form>
                                         </div>
                                     </div> 
@@ -67,6 +72,8 @@
                             @endforeach
                         </tbody>
                     </table>
+
+                    {{ $consignaciones->links() }}
                 </div>
 
             </div>

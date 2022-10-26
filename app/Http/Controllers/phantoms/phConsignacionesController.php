@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\phantoms;
 
 use App\Http\Controllers\Controller;
@@ -68,14 +69,18 @@ class phConsignacionesController extends Controller
         $request->validate([
             'Av_Previa' => 'required',
             'Detenido' => 'required',
-            'Fecha' => 'required',
-            'Nota' => 'required',
             'Agencia' => 'required',
+            'Fecha' => 'required',
             'Reclusorio' => 'required',
             'Juzgado' => 'required',
             'Fojas' => 'required',
+            'Nombre0' => 'required',
+            'Ap_Paterno0' => 'required',
+            'Ap_Materno0' => 'required',
+            'Calidad0' => 'required',
+            'Alias0' => 'required',
+            'Nota' => 'required',
         ]);
-
         $datos = array(
             'Fecha' => $request->Fecha,
             'Agencia' => $request->Agencia,
@@ -85,9 +90,9 @@ class phConsignacionesController extends Controller
             'Juzgado' => $request->Juzgado,
             'Reclusorio' => $request->Reclusorio,
             'Antecedente' => array(
-                'Juzgado' => $request->Juzgado,
-                'Fecha' => $request->Fecha,
-                'Detenido' => $request->Detenido,
+                'Juzgado' => $request->Juzgado_Ant,
+                'Fecha' => $request->Fecha_Ant,
+                'Detenido' => $request->Detenido_Ant,
             ),
             'Personas' => array(
                 [
@@ -135,24 +140,11 @@ class phConsignacionesController extends Controller
             'Nota' => $request->Nota,
         );
 
-        // $request->Persona = 'Personas';
-        return $datos;
-
-        // $datos = json_decode(json_encode($datos, JSON_FORCE_OBJECT));
-        // $datos = json_encode($datos);
         // return $datos;
-        // var_dump($datos);
 
-        // return json_encode($datos);
-        // return $datos;
-        // return $datos->Fecha;
-        // $this->Prueba = json_encode($datos);
-        // $consignacion = new ConsignacionController;
-        // return $consignacion->store($datos);
-        
-        // $consignacion->store($datos);
-        // return to_route('dashboard');
-        // return 'Holi';
+        $consignacion = new ConsignacionController;
+        $consignacion->store($datos);
+        return to_route('dashboard');
 
     }
 
