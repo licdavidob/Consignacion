@@ -68,51 +68,51 @@ class ConsignacionController extends Controller
      * @param string $Consignacion
      * @return bool
      */
-    // public function store($Consignacion): bool
-    public function store(Request $Consignacion): bool
+
+    public function store(array $Consignacion)
     {
         if($Consignacion == ''){return false;}
 
         //Se obtiene la informacion de la averiguacion previa insertada
         $Averiguacion = new AveriguacionController;
-        $Averiguacion = $Averiguacion->store($Consignacion->Av_Previa);
+        $Averiguacion = $Averiguacion->store($Consignacion['Av_Previa']);
 
-        //Se registra la consignación
+//        Se registra la consignación
         Consignacion::create([
-            'Fecha' => $Consignacion->Fecha,
-            'ID_Agencia' => $Consignacion->Agencia,
-            'Fojas' => $Consignacion->Fojas,
+            'Fecha' => $Consignacion['Fecha'],
+            'ID_Agencia' => $Consignacion['Agencia'],
+            'Fojas' => $Consignacion['Fojas'],
             'ID_Averiguacion' => $Averiguacion['ID_Averiguacion'],
-            'Detenido' => $Consignacion->Detenido,
-            'ID_Juzgado' => $Consignacion->Juzgado,
-            'ID_Reclusorio' => $Consignacion->Reclusorio,
-            'Hora_Recibo' => $Consignacion->Hora_Recibo,
-            'Hora_Entrega' => $Consignacion->Hora_Entrega,
-            'Hora_Salida' => $Consignacion->Hora_Salida,
-            'Hora_Regreso' => $Consignacion->Hora_Regreso,
-            'Hora_Llegada' => $Consignacion->Hora_Llegada,
-            'Fecha_Entrega' => $Consignacion->Fecha_Entrega,
-            'Nota' => $Consignacion->Nota,
+            'Detenido' => $Consignacion['Detenido'],
+            'ID_Juzgado' => $Consignacion['Juzgado'],
+            'ID_Reclusorio' => $Consignacion['Reclusorio'],
+            'Hora_Recibo' => $Consignacion['Hora_Recibo'],
+            'Hora_Entrega' => $Consignacion['Hora_Entrega'],
+            'Hora_Salida' => $Consignacion['Hora_Salida'],
+            'Hora_Regreso' => $Consignacion['Hora_Regreso'],
+            'Hora_Llegada' => $Consignacion['Hora_Llegada'],
+            'Fecha_Entrega' => $Consignacion['Fecha_Entrega'],
+            'Nota' => $Consignacion['Nota'],
         ]);
 
         //Se obtiene la informacion de la Consignacion insertada
         $Consignacion_Insertada = Consignacion::latest('ID_Consignacion')->first();
 
         //Si existe un antecedente, se registra
-        if ($Consignacion->Antecedente) {
+        if ($Consignacion['Antecedente']) {
             $Antecedente = new AntecedenteController;
-            $Antecedente->store($Consignacion->Antecedente, $Consignacion_Insertada['ID_Consignacion']);
+            $Antecedente->store($Consignacion['Antecedente'], $Consignacion_Insertada['ID_Consignacion']);
         }
 
         //Si tiene a personas relacionadas a la consignación, se registran
-        if ($Consignacion->Personas) {
+        if ($Consignacion['Personas']) {
             $Persona = new PersonaController;
-            $Persona->store($Consignacion->Personas, $Consignacion_Insertada['ID_Consignacion']);
+            $Persona->store($Consignacion['Personas'], $Consignacion_Insertada['ID_Consignacion']);
         }
 
         //Si tiene delitos la consignación, se registran a la tabla pivote
-        if ($Consignacion->Delitos) {
-            foreach ($Consignacion->Delitos as $Delito) {
+        if ($Consignacion['Delitos']) {
+            foreach ($Consignacion['Delitos'] as $Delito) {
                 $Consignacion_Insertada->Delito()->attach($Delito);
             }
         }
