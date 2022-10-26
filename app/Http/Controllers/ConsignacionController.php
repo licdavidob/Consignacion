@@ -23,20 +23,21 @@ class ConsignacionController extends Controller
      * @param int $Agencia
      * @return array
      */
-    public function index(string $Av_Previa = '', int $Detenido = 0, int $Agencia = 0):array
+    public function index(string $Av_Previa = '', int $Detenido = 0, int $Agencia = 0)
     {
-        $Consignacion_Busqueda = $this->QueryBuilderSearch($Av_Previa, $Detenido, $Agencia);
-        $Consignaciones = array();
-        $i = 0;
-        foreach ($Consignacion_Busqueda as $Consignacion) {
-            $Agencia = $Consignacion->Agencia()->select('Nombre')->get();
-            $Consignacion['Con Detenido'] = $Consignacion->Detenido == 1 ? 'Con Detenido' : 'Sin Detenido';
-            $Consignacion['Agencia'] = $Agencia[0]["Nombre"];
-            $Consignacion['Averiguacion'] = $Consignacion->Averiguacion;
-            $Consignaciones[$i] = $Consignacion;
-            $i++;
-        }
-        return $Consignaciones;
+        return $this->QueryBuilderSearch($Av_Previa, $Detenido, $Agencia);
+        // $Consignaciones = array();
+        // $i = 0;
+        // foreach ($Consignacion_Busqueda as $Consignacion) {
+        //     $Agencia = $Consignacion->Agencia()->select('Nombre')->get();
+        //     $Consignacion['Con Detenido'] = $Consignacion->Detenido == 1 ? 'Con Detenido' : 'Sin Detenido';
+        //     $Consignacion['Agencia'] = $Agencia[0]["Nombre"];
+        //     $Consignacion['Averiguacion'] = $Consignacion->Averiguacion;
+        //     $Consignaciones[$i] = $Consignacion;
+        //     $i++;
+        // }
+        // return $Consignaciones;
+        //TODO: Arreglar esta vaina
     }
 
     /**
@@ -48,7 +49,7 @@ class ConsignacionController extends Controller
      * @param int $Agencia
      * @return object
      */
-    public function QueryBuilderSearch(string $Av_Previa, int $Detenido, int $Agencia):object
+    public function QueryBuilderSearch(string $Av_Previa, int $Detenido, int $Agencia): object
     {
         $Operador_Detenido = $Detenido == 0 ? '>=' : '=';
         $Operador_Agencia = $Agencia == 0 ? '>=' : '=';
@@ -58,7 +59,7 @@ class ConsignacionController extends Controller
             ->where('ID_Agencia', $Operador_Agencia, $Agencia)
             ->Where('Averiguacion', 'like', '%' . $Av_Previa . '%')
             ->Where('Estatus', 1)
-            ->get();
+            ->paginate();
     }
 
     /**
@@ -71,13 +72,15 @@ class ConsignacionController extends Controller
 
     public function store(array $Consignacion)
     {
-        if($Consignacion == ''){return false;}
+        if ($Consignacion == '') {
+            return false;
+        }
 
         //Se obtiene la informacion de la averiguacion previa insertada
         $Averiguacion = new AveriguacionController;
         $Averiguacion = $Averiguacion->store($Consignacion['Av_Previa']);
 
-//        Se registra la consignación
+        //        Se registra la consignación
         Consignacion::create([
             'Fecha' => $Consignacion['Fecha'],
             'ID_Agencia' => $Consignacion['Agencia'],
@@ -162,7 +165,6 @@ class ConsignacionController extends Controller
             $Consignacion['Hora_Llegada'] = $ConsignacionBusqueda->Hora_Llegada ?: '';
             $Consignacion['Fecha_Entrega'] = $ConsignacionBusqueda->Fecha_Entrega ?: '';
             $Consignacion['Nota'] = $ConsignacionBusqueda->Nota ?: '';
-
         } else {
             $Consignacion['Error'] = 'Esa consignación se encuentra desactivada';
         }
@@ -177,7 +179,7 @@ class ConsignacionController extends Controller
      * @param int $id
      * @return bool
      */
-    public function update(string $ConsignacionActualizada, int $id):bool
+    public function update(string $ConsignacionActualizada, int $id): bool
     {
         $ConsignacionBusqueda = Consignacion::findOrFail($id);
 
@@ -227,7 +229,7 @@ class ConsignacionController extends Controller
      * @param int $id
      * @return bool
      */
-    public function destroy(int $id):bool
+    public function destroy(int $id): bool
     {
         $Consignacion = Consignacion::findOrFail($id);
         $Consignacion->Estatus = 0;
