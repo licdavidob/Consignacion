@@ -58,7 +58,7 @@
                                                     {{-- Fecha --}}
                                                     <div class="col-span-6 sm:col-span-2">
                                                         <label for="Fecha" class="block text-sm font-medium text-gray-700">Fecha</label>
-                                                        <input type="text" name="Fecha" id="Fecha" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ old('Fecha', @$consignacion->Fecha) }}">
+                                                        <input type="date" name="Fecha" id="Fecha" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ old('Fecha', @$consignacion->Fecha) }}">
                                                         <span class=" text-xs text-red-600">@error('Fecha') {{ $message }} @enderror</span>
                                                     </div>
                                                     {{-- Reclusorio --}}
@@ -86,7 +86,7 @@
                                                     {{-- Fojas --}}
                                                     <div class="col-span-6 sm:col-span-2">
                                                         <label for="Fojas" class="block text-sm font-medium text-gray-700">Fojas</label>
-                                                        <input type="text" name="Fojas" id="Fojas" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ old('Fojas', @$consignacion->Fojas) }}">
+                                                        <input type="number" name="Fojas" id="Fojas" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ old('Fojas', @$consignacion->Fojas) }}">
                                                         <span class=" text-xs text-red-600">@error('Fojas') {{ $message }} @enderror</span>
                                                     </div>
 
@@ -202,7 +202,7 @@
                                                     {{-- Fecha --}}
                                                     <div class="col-span-6 sm:col-span-2">
                                                         <label for="Fecha_Ant" class="block text-sm font-medium text-gray-700">Fecha</label>
-                                                        <input type="text" name="Fecha_Ant" id="Fecha_Ant" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ old('Fecha_Ant', @$consignacion->Fecha_Ant) }}">
+                                                        <input type="date" name="Fecha_Ant" id="Fecha_Ant" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ old('Fecha_Ant', @$consignacion->Fecha_Ant) }}">
                                                         <span class=" text-xs text-red-600">@error('Fecha_Ant') {{ $message }} @enderror</span>
                                                     </div>
 
@@ -216,37 +216,37 @@
                                                     {{-- Hora recibo --}}
                                                     <div class="col-span-6 sm:col-span-3">
                                                         <label for="Hora_Recibo" class="block text-sm font-medium text-gray-700">Hora recibo</label>
-                                                        <input type="text" name="Hora_Recibo" id="Hora_Recibo" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ old('Hora_Recibo', @$consignacion->Hora_Recibo) }}">
+                                                        <input type="time" name="Hora_Recibo" id="Hora_Recibo" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ old('Hora_Recibo', @$consignacion->Hora_Recibo) }}">
                                                         <span class=" text-xs text-red-600">@error('Hora_Recibo') {{ $message }} @enderror</span>
                                                     </div>
                                                     {{-- Hora entrega --}}
                                                     <div class="col-span-6 sm:col-span-3">
                                                         <label for="Hora_Entrega" class="block text-sm font-medium text-gray-700">Hora entrega</label>
-                                                        <input type="text" name="Hora_Entrega" id="Hora_Entrega" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ old('Hora_Entrega', @$consignacion->Hora_Entrega) }}">
+                                                        <input type="time" name="Hora_Entrega" id="Hora_Entrega" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ old('Hora_Entrega', @$consignacion->Hora_Entrega) }}">
                                                         <span class=" text-xs text-red-600">@error('Hora_Entrega') {{ $message }} @enderror</span>
                                                     </div>
                                                     {{-- Hora salida --}}
                                                     <div class="col-span-6 sm:col-span-3">
                                                         <label for="Hora_Salida" class="block text-sm font-medium text-gray-700">Hora salida</label>
-                                                        <input type="text" name="Hora_Salida" id="Hora_Salida" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ old('Hora_Salida', @$consignacion->Hora_Salida) }}">
+                                                        <input type="time" name="Hora_Salida" id="Hora_Salida" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ old('Hora_Salida', @$consignacion->Hora_Salida) }}">
                                                         <span class=" text-xs text-red-600">@error('Hora_Salida') {{ $message }} @enderror</span>
                                                     </div>
                                                     {{-- Hora regreso --}}
                                                     <div class="col-span-6 sm:col-span-3">
                                                         <label for="Hora_Regreso" class="block text-sm font-medium text-gray-700">Hora regreso</label>
-                                                        <input type="text" name="Hora_Regreso" id="Hora_Regreso" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ old('Hora_Regreso', @$consignacion->Hora_Regreso) }}">
+                                                        <input type="time" name="Hora_Regreso" id="Hora_Regreso" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ old('Hora_Regreso', @$consignacion->Hora_Regreso) }}">
                                                         <span class=" text-xs text-red-600">@error('Hora_Regreso') {{ $message }} @enderror</span>
                                                     </div>
                                                     {{-- Hora llegada --}}
                                                     <div class="col-span-6 sm:col-span-3">
                                                         <label for="Hora_Llegada" class="block text-sm font-medium text-gray-700">Hora llegada</label>
-                                                        <input type="text" name="Hora_Llegada" id="Hora_Llegada" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ old('Hora_Llegada', @$consignacion->Hora_Llegada) }}">
+                                                        <input type="time" name="Hora_Llegada" id="Hora_Llegada" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ old('Hora_Llegada', @$consignacion->Hora_Llegada) }}">
                                                         <span class=" text-xs text-red-600">@error('Hora_Llegada') {{ $message }} @enderror</span>
                                                     </div>
                                                     {{-- Fecha entrega --}}
                                                     <div class="col-span-6 sm:col-span-3">
                                                         <label for="Fecha_Entrega" class="block text-sm font-medium text-gray-700">Fecha entrega</label>
-                                                        <input type="text" name="Fecha_Entrega" id="Fecha_Entrega" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ old('Fecha_Entrega', @$consignacion->Fecha_Entrega) }}">
+                                                        <input type="date" name="Fecha_Entrega" id="Fecha_Entrega" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ old('Fecha_Entrega', @$consignacion->Fecha_Entrega) }}">
                                                         <span class=" text-xs text-red-600">@error('Fecha_Entrega') {{ $message }} @enderror</span>
                                                     </div>
                                                     {{-- Notas --}}

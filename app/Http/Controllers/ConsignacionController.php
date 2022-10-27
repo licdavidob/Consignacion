@@ -59,7 +59,7 @@ class ConsignacionController extends Controller
             ->where('ID_Agencia', $Operador_Agencia, $Agencia)
             ->Where('Averiguacion', 'like', '%' . $Av_Previa . '%')
             ->Where('Estatus', 1)
-            ->paginate(5);
+            ->paginate();
     }
 
     /**

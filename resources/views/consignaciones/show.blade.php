@@ -124,7 +124,7 @@
                                 <div class="max-w-sm rounded overflow-hidden shadow-lg flex">
                                     <img class="px-5 w-1/2" src="/img/warning.svg" alt="Sunset in the mountains">
                                     <div class="px-6 py-4">
-                                        <div class="font-bold text-xl mb-2">Sin Antecedente registrado</div>
+                                        <div class="font-bold text-xl mb-2">Sin Delitos registrados</div>
                                     </div>
                                 </div>
                             </div>
