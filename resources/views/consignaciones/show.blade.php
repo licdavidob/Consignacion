@@ -1,7 +1,3 @@
-{{-- <div>
-    @dd($consignaciones)
-</div> --}}
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
@@ -28,12 +24,12 @@
                         {{-- DATOS Con Detenido --}}
                         @if($consignaciones['Detenido'] === 'Si')
                         <div class="flex justify-end mb-5 mr-1">
-                            <p><span class="inline-flex items-center justify-center p-2 text-xl font-bold leading-none text-red-100 bg-red-600 rounded-l-full">Con detenido: {{ $consignaciones['Detenido'] }}</span></p>
+                            <p><span class="inline-flex items-center justify-center p-2 text-xl font-bold leading-none text-red-100 bg-red-600 rounded-l-full">Con detenido</span></p>
                         </div>
                         @else
                         {{-- DATOS Sin detenido --}}
                         <div class="flex justify-end mb-10 mr-1">
-                            <p><span class="inline-flex items-center justify-center p-2 text-xl font-bold leading-none text-green-100 bg-green-600 rounded-l-full">Con detenido: {{ $consignaciones['Detenido'] }}</span></p>
+                            <p><span class="inline-flex items-center justify-center p-2 text-xl font-bold leading-none text-green-100 bg-green-600 rounded-l-full">Sin detenido</span></p>
                         </div>
                         @endif
 
@@ -89,7 +85,7 @@
                                         <td class="py-2 border-b-2"> {{ $persona['Calidad'] }} </td>
                                         <td class="py-2 border-b-2">
                                             @foreach ( $persona['Alias'] as $alias)
-                                            {{ $alias }},
+                                            {{ $alias }}
                                             @endforeach
                                         </td>
                                         @endforeach
@@ -124,9 +120,13 @@
                                 </table>
                             </div>
                             @else
-                            <div class="flex w-full justify-center ">
-                                <p class="text-white font-bold px-5 bg-red-500 w-full text-center py-3">Sin delitos</p>
-
+                            <div class="flex w-full justify-center px-5 align-middle">
+                                <div class="max-w-sm rounded overflow-hidden shadow-lg flex">
+                                    <img class="px-5 w-1/2" src="/img/warning.svg" alt="Sunset in the mountains">
+                                    <div class="px-6 py-4">
+                                        <div class="font-bold text-xl mb-2">Sin Antecedente registrado</div>
+                                    </div>
+                                </div>
                             </div>
                             @endif
                         </div>
@@ -155,8 +155,13 @@
                             </div>
                         </div>
                         @else
-                        <div class="flex w-full justify-center px-5">
-                            <p class="text-white font-bold px-5 bg-red-500 w-full text-center py-3">Sin antecedente</p>
+                        <div class="flex w-full justify-center px-5 align-middle">
+                            <div class="max-w-sm rounded overflow-hidden shadow-lg flex">
+                                <img class="px-5 w-1/2" src="/img/warning.svg" alt="Sunset in the mountains">
+                                <div class="px-6 py-4">
+                                    <div class="font-bold text-xl mb-2">Sin Antecedente registrado</div>
+                                </div>
+                            </div>
 
                         </div>
                         @endif

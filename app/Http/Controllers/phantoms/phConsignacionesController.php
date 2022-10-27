@@ -4,8 +4,8 @@ namespace App\Http\Controllers\phantoms;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
+// Controladores principales
 use App\Http\Controllers\ConsignacionController;
 
 // Modelos
@@ -17,18 +17,23 @@ use App\Models\Calidad_Juridica;
 
 class phConsignacionesController extends Controller
 {
-    // public function index(Request $request)
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->averiguacion === NULL) {
+            $Averiguacion = '';
+        }
+        else {
+            $Averiguacion = $request->averiguacion;
+        }
         $consignacion = new ConsignacionController;
-        $consignaciones = $consignacion->index();
-        return view('consignaciones.index', ['consignaciones' => $consignaciones]);
+        $consignaciones = $consignacion->index($Averiguacion);
+        return view('consignaciones.index', compact('consignaciones'));
+
     }
     public function show($consignacionId)
     {
         $consignacion = new ConsignacionController;
         $consignaciones = $consignacion->show($consignacionId);
-        // return view('consignaciones.show', compact('consignaciones'));
         return view('consignaciones.show', compact('consignaciones'));
     }
 
@@ -41,46 +46,47 @@ class phConsignacionesController extends Controller
         $tipoParticipante = Calidad_Juridica::select('Calidad', 'ID_Calidad')->get();
         return view('consignaciones.create', compact('agencias', 'reclusorios', 'juzgados', 'delitos', 'tipoParticipante'));
     }
-    public function createPerson()
-    {
-        return view('consignaciones.createPerson');
-    }
-
-    public function storePerson(Request $request)
-    {
-        // $timecookie = 1;
-        // $response = new Response();
-        // $response->withCookie(cookie('nombrePersona', $request->name, $timecookie));
-        // return $response;
-    }
-
-    public function createDelito()
-    {
-        $delitos = Delito::select('Nombre', 'ID_Delito')->get();
-        // $reclusorios = Reclusorio::select('Nombre', 'ID_Reclusorio')->get();
-        // $juzgados = Juzgado::select('Nombre', 'ID_Juzgado')->get();
-        // return view('consignaciones.create', compact('agencias', 'reclusorios', 'juzgados'));
-        return view('consignaciones.createDelito', compact('delitos'));
-    }
-
     public function store(Request $request)
     {
 
+        // VALIDACION DE ENTRADAS
         $request->validate([
-            'Av_Previa' => 'required',
-            'Detenido' => 'required',
-            'Agencia' => 'required',
-            'Fecha' => 'required',
+            //VALIDACION Datos generales
             'Reclusorio' => 'required',
-            'Juzgado' => 'required',
-            'Fojas' => 'required',
-            'Nombre0' => 'required',
+            'Av_Previa'  => 'required',
+            'Detenido'   => 'required',
+            'Juzgado'    => 'required',
+            'Agencia'    => 'required',
+            'Fecha'      => 'required',
+            'Fojas'      => 'required',
+            //VALIDACION Personas
             'Ap_Paterno0' => 'required',
             'Ap_Materno0' => 'required',
-            'Calidad0' => 'required',
-            'Alias0' => 'required',
-            'Nota' => 'required',
+            'Calidad0'    => 'required',
+            'Nombre0'     => 'required',
+            'Alias0'      => 'required',
+            'Ap_Paterno1' => 'required',
+            'Ap_Materno1' => 'required',
+            'Calidad1'    => 'required',
+            'Nombre1'     => 'required',
+            'Alias1'      => 'required',
+            //VALIDACION Delitos
+            'Delitos'      => 'required',
+            //VALIDACION Antecedentes
+            'Detenido_Ant' => 'required',
+            'Juzgado_Ant'  => 'required',
+            'Fecha_Ant'    => 'required',
+            // VALIDACION Datos adicionales
+            'Fecha_Entrega' => 'required',
+            'Hora_Entrega'  => 'required',
+            'Hora_Llegada'  => 'required',
+            'Hora_Regreso'  => 'required',
+            'Hora_Recibo'   => 'required',
+            'Hora_Salida'   => 'required',
+            'Nota'          => 'required',
         ]);
+
+        // CONSTRUCCIÓN de la consignación 
         $datos = array(
             'Fecha' => $request->Fecha,
             'Agencia' => $request->Agencia,
@@ -101,34 +107,35 @@ class phConsignacionesController extends Controller
                 "Ap_Materno" => $request->Ap_Materno0,
                 "Calidad" => $request->Calidad0,
                 "Alias" => array($request->Alias0)
-                ],[
+                ],
+                [
                     "Nombre" => $request->Nombre1,
                     "Ap_Paterno" => $request->Ap_Paterno1,
                     "Ap_Materno" => $request->Ap_Materno1,
                     "Calidad" => $request->Calidad1,
                     "Alias" => array($request->Alias1)
                 ],
-                [
-                    "Nombre" => $request->Nombre2,
-                    "Ap_Paterno" => $request->Ap_Paterno2,
-                    "Ap_Materno" => $request->Ap_Materno2,
-                    "Calidad" => $request->Calidad2,
-                    "Alias" => array($request->Alias2)
-                ],
-                [
-                    "Nombre" => $request->Nombre3,
-                    "Ap_Paterno" => $request->Ap_Paterno3,
-                    "Ap_Materno" => $request->Ap_Materno3,
-                    "Calidad" => $request->Calidad3,
-                    "Alias" => array($request->Alias3)
-                ],
-                [
-                    "Nombre" => $request->Nombre4,
-                    "Ap_Paterno" => $request->Ap_Paterno4,
-                    "Ap_Materno" => $request->Ap_Materno4,
-                    "Calidad" => $request->Calidad4,
-                    "Alias" => array($request->Alias4)
-                ]
+                // [
+                //     "Nombre" => $request->Nombre2,
+                //     "Ap_Paterno" => $request->Ap_Paterno2,
+                //     "Ap_Materno" => $request->Ap_Materno2,
+                //     "Calidad" => $request->Calidad2,
+                //     "Alias" => array($request->Alias2)
+                // ],
+                // [
+                //     "Nombre" => $request->Nombre3,
+                //     "Ap_Paterno" => $request->Ap_Paterno3,
+                //     "Ap_Materno" => $request->Ap_Materno3,
+                //     "Calidad" => $request->Calidad3,
+                //     "Alias" => array($request->Alias3)
+                // ],
+                // [
+                //     "Nombre" => $request->Nombre4,
+                //     "Ap_Paterno" => $request->Ap_Paterno4,
+                //     "Ap_Materno" => $request->Ap_Materno4,
+                //     "Calidad" => $request->Calidad4,
+                //     "Alias" => array($request->Alias4)
+                // ]
             ),
             'Delitos' =>  array(intval($request->Delitos)),
             'Hora_Recibo' => $request->Hora_Recibo,
@@ -140,8 +147,7 @@ class phConsignacionesController extends Controller
             'Nota' => $request->Nota,
         );
 
-        // return $datos;
-
+        // Envío de datos al controlador de consignaciones
         $consignacion = new ConsignacionController;
         $consignacion->store($datos);
         return to_route('dashboard');
