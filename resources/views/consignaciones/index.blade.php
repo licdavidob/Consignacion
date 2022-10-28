@@ -65,7 +65,7 @@
                                             <form action="{{ route('consignaciones.destroy', $consignacion) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <input type="submit" value="x" class="px-2 text-white bg-gray-800 rounded " onclick="return confirm('Desea eliminar el registro')">
+                                                <input type="submit" value="x" class="px-2 text-white bg-gray-800 rounded " onclick="return confirm('¿Desea eliminar el registro?')">
                                             </form>
                                         </div>
                                     </div> 
