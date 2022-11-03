@@ -175,11 +175,11 @@ class ConsignacionController extends Controller
      * Actualiza la información de una consignación. De igual manera, detecta
      * cambios nuevos en las personas involucradas y los registra
      *
-     * @param string $ConsignacionActualizada
+     * @param array $ConsignacionActualizada
      * @param int $id
      * @return bool
      */
-    public function update(string $ConsignacionActualizada, int $id): bool
+    public function update(array $ConsignacionActualizada, int $id): bool
     {
         $ConsignacionBusqueda = Consignacion::findOrFail($id);
 
@@ -188,34 +188,34 @@ class ConsignacionController extends Controller
 
             //Se actualiza la informacion de la averiguacion previa
             $Averiguacion = new AveriguacionController;
-            $Averiguacion = $Averiguacion->update($ConsignacionActualizada->Av_Previa, $ConsignacionBusqueda->ID_Averiguacion);
+            $Averiguacion = $Averiguacion->update($ConsignacionActualizada['Av_Previa'], $ConsignacionBusqueda->ID_Averiguacion);
 
             //Se actualiza la información del antecedente, en caso de no existir, se registra el antecedente
             $Antecedente = new AntecedenteController;
-            $Antecedente->ValidarActualizacion($ConsignacionActualizada->Antecedente, $ConsignacionBusqueda->ID_Consignacion);
+            $Antecedente->ValidarActualizacion($ConsignacionActualizada['Antecedente'], $ConsignacionBusqueda->ID_Consignacion);
 
             //Se actualiza la información de las personas, en caso de no existir, se registra a la persona
             $Persona = new PersonaController;
-            $Persona->ValidarActualizacion($ConsignacionActualizada->Personas, $ConsignacionBusqueda->ID_Consignacion);
+            $Persona->ValidarActualizacion($ConsignacionActualizada['Personas'], $ConsignacionBusqueda->ID_Consignacion);
 
             //Se actualiza la información de los delitos
             $Delitos = new DelitoController;
-            $Delitos->UpdateDelitoByConsignacion($ConsignacionActualizada->Delitos, $ConsignacionBusqueda);
+            $Delitos->UpdateDelitoByConsignacion($ConsignacionActualizada['Delitos'], $ConsignacionBusqueda);
 
             //Se actualiza el resto de la consignación
-            $ConsignacionBusqueda->Fecha = $ConsignacionActualizada->Fecha;
-            $ConsignacionBusqueda->ID_Agencia = $ConsignacionActualizada->Agencia;
-            $ConsignacionBusqueda->Fojas = $ConsignacionActualizada->Fojas;
-            $ConsignacionBusqueda->Detenido = $ConsignacionActualizada->Detenido;
-            $ConsignacionBusqueda->ID_Juzgado = $ConsignacionActualizada->Juzgado;
-            $ConsignacionBusqueda->ID_Reclusorio = $ConsignacionActualizada->Reclusorio;
-            $ConsignacionBusqueda->Hora_Recibo = $ConsignacionActualizada->Hora_Recibo;
-            $ConsignacionBusqueda->Hora_Entrega = $ConsignacionActualizada->Hora_Entrega;
-            $ConsignacionBusqueda->Hora_Salida = $ConsignacionActualizada->Hora_Salida;
-            $ConsignacionBusqueda->Hora_Regreso = $ConsignacionActualizada->Hora_Regreso;
-            $ConsignacionBusqueda->Hora_Llegada = $ConsignacionActualizada->Hora_Llegada;
-            $ConsignacionBusqueda->Fecha_Entrega = $ConsignacionActualizada->Fecha_Entrega;
-            $ConsignacionBusqueda->Nota = $ConsignacionActualizada->Nota;
+            $ConsignacionBusqueda->Fecha = $ConsignacionActualizada['Fecha'];
+            $ConsignacionBusqueda->ID_Agencia = $ConsignacionActualizada['Agencia'];
+            $ConsignacionBusqueda->Fojas = $ConsignacionActualizada['Fojas'];
+            $ConsignacionBusqueda->Detenido = $ConsignacionActualizada['Detenido'];
+            $ConsignacionBusqueda->ID_Juzgado = $ConsignacionActualizada['Juzgado'];
+            $ConsignacionBusqueda->ID_Reclusorio = $ConsignacionActualizada['Reclusorio'];
+            $ConsignacionBusqueda->Hora_Recibo = $ConsignacionActualizada['Hora_Recibo'];
+            $ConsignacionBusqueda->Hora_Entrega = $ConsignacionActualizada['Hora_Entrega'];
+            $ConsignacionBusqueda->Hora_Salida = $ConsignacionActualizada['Hora_Salida'];
+            $ConsignacionBusqueda->Hora_Regreso = $ConsignacionActualizada['Hora_Regreso'];
+            $ConsignacionBusqueda->Hora_Llegada = $ConsignacionActualizada['Hora_Llegada'];
+            $ConsignacionBusqueda->Fecha_Entrega = $ConsignacionActualizada['Fecha_Entrega'];
+            $ConsignacionBusqueda->Nota = $ConsignacionActualizada['Nota'];
             $ConsignacionBusqueda->save();
         } else {
             return false;
