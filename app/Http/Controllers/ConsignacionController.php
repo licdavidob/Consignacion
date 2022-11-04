@@ -17,7 +17,7 @@ class ConsignacionController extends Controller
 {
     public array $Busqueda = array(
         'Averiguacion' => '',
-        'ID_Detenido' => 2,
+        'ID_Detenido' => 0, //0 = Busqueda General, 1 = Con Detenido, 2 = Sin Detenido
         'ID_Agencia' => 0,
     );
 
@@ -59,22 +59,22 @@ class ConsignacionController extends Controller
 
     public function QueryBuilderSearch(bool $Paginate): object
     {
-        $Operador_Detenido = $this->Busqueda['$ID_Detenido'] == 0 ? '>=' : '=';
-        $Operador_Agencia = $this->Busqueda['$ID_Agencia'] == 0 ? '>=' : '=';
+        $Operador_Detenido = $this->Busqueda['ID_Detenido'] == 0 ? '>=' : '=';
+        $Operador_Agencia = $this->Busqueda['ID_Agencia'] == 0 ? '>=' : '=';
 
         if($Paginate){
             return Consignacion::select('ID_Consignacion', 'ID_Agencia', 'Averiguacion', 'ID_Juzgado', 'Detenido')
                 ->join('averiguacion_previa', 'consignacion.ID_Averiguacion', '=', 'averiguacion_previa.ID_Averiguacion')
-                ->where('Detenido', $Operador_Detenido, $this->Busqueda['$ID_Detenido'])
-                ->where('ID_Agencia', $Operador_Agencia, $this->Busqueda['$ID_Agencia'])
+                ->where('Detenido', $Operador_Detenido, $this->Busqueda['ID_Detenido'])
+                ->where('ID_Agencia', $Operador_Agencia, $this->Busqueda['ID_Agencia'])
                 ->Where('Averiguacion', 'like', '%' . $this->Busqueda['Averiguacion'] . '%')
                 ->Where('Estatus', 1)
                 ->paginate();
         }
         return Consignacion::select('ID_Consignacion', 'ID_Agencia', 'Averiguacion', 'ID_Juzgado', 'Detenido')
             ->join('averiguacion_previa', 'consignacion.ID_Averiguacion', '=', 'averiguacion_previa.ID_Averiguacion')
-            ->where('Detenido', $Operador_Detenido, $this->Busqueda['$ID_Detenido'])
-            ->where('ID_Agencia', $Operador_Agencia, $this->Busqueda['$ID_Agencia'])
+            ->where('Detenido', $Operador_Detenido, $this->Busqueda['ID_Detenido'])
+            ->where('ID_Agencia', $Operador_Agencia, $this->Busqueda['ID_Agencia'])
             ->Where('Averiguacion', 'like', '%' . $this->Busqueda['Averiguacion'] . '%')
             ->Where('Estatus', 1)
             ->get();
