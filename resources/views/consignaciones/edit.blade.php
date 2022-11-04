@@ -70,7 +70,7 @@
                                                     <div class="col-span-6 sm:col-span-2">
                                                         <label for="Reclusorio" class="block text-sm font-medium text-gray-700">Reclusorio</label>
                                                         <select id="Reclusorio" name="Reclusorio" autocomplete="reclusorio-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                                                            <option value="{{ $consignaciones['Reclusorio'] }}">{{ $consignaciones['Reclusorio'] }}</option>
+                                                            <option value="{{ $reclusoriosID[0]['ID_Reclusorio'] }}">{{ $consignaciones['Reclusorio'] }}</option>
                                                             @foreach ($reclusorios as $reclusorio)
                                                             <option value="{{ $reclusorio->ID_Reclusorio }}">{{ $reclusorio->Nombre }}</option>
                                                             @endforeach
@@ -111,6 +111,7 @@
                                                                     <th class="w-1/6 py-5">Apellido Materno</th>
                                                                     <th class="w-1/6 py-5">Tipo</th>
                                                                     <th class="w-1/6 py-5">Alias</th>
+                                                                    <th class="w-1/6 py-5">ID</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody class="text-center bg-white">
@@ -123,6 +124,9 @@
                                                                 @foreach ($consignaciones['Personas'] as $persona)
                                                                 <tr>
                                                                     <td class="py-2 border-b-2">
+                                                                        <input type="text" name="Persona{{ $i }}[]" value="{{ $persona['ID_Persona'] }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                                    </td>
+                                                                    <td class="py-2 border-b-2">
                                                                         <input type="text" name="Persona{{ $i }}[]" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ $persona['Nombre'] }}">
                                                                     </td>
                                                                         <td class="py-2 border-b-2">
@@ -133,7 +137,7 @@
                                                                         </td>
                                                                         <td class="py-2 border-b-2">
                                                                             <select id="{{ $persona['ID_Persona'] }}" name="Persona{{ $i }}[]" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                                                                                <option value="{{ $persona['Calidad'] }}">{{ $persona['Calidad'] }}</option>
+                                                                                <option value="{{ $persona['ID_Calidad'] }}">{{ $persona['Calidad'] }}</option>
                                                                                 {{-- <option value="">Seleccionar</option> --}}
                                                                                 @foreach ($tipoParticipante as $participante)
                                                                                 <option value="{{ $participante->ID_Calidad }}">{{ $participante->Calidad }}</option>

@@ -169,6 +169,8 @@ class phConsignacionesController extends Controller
         $agenciaID = Agencia::select('ID_Agencia')->where('Nombre', $consignaciones['Agencia'])->get();
         // return $agenciaID;
         $reclusorios = Reclusorio::select('Nombre', 'ID_Reclusorio')->get();
+        $reclusoriosID = Reclusorio::select('ID_Reclusorio')->where('Nombre', $consignaciones['Reclusorio'])->get();
+        // return $reclusoriosID;
         $juzgados = Juzgado::select('Nombre', 'ID_Juzgado')->get();
         $juzgadosID = Juzgado::select('ID_Juzgado')->where('Nombre', $consignaciones['Juzgado'])->get();
         $juzgadoAntecedente = Juzgado::select('ID_Juzgado')->where('Nombre', $consignaciones['Antecedente']['Juzgado'])->get();
@@ -177,7 +179,7 @@ class phConsignacionesController extends Controller
         $tipoParticipante = Calidad_Juridica::select('Calidad', 'ID_Calidad')->get();
         // $tipoParticipanteID = Calidad_Juridica::select('ID_Calidad')->where('Calidad', $consignaciones['Personas']['Calidad'])->get();
         // return $tipoParticipanteID;
-        return view('consignaciones.edit', compact('agencias', 'reclusorios', 'juzgados', 'delitos', 'tipoParticipante', 'consignaciones', 'consignacionId', 'juzgadosID', 'juzgadoAntecedente', 'agenciaID'));
+        return view('consignaciones.edit', compact('agencias', 'reclusorios', 'juzgados', 'delitos', 'tipoParticipante', 'consignaciones', 'consignacionId', 'juzgadosID', 'juzgadoAntecedente', 'agenciaID', 'reclusoriosID'));
     }
     
     public function update(Request $request, $consignacionId)
@@ -225,15 +227,18 @@ class phConsignacionesController extends Controller
         // Función que construye el arreglo de personas
         $personas = array();
         foreach ($personasRequest as $persona) {
+            // return $persona;
             $aux = array(
-                'Nombre' => $persona[0],
-                'Ap_Paterno' => $persona[1],
-                'Ap_Materno' => $persona[2],
-                'Calidad' => $persona[3],
-                'Alias' => $persona[4],
+                'ID_Persona' => intval($persona[0]),
+                'Nombre' => $persona[1],
+                'Ap_Paterno' => $persona[2],
+                'Ap_Materno' => $persona[3],
+                'Calidad' => intval($persona[4]),
+                'Alias' => array($persona[5]),
             );
             array_push($personas,$aux);
 }
+
 // Recuperación del arreglo Antecedente
 $antecedenteRequest = $request->only('Antecedente');
 // Función que construye el arreglo antecedentes
@@ -247,7 +252,7 @@ foreach ($antecedenteRequest as $antecedente) {
 // Ajuste de datos
 $antecedente['Detenido'] = $antecedente['Detenido'] == 'No'?  2: 1;
 
-
+$request->Detenido = $request->Detenido == 'No' ? 2: 1;
 
 
 // Construcción del arreglo
@@ -258,7 +263,7 @@ $antecedente['Detenido'] = $antecedente['Detenido'] == 'No'?  2: 1;
             'Av_Previa' => $request->Av_Previa,
             'Detenido' => $request->Detenido,
             'Juzgado' => intval($request->Juzgado),
-            'Reclusorio' => $request->Reclusorio,
+            'Reclusorio' => intval($request->Reclusorio),
             'Antecedente' => $antecedente,
             'Personas' => $personas,
             'Delitos' =>  array(intval($request->Delitos)),
@@ -271,15 +276,15 @@ $antecedente['Detenido'] = $antecedente['Detenido'] == 'No'?  2: 1;
             'Nota' => $request->Nota,
         );
 
-        return $datos;
+        // return $datos;
+        // return $request;
 
         $consignacion = new ConsignacionController;
         $consignacion->update($datos, $consignacionId);
-        // return to_route('dashboard');
+        return to_route('dashboard');
 
         // return print_r($nombres);
             // return $personas;
-        // return $request;
         // return $consignacionId;
 
     }
