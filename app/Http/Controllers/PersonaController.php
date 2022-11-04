@@ -68,11 +68,12 @@ class PersonaController extends Controller
     {
         $i = 0;
         $BusquedaPersona = Persona::find($id);
-        $Calidad = $BusquedaPersona->Calidad()->select('Calidad')->get();
+        $Calidad = $BusquedaPersona->Calidad()->select('ID_Calidad','Calidad')->get();
         $Persona["ID_Persona"] = $BusquedaPersona->ID_Persona;
         $Persona["Nombre"] = $BusquedaPersona->Nombre;
         $Persona["Ap_Paterno"] = $BusquedaPersona->Ap_Paterno;
         $Persona["Ap_Materno"] = $BusquedaPersona->Ap_Materno;
+        $Persona["ID_Calidad"] = $Calidad[0]["ID_Calidad"];
         $Persona["Calidad"] = $Calidad[0]["Calidad"];
         $ConjuntoAlias = $BusquedaPersona->Alias;
         foreach ($ConjuntoAlias as $Auxiliar_Alias) {
