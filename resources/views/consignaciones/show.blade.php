@@ -36,11 +36,11 @@
 
                         {{-- ELEMENTO Seccion --}}
                         <div class="flex flex-col justify-end  my-10">
-                            <p class="self-end h-3 pr-5 text-xl font-bold text-cyan-700">Datos Generales</p>
+                            <p class="self-center md:self-end h-3 pr-5 text-xl font-bold text-cyan-700">Datos Generales</p>
                             <hr class="self-end w-11/12 my-5 mr-2 border-cyan-800">
                         </div>
                         {{-- DATOS Generales --}}
-                        <div class="columns-2">
+                        <div class="columns-1 md:columns-2">
                             <div class="w-11/12 ml-5">
                                 <p class="py-3 font-bold text-cyan-500">Averiguación Previa</p>
                                 <p class="py-3 pl-5 bg-white rounded">{{ $consignaciones['Av_Previa'] }}</p>
@@ -60,7 +60,7 @@
                         </div>
                         {{-- ELEMENTO Seccion --}}
                         <div class="flex flex-col justify-end  my-10">
-                            <p class="self-end h-3 pr-5 mt-5 text-xl font-bold text-cyan-700">Participantes</p>
+                            <p class="self-center md:self-end h-3 pr-5 mt-5 text-xl font-bold text-cyan-700">Participantes</p>
                             <hr class="self-end w-11/12 my-5 mr-2 border-cyan-800">
                         </div>
 
@@ -95,7 +95,7 @@
 
                             {{-- ELEMENTO Seccion --}}
                             <div class="flex flex-col justify-end my-10">
-                                <p class="self-end h-3 pr-5 mt-5 text-xl font-bold text-cyan-700">Delitos</p>
+                                <p class="self-center md:self-end h-3 pr-5 mt-5 text-xl font-bold text-cyan-700">Delitos</p>
                                 <hr class="self-end w-11/12 my-5 mr-2 border-cyan-800">
                             </div>
 
@@ -133,13 +133,13 @@
 
                         {{-- ELEMENTO Seccion --}}
                         <div class="flex flex-col justify-end  my-10">
-                            <p class="self-end h-3 pr-5 mt-5 text-xl font-bold text-cyan-700">Antecedentes</p>
+                            <p class="self-center md:self-end h-3 pr-5 mt-5 text-xl font-bold text-cyan-700">Antecedentes</p>
                             <hr class="self-end w-11/12 my-5 mr-2 border-cyan-800">
                         </div>
                         {{-- ELEMENTO Antecedente  --}}
                         @if (!empty($consignaciones['Antecedente']))
                         <div class="flex justify-center w-full px-5">
-                            <div class="w-2/4 ml-10 ">
+                            <div class="w-full md:w-2/4 ml-10 ">
                                 <div class="flex w-12/12 py-1">
                                     <p class="w-2/5 py-1 text-xl font-bold text-cyan-400">Fecha</p>
                                     <p class="w-3/5 py-1 pl-5 bg-white rounded">{{ $consignaciones['Antecedente']['Fecha'] }}</p>
@@ -168,12 +168,12 @@
 
                         {{-- ELEMENTO Seccion --}}
                         <div class="flex flex-col justify-end  my-10">
-                            <p class="self-end h-3 pr-5 mt-5 text-xl font-bold text-cyan-700">Datos adicionales</p>
+                            <p class="self-center md:self-end h-3 pr-5 mt-5 text-xl font-bold text-cyan-700">Datos adicionales</p>
                             <hr class="self-end w-11/12 my-5 mr-2 border-cyan-800">
                         </div>
 
                         {{-- DATOS Adicionales --}}
-                        <div class="columns-2">
+                        <div class="columns-1 md:columns-2">
                             <div class="w-11/12 ml-5">
                                 <p class="py-3 font-bold text-cyan-500">Hora recibo</p>
                                 <p class="flex py-3 pl-5 bg-white rounded"><img src="img/reloj.svg" alt="" class="mr-2">{{ $consignaciones['Hora_Recibo'] }}</p>

@@ -21,14 +21,14 @@
                                     class="flex-1 block w-full px-3 py-2 mt-1 mr-4 bg-white border border-none rounded-md shadow-sm apparence-none focus:outline-none focus:border-sky-500 focus:ring-sky-500 sm:text-sm focus:ring-1"
                                     placeholder="Ingrese número de averiguación"
                                     >
-                                    <input type="submit" value="Buscar" class="p-2 text-white rounded mt-4 bg-cyan-600">
+                                    <input type="submit" value="Buscar" class="p-2 text-white rounded mt-4 bg-cyan-600 w-full md:w-1/3 font-medium text-base leading-tight shadow-md hover:bg-cyan-700 hover:shadow-lg focus:bg-cyan-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-cyan-800 active:shadow-lg transition duration-150 ease-in-out text-center">
                             </form>
                         </div>
                     </div>
                 </div>
                 {{-- ELEMENTO Botón --}}
-                <div class="flex justify-end mr-3">
-                    <a href="{{ route('crear') }}" class="px-10 w-1/5 py-2.5 bg-cyan-600 text-white font-medium text-lg leading-tight uppercase rounded shadow-md hover:bg-cyan-700 hover:shadow-lg focus:bg-cyan-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-cyan-800 active:shadow-lg transition duration-150 ease-in-out text-center">Crear registro</a>
+                <div class="flex justify-center md:justify-end mr-3">
+                    <a href="{{ route('crear') }}" class="w-4/5 md:w-2/5 py-2.5 bg-cyan-600 text-white font-medium text-base leading-tight rounded shadow-md hover:bg-cyan-700 hover:shadow-lg focus:bg-cyan-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-cyan-800 active:shadow-lg transition duration-150 ease-in-out text-center">Crear registro</a>
                 </div>
                 {{-- ELEMENTO Tabla --}}
                 <div class="w-full px-5 py-3">
