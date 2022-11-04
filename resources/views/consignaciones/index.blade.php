@@ -59,7 +59,7 @@
                                             <a  href="{{ route('mostrar', $consignacion) }}"><img src="img/show.svg" alt=""></a>
                                         </div>
                                         <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                                            <a><img src="img/edit.svg" alt=""></a>
+                                            <a href="{{ route('editar', $consignacion) }}"><img src="img/edit.svg" alt=""></a>
                                         </div>
                                         <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                             <form action="{{ route('consignaciones.destroy', $consignacion) }}" method="POST">
@@ -68,7 +68,7 @@
                                                 <input type="submit" value="x" class="px-2 text-white bg-gray-800 rounded " onclick="return confirm('¿Desea eliminar el registro?')">
                                             </form>
                                         </div>
-                                    </div> 
+                                    </div>
                                 </td>
                             </tr>
                             @endforeach

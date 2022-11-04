@@ -78,18 +78,18 @@
                                 </thead>
                                 <tbody class="text-center bg-white">
                                     @foreach ($consignaciones['Personas'] as $persona)
-                                    <tr>
-                                        <td class="py-2 border-b-2"> {{ $persona['Nombre'] }} </td>
-                                        <td class="py-2 border-b-2"> {{ $persona['Ap_Paterno'] }} </td>
-                                        <td class="py-2 border-b-2"> {{ $persona['Ap_Materno'] }} </td>
-                                        <td class="py-2 border-b-2"> {{ $persona['Calidad'] }} </td>
-                                        <td class="py-2 border-b-2">
-                                            @foreach ( $persona['Alias'] as $alias)
-                                            {{ $alias }}
-                                            @endforeach
-                                        </td>
-                                        @endforeach
-                                    </tr>
+                                        <tr>
+                                            <td class="py-2 border-b-2"> {{ $persona['Nombre'] }} </td>
+                                            <td class="py-2 border-b-2"> {{ $persona['Ap_Paterno'] }} </td>
+                                            <td class="py-2 border-b-2"> {{ $persona['Ap_Materno'] }} </td>
+                                            <td class="py-2 border-b-2"> {{ $persona['Calidad'] }} </td>
+                                            <td class="py-2 border-b-2">
+                                                @foreach ( $persona['Alias'] as $alias)
+                                                {{ $alias }}
+                                                @endforeach
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
 
