@@ -20,14 +20,14 @@ class phConsignacionesController extends Controller
 {
     public function index(Request $request)
     {
+        $consignacion = new ConsignacionController;
         if ($request->averiguacion === NULL) {
             $Averiguacion = '';
         }
         else {
-            $Averiguacion = $request->averiguacion;
+            $consignacion->Busqueda['Averiguacion'] = $request->averiguacion;
         }
-        $consignacion = new ConsignacionController;
-        $consignaciones = $consignacion->index($Averiguacion);
+        $consignaciones = $consignacion->index();
         return view('consignaciones.index', compact('consignaciones'));
 
     }
@@ -163,33 +163,43 @@ class phConsignacionesController extends Controller
         $consignacion = new ConsignacionController;
         $consignaciones = $consignacion->show($consignacionId);
 
+        // return $consignaciones;
+        
         $agencias = Agencia::select('Nombre', 'ID_Agencia')->get();
+        $agenciaID = Agencia::select('ID_Agencia')->where('Nombre', $consignaciones['Agencia'])->get();
+        // return $agenciaID;
         $reclusorios = Reclusorio::select('Nombre', 'ID_Reclusorio')->get();
         $juzgados = Juzgado::select('Nombre', 'ID_Juzgado')->get();
+        $juzgadosID = Juzgado::select('ID_Juzgado')->where('Nombre', $consignaciones['Juzgado'])->get();
+        $juzgadoAntecedente = Juzgado::select('ID_Juzgado')->where('Nombre', $consignaciones['Antecedente']['Juzgado'])->get();
+        // return $juzgadoAntecedente;
         $delitos = Delito::select('Nombre', 'ID_Delito')->get();
         $tipoParticipante = Calidad_Juridica::select('Calidad', 'ID_Calidad')->get();
-        return view('consignaciones.edit', compact('agencias', 'reclusorios', 'juzgados', 'delitos', 'tipoParticipante', 'consignaciones', 'consignacionId'));
+        // $tipoParticipanteID = Calidad_Juridica::select('ID_Calidad')->where('Calidad', $consignaciones['Personas']['Calidad'])->get();
+        // return $tipoParticipanteID;
+        return view('consignaciones.edit', compact('agencias', 'reclusorios', 'juzgados', 'delitos', 'tipoParticipante', 'consignaciones', 'consignacionId', 'juzgadosID', 'juzgadoAntecedente', 'agenciaID'));
     }
-
-    public function update(Request $request, $consignacionId){
+    
+    public function update(Request $request, $consignacionId)
+    {
         // VALIDACION DE ENTRADAS
         // $request->validate([
-        //     //VALIDACION Datos generales
-        //     'Reclusorio' => 'required',
-        //     'Av_Previa'  => 'required',
-        //     'Detenido'   => 'required',
-        //     'Juzgado'    => 'required',
-        //     'Agencia'    => 'required',
-        //     'Fecha'      => 'required',
-        //     'Fojas'      => 'required',
-        //     //VALIDACION Personas
-        //     'Ap_Paterno0' => 'required',
-        //     'Ap_Materno0' => 'required',
-        //     'Calidad0'    => 'required',
-        //     'Nombre0'     => 'required',
-        //     'Alias0'      => 'required',
-        //     'Ap_Paterno1' => 'required',
-        //     'Ap_Materno1' => 'required',
+            //     //VALIDACION Datos generales
+            //     'Reclusorio' => 'required',
+            //     'Av_Previa'  => 'required',
+            //     'Detenido'   => 'required',
+            //     'Juzgado'    => 'required',
+            //     'Agencia'    => 'required',
+            //     'Fecha'      => 'required',
+            //     'Fojas'      => 'required',
+            //     //VALIDACION Personas
+            //     'Ap_Paterno0' => 'required',
+            //     'Ap_Materno0' => 'required',
+            //     'Calidad0'    => 'required',
+            //     'Nombre0'     => 'required',
+            //     'Alias0'      => 'required',
+            //     'Ap_Paterno1' => 'required',
+            //     'Ap_Materno1' => 'required',
         //     'Calidad1'    => 'required',
         //     'Nombre1'     => 'required',
         //     'Alias1'      => 'required',
@@ -208,43 +218,48 @@ class phConsignacionesController extends Controller
         //     'Hora_Salida'   => 'required',
         //     'Nota'          => 'required',
         // ]);
-// Construcción del arreglo de actualización
-
-// Recuperación de personas
-$personasRequest= $request->except('Fecha', '_method','_token', 'Av_Previa', 'Detenido', 'Agencia', 'Reclusorio', 'Juzgado', 'Fojas', 'Delitos', 'Detenido_Ant', 'Juzgado_Ant', 'Fecha_Ant', 'Hora_Recibo', 'Hora_Entrega', 'Hora_Salida', 'Hora_Regreso', 'Hora_Llegada', 'Fecha_Entrega', 'Nota', 'Antecedente', 'contador');
-// Función que construye el arreglo de personas
-$personas = array();
-foreach ($personasRequest as $persona) {
-    $aux = array(
-        'Nombre' => $persona[0],
-        'Ap_Paterno' => $persona[1],
-        'Ap_Materno' => $persona[2],
-        'Calidad' => $persona[3],
-        'Alias' => $persona[4],
-    );
-    array_push($personas,$aux);
+        // Construcción del arreglo de actualización
+        
+        // Recuperación de personas
+        $personasRequest= $request->except('Fecha', '_method','_token', 'Av_Previa', 'Detenido', 'Agencia', 'Reclusorio', 'Juzgado', 'Fojas', 'Delitos', 'Detenido_Ant', 'Juzgado_Ant', 'Fecha_Ant', 'Hora_Recibo', 'Hora_Entrega', 'Hora_Salida', 'Hora_Regreso', 'Hora_Llegada', 'Fecha_Entrega', 'Nota', 'Antecedente', 'contador');
+        // Función que construye el arreglo de personas
+        $personas = array();
+        foreach ($personasRequest as $persona) {
+            $aux = array(
+                'Nombre' => $persona[0],
+                'Ap_Paterno' => $persona[1],
+                'Ap_Materno' => $persona[2],
+                'Calidad' => $persona[3],
+                'Alias' => $persona[4],
+            );
+            array_push($personas,$aux);
 }
 // Recuperación del arreglo Antecedente
 $antecedenteRequest = $request->only('Antecedente');
 // Función que construye el arreglo antecedentes
 foreach ($antecedenteRequest as $antecedente) {
-    $array = array(
+    $antecedente = array(
     'Detenido' => $antecedente[0],
-    'Juzgado' => $antecedente[1],
+    'Juzgado' => intval($antecedente[1]),
     'Fecha' => $antecedente[2]
-    );
+);
 }
+// Ajuste de datos
+$antecedente['Detenido'] = $antecedente['Detenido'] == 'No'?  2: 1;
+
+
+
 
 // Construcción del arreglo
         $datos = array(
             'Fecha' => $request->Fecha,
-            'Agencia' => $request->Agencia,
+            'Agencia' => intval($request->Agencia),
             'Fojas' => $request->Fojas,
             'Av_Previa' => $request->Av_Previa,
             'Detenido' => $request->Detenido,
-            'Juzgado' => $request->Juzgado,
+            'Juzgado' => intval($request->Juzgado),
             'Reclusorio' => $request->Reclusorio,
-            'Antecedente' => $array,
+            'Antecedente' => $antecedente,
             'Personas' => $personas,
             'Delitos' =>  array(intval($request->Delitos)),
             'Hora_Recibo' => $request->Hora_Recibo,
@@ -256,11 +271,12 @@ foreach ($antecedenteRequest as $antecedente) {
             'Nota' => $request->Nota,
         );
 
+        return $datos;
 
-        // $consignacion = new ConsignacionController;
-        // $consignacion->update()
+        $consignacion = new ConsignacionController;
+        $consignacion->update($datos, $consignacionId);
+        // return to_route('dashboard');
 
-        // return $datos;
         // return print_r($nombres);
             // return $personas;
         // return $request;

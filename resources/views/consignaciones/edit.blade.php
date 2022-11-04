@@ -1,4 +1,4 @@
-{{-- @dd($consignacionId) --}}
+{{-- @dd($consignaciones) --}}
 <!-- TODO: Se tiene que trabajar con el arreglo -->
 <x-app-layout>
     <x-slot name="header">
@@ -53,7 +53,7 @@
                                                     <div class="col-span-6 sm:col-span-2">
                                                         <label for="Agencia" class="block text-sm font-medium text-gray-700">Agencia</label>
                                                         <select id="Agencia" name="Agencia" autocomplete="Agencia-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                                                            <option value="{{ $consignaciones['Agencia'] }}">{{ $consignaciones['Agencia'] }}</option>
+                                                            <option value="{{ $agenciaID[0]['ID_Agencia'] }}">{{ $consignaciones['Agencia'] }}</option>
                                                             @foreach ($agencias as $agencia)
                                                             <option value="{{ $agencia->ID_Agencia }}">{{ $agencia->Nombre }}</option>
                                                             @endforeach
@@ -81,7 +81,7 @@
                                                     <div class="col-span-6 sm:col-span-2">
                                                         <label for="Juzgado" class="block text-sm font-medium text-gray-700">Juzgado</label>
                                                         <select id="Juzgado" name="Juzgado" autocomplete="juzgado-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                                                            <option value="{{ $consignaciones['Juzgado'] }}">{{ $consignaciones['Juzgado'] }}</option>
+                                                            <option value="{{ $juzgadosID[0]['ID_Juzgado'] }}">{{ $consignaciones['Juzgado'] }}</option>
                                                             @foreach ($juzgados as $juzgado)
                                                             <option value="{{ $juzgado->ID_Juzgado }}">{{ $juzgado->Nombre }}</option>
                                                             @endforeach
@@ -208,7 +208,7 @@
                                                     <div class="col-span-6 sm:col-span-2">
                                                         <label for="Juzgado_Ant" class="block text-sm font-medium text-gray-700">Juzgado</label>
                                                         <select id="Juzgado_Ant" name="Antecedente[]" autocomplete="agencia-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                                                            <option value="{{ $consignaciones['Antecedente']['Juzgado'] }}">{{ $consignaciones['Antecedente']['Juzgado'] }}</option>
+                                                            <option value="{{ $juzgadoAntecedente[0]['ID_Juzgado'] }}">{{ $consignaciones['Antecedente']['Juzgado'] }}</option>
                                                             @foreach ($juzgados as $juzgar)
                                                             <option value="{{ $juzgar->ID_Juzgado }}">{{ $juzgar->Nombre }}</option>
                                                             @endforeach
