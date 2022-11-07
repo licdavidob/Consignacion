@@ -167,7 +167,7 @@
                                                             <table class="w-10/12 bg-cyan-900">
                                                                 <thead class="text-white">
                                                                     <tr class="">
-                                                                        <th class="w-1/2 py-5">Nombre</th>
+                                                                        <th class="w-1/2 py-5">Delitos</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody class="text-center bg-white">
@@ -198,32 +198,61 @@
 
                                                     {{-- INFORMACION antecedentes --}}
                                                     {{-- Con detenido --}}
-                                                    <div class="col-span-6 sm:col-span-2">
-                                                        <label for="Detenido_Ant" class="block text-sm font-medium text-gray-700">Con detenido</label>
-                                                        <select id="Detenido_Ant" name="Antecedente[]" autocomplete="con_detenido_Ant-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                                                            <option value="{{ $consignaciones['Antecedente']['Con Detenido'] }}">{{ $consignaciones['Antecedente']['Con Detenido'] }}</option>
-                                                            <option value="1">Si</option>
-                                                            <option value="0">No</option>
-                                                        </select>
-                                                        <span class=" text-xs text-red-600">@error('Detenido_Ant') {{ $message }} @enderror</span>
-                                                    </div>
-                                                    {{-- Juzgado --}}
-                                                    <div class="col-span-6 sm:col-span-2">
-                                                        <label for="Juzgado_Ant" class="block text-sm font-medium text-gray-700">Juzgado</label>
-                                                        <select id="Juzgado_Ant" name="Antecedente[]" autocomplete="agencia-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                                                            <option value="{{ $juzgadoAntecedente[0]['ID_Juzgado'] }}">{{ $consignaciones['Antecedente']['Juzgado'] }}</option>
-                                                            @foreach ($juzgados as $juzgar)
-                                                            <option value="{{ $juzgar->ID_Juzgado }}">{{ $juzgar->Nombre }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        <span class=" text-xs text-red-600">@error('Juzgado_Ant') {{ $message }} @enderror</span>
-                                                    </div>
-                                                    {{-- Fecha --}}
-                                                    <div class="col-span-6 sm:col-span-2">
-                                                        <label for="Fecha_Ant" class="block text-sm font-medium text-gray-700">Fecha</label>
-                                                        <input type="date" name="Antecedente[]" id="Fecha_Ant" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ $consignaciones['Antecedente']['Fecha'] }}">
-                                                        <span class=" text-xs text-red-600">@error('Fecha_Ant') {{ $message }} @enderror</span>
-                                                    </div>
+                                                    @if (!empty($consignaciones['Antecedente']))
+                                                        <div class="col-span-6 sm:col-span-2">
+                                                            <label for="Detenido_Ant" class="block text-sm font-medium text-gray-700">Con detenido</label>
+                                                            <select id="Detenido_Ant" name="Antecedente[]" autocomplete="con_detenido_Ant-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                                                <option value="{{ $consignaciones['Antecedente']['Con Detenido'] }}">{{ $consignaciones['Antecedente']['Con Detenido'] }}</option>
+                                                                <option value="1">Si</option>
+                                                                <option value="0">No</option>
+                                                            </select>
+                                                            <span class=" text-xs text-red-600">@error('Detenido_Ant') {{ $message }} @enderror</span>
+                                                        </div>
+                                                        {{-- Juzgado --}}
+                                                        <div class="col-span-6 sm:col-span-2">
+                                                            <label for="Juzgado_Ant" class="block text-sm font-medium text-gray-700">Juzgado</label>
+                                                            <select id="Juzgado_Ant" name="Antecedente[]" autocomplete="agencia-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                                                <option value="{{ $juzgadoAntecedente[0]['ID_Juzgado'] }}">{{ $consignaciones['Antecedente']['Juzgado'] }}</option>
+                                                                @foreach ($juzgados as $juzgar)
+                                                                <option value="{{ $juzgar->ID_Juzgado }}">{{ $juzgar->Nombre }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            <span class=" text-xs text-red-600">@error('Juzgado_Ant') {{ $message }} @enderror</span>
+                                                        </div>
+                                                        {{-- Fecha --}}
+                                                        <div class="col-span-6 sm:col-span-2">
+                                                            <label for="Fecha_Ant" class="block text-sm font-medium text-gray-700">Fecha</label>
+                                                            <input type="date" name="Antecedente[]" id="Fecha_Ant" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ $consignaciones['Antecedente']['Fecha'] }}">
+                                                            <span class=" text-xs text-red-600">@error('Fecha_Ant') {{ $message }} @enderror</span>
+                                                        </div>
+                                                        @else
+                                                        <div class="col-span-6 sm:col-span-2">
+                                                            <label for="Detenido_Ant" class="block text-sm font-medium text-gray-700">Con detenido</label>
+                                                            <select id="Detenido_Ant" name="Antecedente[]" autocomplete="con_detenido_Ant-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                                                <option value="">Seleccione</option>
+                                                                <option value="1">Si</option>
+                                                                <option value="0">No</option>
+                                                            </select>
+                                                            <span class=" text-xs text-red-600">@error('Detenido_Ant') {{ $message }} @enderror</span>
+                                                        </div>
+                                                        {{-- Juzgado --}}
+                                                        <div class="col-span-6 sm:col-span-2">
+                                                            <label for="Juzgado_Ant" class="block text-sm font-medium text-gray-700">Juzgado</label>
+                                                            <select id="Juzgado_Ant" name="Antecedente[]" autocomplete="agencia-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                                                <option value="">Seleccione</option>
+                                                                @foreach ($juzgados as $juzgar)
+                                                                <option value="{{ $juzgar->ID_Juzgado }}">{{ $juzgar->Nombre }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            <span class=" text-xs text-red-600">@error('Juzgado_Ant') {{ $message }} @enderror</span>
+                                                        </div>
+                                                        {{-- Fecha --}}
+                                                        <div class="col-span-6 sm:col-span-2">
+                                                            <label for="Fecha_Ant" class="block text-sm font-medium text-gray-700">Fecha</label>
+                                                            <input type="date" name="Antecedente[]" id="Fecha_Ant" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="">
+                                                            <span class=" text-xs text-red-600">@error('Fecha_Ant') {{ $message }} @enderror</span>
+                                                        </div>
+                                                    @endif
 
                                                     {{-- ELEMENTO Seccion --}}
                                                     <div class="flex flex-col justify-end my-10 col-span-6">

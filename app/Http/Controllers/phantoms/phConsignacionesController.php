@@ -101,9 +101,9 @@ class phConsignacionesController extends Controller
             //VALIDACION Delitos
             'Delitos'      => 'required',
             //VALIDACION Antecedentes
-            'Detenido_Ant' => 'required',
-            'Juzgado_Ant'  => 'required',
-            'Fecha_Ant'    => 'required',
+            // 'Detenido_Ant' => 'required',
+            // 'Juzgado_Ant'  => 'required',
+            // 'Fecha_Ant'    => 'required',
             // VALIDACION Datos adicionales
             'Fecha_Entrega' => 'required',
             'Hora_Entrega'  => 'required',
@@ -114,44 +114,85 @@ class phConsignacionesController extends Controller
             'Nota'          => 'required',
         ]);
         // CONSTRUCCIÓN de la consignación
-        $datos = array(
-            'Fecha' => $request->Fecha,
-            'Agencia' => $request->Agencia,
-            'Fojas' => $request->Fojas,
-            'Av_Previa' => $request->Av_Previa,
-            'Detenido' => $request->Detenido,
-            'Juzgado' => $request->Juzgado,
-            'Reclusorio' => $request->Reclusorio,
-            'Antecedente' => array(
-                'Juzgado' => $request->Juzgado_Ant,
-                'Fecha' => $request->Fecha_Ant,
-                'Detenido' => $request->Detenido_Ant,
-            ),
-            // TODO: Hacer la modificación de forma dinámica y no nombres específicos
-            'Personas' => array(
-                [
-                "Nombre" => $request->Nombre0,
-                "Ap_Paterno" => $request->Ap_Paterno0,
-                "Ap_Materno" => $request->Ap_Materno0,
-                "Calidad" => $request->Calidad0,
-                "Alias" => array($request->Alias0)
-                ],
-                [
-                    "Nombre" => $request->Nombre1,
-                    "Ap_Paterno" => $request->Ap_Paterno1,
-                    "Ap_Materno" => $request->Ap_Materno1,
-                    "Calidad" => $request->Calidad1,
-                    "Alias" => array($request->Alias1)
-                ],),
-            'Delitos' =>  array(intval($request->Delitos)),
-            'Hora_Recibo' => $request->Hora_Recibo,
-            'Hora_Entrega' => $request->Hora_Entrega,
-            'Hora_Salida' => $request->Hora_Salida,
-            'Hora_Regreso' => $request->Hora_Regreso,
-            'Hora_Llegada' => $request->Hora_Llegada,
-            'Fecha_Entrega' => $request->Fecha_Entrega,
-            'Nota' => $request->Nota,
-        );
+
+        if ($request->Detenido_Ant===null || $request->Juzgado_Ant===null || $request->Fecha_Ant===null) {
+            $datos = array(
+                'Fecha' => $request->Fecha,
+                'Agencia' => $request->Agencia,
+                'Fojas' => $request->Fojas,
+                'Av_Previa' => $request->Av_Previa,
+                'Detenido' => $request->Detenido,
+                'Juzgado' => $request->Juzgado,
+                'Reclusorio' => $request->Reclusorio,
+                'Antecedente' => array(
+                ),
+                // TODO: Hacer la modificación de forma dinámica y no nombres específicos
+                'Personas' => array(
+                    [
+                    "Nombre" => $request->Nombre0,
+                    "Ap_Paterno" => $request->Ap_Paterno0,
+                    "Ap_Materno" => $request->Ap_Materno0,
+                    "Calidad" => $request->Calidad0,
+                    "Alias" => array($request->Alias0)
+                    ],
+                    [
+                        "Nombre" => $request->Nombre1,
+                        "Ap_Paterno" => $request->Ap_Paterno1,
+                        "Ap_Materno" => $request->Ap_Materno1,
+                        "Calidad" => $request->Calidad1,
+                        "Alias" => array($request->Alias1)
+                    ],),
+                'Delitos' =>  array(intval($request->Delitos)),
+                'Hora_Recibo' => $request->Hora_Recibo,
+                'Hora_Entrega' => $request->Hora_Entrega,
+                'Hora_Salida' => $request->Hora_Salida,
+                'Hora_Regreso' => $request->Hora_Regreso,
+                'Hora_Llegada' => $request->Hora_Llegada,
+                'Fecha_Entrega' => $request->Fecha_Entrega,
+                'Nota' => $request->Nota,
+            );
+        }
+        else {
+            $datos = array(
+                'Fecha' => $request->Fecha,
+                'Agencia' => $request->Agencia,
+                'Fojas' => $request->Fojas,
+                'Av_Previa' => $request->Av_Previa,
+                'Detenido' => $request->Detenido,
+                'Juzgado' => $request->Juzgado,
+                'Reclusorio' => $request->Reclusorio,
+                'Antecedente' => array(
+                    'Juzgado' => $request->Juzgado_Ant,
+                    'Fecha' => $request->Fecha_Ant,
+                    'Detenido' => $request->Detenido_Ant,
+                ),
+                // TODO: Hacer la modificación de forma dinámica y no nombres específicos
+                'Personas' => array(
+                    [
+                    "Nombre" => $request->Nombre0,
+                    "Ap_Paterno" => $request->Ap_Paterno0,
+                    "Ap_Materno" => $request->Ap_Materno0,
+                    "Calidad" => $request->Calidad0,
+                    "Alias" => array($request->Alias0)
+                    ],
+                    [
+                        "Nombre" => $request->Nombre1,
+                        "Ap_Paterno" => $request->Ap_Paterno1,
+                        "Ap_Materno" => $request->Ap_Materno1,
+                        "Calidad" => $request->Calidad1,
+                        "Alias" => array($request->Alias1)
+                    ],),
+                'Delitos' =>  array(intval($request->Delitos)),
+                'Hora_Recibo' => $request->Hora_Recibo,
+                'Hora_Entrega' => $request->Hora_Entrega,
+                'Hora_Salida' => $request->Hora_Salida,
+                'Hora_Regreso' => $request->Hora_Regreso,
+                'Hora_Llegada' => $request->Hora_Llegada,
+                'Fecha_Entrega' => $request->Fecha_Entrega,
+                'Nota' => $request->Nota,
+            );
+        }
+
         // Envío de datos al controlador de consignaciones
         $consignacion = new ConsignacionController;
         $consignacion->store($datos);
@@ -171,7 +212,6 @@ class phConsignacionesController extends Controller
         $consignaciones = $consignacion->show($consignacionId);
         // Recuperamos los datos de los modelos para la vista de los catálogos
         // Agencias
-        // return $consignaciones;
         $agencias = Agencia::select('Nombre', 'ID_Agencia')->get();
         $agenciaID = Agencia::select('ID_Agencia')->where('Nombre', $consignaciones['Agencia'])->get();
         // Reclusorios
@@ -180,12 +220,16 @@ class phConsignacionesController extends Controller
         // Juzgados
         $juzgados = Juzgado::select('Nombre', 'ID_Juzgado')->get();
         $juzgadosID = Juzgado::select('ID_Juzgado')->where('Nombre', $consignaciones['Juzgado'])->get();
-        $juzgadoAntecedente = Juzgado::select('ID_Juzgado')->where('Nombre', $consignaciones['Antecedente']['Juzgado'])->get();
-        // Delitos
         $delitos = Delito::select('Nombre', 'ID_Delito')->get();
-        // Calidad de participante
         $tipoParticipante = Calidad_Juridica::select('Calidad', 'ID_Calidad')->get();
-        return view('consignaciones.edit', compact('agencias', 'reclusorios', 'juzgados', 'delitos', 'tipoParticipante', 'consignaciones', 'consignacionId', 'juzgadosID', 'juzgadoAntecedente', 'agenciaID', 'reclusoriosID'));
+        if($consignaciones['Antecedente'])
+        {
+            $juzgadoAntecedente = Juzgado::select('ID_Juzgado')->where('Nombre', $consignaciones['Antecedente']['Juzgado'])->get();
+            return view('consignaciones.edit', compact('agencias', 'reclusorios', 'juzgados', 'delitos', 'tipoParticipante', 'consignaciones', 'consignacionId', 'juzgadosID', 'juzgadoAntecedente', 'agenciaID', 'reclusoriosID'));
+        }
+        return view('consignaciones.edit', compact('agencias', 'reclusorios', 'juzgados', 'delitos', 'tipoParticipante', 'consignaciones', 'consignacionId', 'juzgadosID', 'agenciaID', 'reclusoriosID'));
+        // Delitos
+        // Calidad de participante
     }
 
     /**
