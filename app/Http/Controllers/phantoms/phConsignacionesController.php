@@ -308,3 +308,4 @@ class phConsignacionesController extends Controller
     }
 
 }
+// TODO: Buscar sobre las variables de sesión para trabajar con búsquedas que queden almacenadas
