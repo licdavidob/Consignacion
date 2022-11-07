@@ -20,7 +20,6 @@
                             <div class="md:grid md:grid-cols-2 md:gap-6">
                                 <div class="mt-5 md:col-span-2 md:mt-0">
                                     <form action="{{ route('actualizar', $consignacionId) }}" method="POST">
-                                    {{-- <form method="POST"> --}}
                                         @method('PUT')
                                         @csrf
                                         <div class="overflow-hidden shadow sm:rounded-md">
@@ -106,12 +105,13 @@
                                                         <table class="w-full bg-cyan-900">
                                                             <thead class="text-white">
                                                                 <tr class="">
-                                                                    <th class="w-1/6 py-5">Nombre</th>
-                                                                    <th class="w-1/6 py-5">Apellido Paterno</th>
-                                                                    <th class="w-1/6 py-5">Apellido Materno</th>
-                                                                    <th class="w-1/6 py-5">Tipo</th>
-                                                                    <th class="w-1/6 py-5">Alias</th>
-                                                                    <th class="w-1/6 py-5">ID</th>
+                                                                    {{-- <th class="w-1/6 py-5">ID</th> --}}
+                                                                    <th class="w-1/11 py-5"></th>
+                                                                    <th class="w-1/5 py-5">Nombre</th>
+                                                                    <th class="w-1/5 py-5">Apellido Paterno</th>
+                                                                    <th class="w-1/5 py-5">Apellido Materno</th>
+                                                                    <th class="w-1/5 py-5">Tipo</th>
+                                                                    <th class="w-1/5 py-5">Alias</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody class="text-center bg-white">
@@ -124,7 +124,7 @@
                                                                 @foreach ($consignaciones['Personas'] as $persona)
                                                                 <tr>
                                                                     <td class="py-2 border-b-2">
-                                                                        <input type="text" name="Persona{{ $i }}[]" value="{{ $persona['ID_Persona'] }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                                        <input type="hidden" name="Persona{{ $i }}[]" value="{{ $persona['ID_Persona'] }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                                                     </td>
                                                                     <td class="py-2 border-b-2">
                                                                         <input type="text" name="Persona{{ $i }}[]" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ $persona['Nombre'] }}">
@@ -234,7 +234,6 @@
 
                                                     {{-- ELEMENTO fechas --}}
                                                     {{-- Hora recibo --}}
-                                                    {{-- @dd($consignaciones) --}}
                                                     <div class="col-span-6 sm:col-span-3">
                                                         <label for="Hora_Recibo" class="block text-sm font-medium text-gray-700">Hora recibo</label>
                                                         <input type="time" name="Hora_Recibo" id="Hora_Recibo" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ $consignaciones['Hora_Recibo'] }}">
