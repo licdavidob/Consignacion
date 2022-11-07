@@ -153,7 +153,7 @@
                                                             <table class="w-10/12 bg-cyan-900">
                                                                 <thead class="text-white">
                                                                     <tr class="">
-                                                                        <th class="w-1/2 py-5">Nombre</th>
+                                                                        <th class="w-1/2 py-5">Delitos</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody class="text-center bg-white">

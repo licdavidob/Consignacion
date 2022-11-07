@@ -78,41 +78,41 @@ class phConsignacionesController extends Controller
     public function store(Request $request)
     {
         // VALIDACION DE ENTRADAS
-        $request->validate([
-            //VALIDACION Datos generales
-            'Reclusorio' => 'required',
-            'Av_Previa'  => 'required',
-            'Detenido'   => 'required',
-            'Juzgado'    => 'required',
-            'Agencia'    => 'required',
-            'Fecha'      => 'required',
-            'Fojas'      => 'required',
-            //VALIDACION Personas
-            'Ap_Paterno0' => 'required',
-            'Ap_Materno0' => 'required',
-            'Calidad0'    => 'required',
-            'Nombre0'     => 'required',
-            'Alias0'      => 'required',
-            'Ap_Paterno1' => 'required',
-            'Ap_Materno1' => 'required',
-            'Calidad1'    => 'required',
-            'Nombre1'     => 'required',
-            'Alias1'      => 'required',
-            //VALIDACION Delitos
-            'Delitos'      => 'required',
-            //VALIDACION Antecedentes
-            'Detenido_Ant' => 'required',
-            'Juzgado_Ant'  => 'required',
-            'Fecha_Ant'    => 'required',
-            // VALIDACION Datos adicionales
-            'Fecha_Entrega' => 'required',
-            'Hora_Entrega'  => 'required',
-            'Hora_Llegada'  => 'required',
-            'Hora_Regreso'  => 'required',
-            'Hora_Recibo'   => 'required',
-            'Hora_Salida'   => 'required',
-            'Nota'          => 'required',
-        ]);
+        // $request->validate([
+        //     //VALIDACION Datos generales
+        //     'Reclusorio' => 'required',
+        //     'Av_Previa'  => 'required',
+        //     'Detenido'   => 'required',
+        //     'Juzgado'    => 'required',
+        //     'Agencia'    => 'required',
+        //     'Fecha'      => 'required',
+        //     'Fojas'      => 'required',
+        //     //VALIDACION Personas
+        //     'Ap_Paterno0' => 'required',
+        //     'Ap_Materno0' => 'required',
+        //     'Calidad0'    => 'required',
+        //     'Nombre0'     => 'required',
+        //     'Alias0'      => 'required',
+        //     'Ap_Paterno1' => 'required',
+        //     'Ap_Materno1' => 'required',
+        //     'Calidad1'    => 'required',
+        //     'Nombre1'     => 'required',
+        //     'Alias1'      => 'required',
+        //     //VALIDACION Delitos
+        //     'Delitos'      => 'required',
+        //     //VALIDACION Antecedentes
+        //     'Detenido_Ant' => 'required',
+        //     'Juzgado_Ant'  => 'required',
+        //     'Fecha_Ant'    => 'required',
+        //     // VALIDACION Datos adicionales
+        //     'Fecha_Entrega' => 'required',
+        //     'Hora_Entrega'  => 'required',
+        //     'Hora_Llegada'  => 'required',
+        //     'Hora_Regreso'  => 'required',
+        //     'Hora_Recibo'   => 'required',
+        //     'Hora_Salida'   => 'required',
+        //     'Nota'          => 'required',
+        // ]);
         // CONSTRUCCIÓN de la consignación
         $datos = array(
             'Fecha' => $request->Fecha,
@@ -166,13 +166,12 @@ class phConsignacionesController extends Controller
      */
     public function edit($consignacionId)
     {
-
         // Se llama al controlador consiginación y el método show
         $consignacion = new ConsignacionController;
         $consignaciones = $consignacion->show($consignacionId);
-
         // Recuperamos los datos de los modelos para la vista de los catálogos
         // Agencias
+        // return $consignaciones;
         $agencias = Agencia::select('Nombre', 'ID_Agencia')->get();
         $agenciaID = Agencia::select('ID_Agencia')->where('Nombre', $consignaciones['Agencia'])->get();
         // Reclusorios
@@ -288,6 +287,7 @@ class phConsignacionesController extends Controller
             'Nota' => $request->Nota,
             );
         // Llamando al controlador consignación y al método Update
+        // return $datos;
         $consignacion = new ConsignacionController;
         $consignacion->update($datos, $consignacionId);
         return to_route('dashboard');

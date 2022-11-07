@@ -175,7 +175,7 @@
                                                                         <td class="py-2 border-b-2"> 
                                                                             <select id="Delitos" name="Delitos[]" autocomplete="Delitos-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                                                                                 @if ($consignaciones['Delitos'])
-                                                                                <option value="{{ $consignaciones['Delitos'][0]['Nombre'] }}">{{ $consignaciones['Delitos'][0]['Nombre'] }}</option>
+                                                                                <option value="{{ $consignaciones['Delitos'][0]['ID_Delito'] }}">{{ $consignaciones['Delitos'][0]['Nombre'] }}</option>
                                                                                 @else
                                                                                 <option value="">Seleccionar</option>
                                                                                 @endif
