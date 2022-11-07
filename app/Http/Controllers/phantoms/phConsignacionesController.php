@@ -220,7 +220,9 @@ class phConsignacionesController extends Controller
         // Juzgados
         $juzgados = Juzgado::select('Nombre', 'ID_Juzgado')->get();
         $juzgadosID = Juzgado::select('ID_Juzgado')->where('Nombre', $consignaciones['Juzgado'])->get();
+        // Delitos
         $delitos = Delito::select('Nombre', 'ID_Delito')->get();
+        // Calidad de participante
         $tipoParticipante = Calidad_Juridica::select('Calidad', 'ID_Calidad')->get();
         if($consignaciones['Antecedente'])
         {
@@ -228,8 +230,6 @@ class phConsignacionesController extends Controller
             return view('consignaciones.edit', compact('agencias', 'reclusorios', 'juzgados', 'delitos', 'tipoParticipante', 'consignaciones', 'consignacionId', 'juzgadosID', 'juzgadoAntecedente', 'agenciaID', 'reclusoriosID'));
         }
         return view('consignaciones.edit', compact('agencias', 'reclusorios', 'juzgados', 'delitos', 'tipoParticipante', 'consignaciones', 'consignacionId', 'juzgadosID', 'agenciaID', 'reclusoriosID'));
-        // Delitos
-        // Calidad de participante
     }
 
     /**
