@@ -2,7 +2,7 @@
     <x-jet-authentication-card>
         <x-slot name="logo">
             <div class="w-full flex justify-center">
-                <img src="img/logo.png" alt="" class="w-1/3">
+                <img src="/img/logo.png" alt="" class="w-1/3">
             </div>
         </x-slot>
 
