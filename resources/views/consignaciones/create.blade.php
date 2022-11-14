@@ -1,9 +1,14 @@
 <x-app-layout>
+    @vite(['resources/js/AgregarParticipante.js']) 
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             {{ __('Crear nueva consignación') }}
         </h2>
     </x-slot>
+
+    <script>
+        const CatalogoCalidad = @json($tipoParticipante);
+    </script>
 
     <div class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -109,10 +114,11 @@
                                                                     <th class="w-1/6 py-5">Alias</th>
                                                                 </tr>
                                                             </thead>
-                                                            <tbody class="text-center bg-white">
+                                                            <tbody class="text-center bg-white" id="Participantes">
 
                                                                 {{-- PARTICIPANTES > REGISTROS --}}
-                                                                @for ($i = 0; $i < 2; $i++)
+                                                                 
+                                                                {{-- @for ($i = 0; $i < 2; $i++)
                                                                 <tr>
                                                                     <td class="py-2 border-b-2">
                                                                         <input type="text" name="Nombre{{ $i }}" id="Nombre{{ $i }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ old("Nombre{$i}", @$consignacion["Nombre{$i}"]) }}">
@@ -140,7 +146,7 @@
                                                                         <span class=" text-xs text-red-600">@error("Alias$i") {{ $message }} @enderror</span>
                                                                     </td>
                                                                 </tr>
-                                                                @endfor
+                                                                @endfor --}}
                                                             </tbody>
                                                         </table>
                                                         {{-- ELEMENTO Seccion --}}
@@ -274,10 +280,6 @@
                         </div>
                     </div>
                 </div>
-                
-                <script>
-                    // TODO: Hacer script
-                </script>
             </div>
         </div>
     </div>
