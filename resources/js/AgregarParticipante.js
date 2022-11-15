@@ -1,8 +1,3 @@
-var Participantes = 0;
-
-AgregarParticipante();
-AgregarParticipante();
-
 function AgregarParticipante(){
     Participantes++;
     const participante = document.querySelector("#Participantes");

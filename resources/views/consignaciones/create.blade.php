@@ -1,5 +1,5 @@
 <x-app-layout>
-    
+    {{-- @dd(session('PersonaSession')) --}}
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             {{ __('Crear nueva consignación') }}
@@ -7,7 +7,21 @@
     </x-slot>
 
     <script>
+        $('#AgregarParticipante').click(function(){
+            AgregarParticipante();
+        });
+    </script>
+    
+    <script>
+    
         const CatalogoCalidad = @json($tipoParticipante);
+        
+        @if(session('PersonaSession')) 
+            var Participantes = {{count(session('PersonaSession'))}};
+        @else
+            var Participantes = 0;
+        @endif
+        
     </script>
 
     <div class="py-12">
@@ -103,7 +117,7 @@
                                                     </div>
 
                                                     {{-- Tabla Participantes --}}
-                                                    <button id="AgregarParticipante">Agregar</button>
+                                                    <div id="AgregarParticipante">Agregar</div>
                                                     <div class="w-full col-span-6 px-5 py-3">
                                                         <table class="w-full bg-cyan-900">
                                                             <thead class="text-white">
@@ -116,38 +130,41 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody class="text-center bg-white" id="Participantes">
-
-                                                                {{-- PARTICIPANTES > REGISTROS --}}
-                                                                 
-                                                                {{-- @for ($i = 0; $i < 2; $i++)
-                                                                <tr>
-                                                                    <td class="py-2 border-b-2">
-                                                                        <input type="text" name="Nombre{{ $i }}" id="Nombre{{ $i }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ old("Nombre{$i}", @$consignacion["Nombre{$i}"]) }}">
-                                                                        <span class=" text-xs text-red-600">@error("Nombre$i") {{ $message }} @enderror</span>
-                                                                    </td>
-                                                                    <td class="py-2 border-b-2">
-                                                                        <input type="text" name="Ap_Paterno{{ $i }}" id="Ap_Paterno{{ $i }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ old("Ap_Paterno{$i}", @$consignacion["Ap_Paterno{$i}"]) }}">
-                                                                        <span class=" text-xs text-red-600">@error("Ap_Paterno$i") {{ $message }} @enderror</span>
-                                                                    </td>
-                                                                    <td class="py-2 border-b-2">
-                                                                        <input type="text" name="Ap_Materno{{ $i }}" id="Ap_Materno{{ $i }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ old("Ap_Materno{$i}", @$consignacion["Ap_Materno{$i}"]) }}">
-                                                                        <span class=" text-xs text-red-600">@error("Ap_Materno$i") {{ $message }} @enderror</span>
-                                                                    </td>
-                                                                    <td class="py-2 border-b-2">
-                                                                        <select id="Calidad{{ $i }}" name="Calidad{{ $i }}" autocomplete="Calidad{{ $i }}-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                                                                            <option value="{{ old("Calidad{$i}", @$consignacion->ID_Calidad) }}">{{ old("Calidad{$i}", @$consignacion->ID_Calidad) }}</option>
-                                                                            @foreach ($tipoParticipante as $participante)
-                                                                            <option value="{{ $participante->ID_Calidad }}">{{ $participante->Calidad }}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                        <span class=" text-xs text-red-600">@error("Calidad$i") {{ $message }} @enderror</span>
-                                                                    </td>
-                                                                    <td class="py-2 border-b-2">
-                                                                        <input type="text" name="Alias{{ $i }}" id="Alias{{ $i }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ old("Alias{$i}", @$consignacion["Alias{$i}"]) }}">
-                                                                        <span class=" text-xs text-red-600">@error("Alias$i") {{ $message }} @enderror</span>
-                                                                    </td>
-                                                                </tr>
-                                                                @endfor --}}
+                                                                @if(session('PersonaSession'))
+                                                                    @php
+                                                                    $i = 1   
+                                                                    @endphp
+                                                                    @foreach(session('PersonaSession') as $Persona)
+                                                                        <tr>
+                                                                            <td class="py-2 border-b-2">
+                                                                                <input type="text" name="Personas[{{$i}}][Nombre]" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{$Persona['Nombre']}}">
+                                                                            </td>
+                                                                            <td class="py-2 border-b-2">
+                                                                                <input type="text" name="Personas[{{$i}}][ApellidoPaterno]" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{$Persona['ApellidoPaterno']}}">
+                                                                            </td>
+                                                                            <td class="py-2 border-b-2">
+                                                                                <input type="text" name="Personas[{{$i}}][ApellidoMaterno]" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{$Persona['ApellidoMaterno']}}">
+                                                                            </td>
+                                                                            <td class="py-2 border-b-2">
+                                                                                <select name="Personas[{{$i}}][Calidad]" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                                                                    @foreach ($tipoParticipante as $Calidad)
+                                                                                    <option value="{{ $Calidad->ID_Calidad }}"
+                                                                                        @if ($Calidad->ID_Calidad == $Persona['Calidad'])
+                                                                                            selected="selected"
+                                                                                        @endif
+                                                                                        >{{ $Calidad->Calidad }}</option>
+                                                                                    @endforeach
+                                                                                </select>
+                                                                            </td>
+                                                                            <td class="py-2 border-b-2">
+                                                                                <input type="text" name="Personas[{{$i}}][Alias]" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{$Persona['Alias']}}">
+                                                                            </td>
+                                                                        </tr>
+                                                                        @php
+                                                                            $i ++   
+                                                                        @endphp
+                                                                    @endforeach
+                                                                @endif
                                                             </tbody>
                                                         </table>
                                                         {{-- ELEMENTO Seccion --}}
@@ -284,5 +301,5 @@
             </div>
         </div>
     </div>
-    
+        
 </x-app-layout>

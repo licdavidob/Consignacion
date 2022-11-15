@@ -77,7 +77,9 @@ class phConsignacionesController extends Controller
      */
     public function store(Request $request)
     {
-        // VALIDACION DE ENTRADAS
+        
+        $request->session()->put('PersonaSession',$request->Personas);
+        
         $request->validate([
             //VALIDACION Datos generales
             'Reclusorio' => 'required',
@@ -88,16 +90,8 @@ class phConsignacionesController extends Controller
             'Fecha'      => 'required',
             'Fojas'      => 'required',
             //VALIDACION Personas
-            'Ap_Paterno0' => 'required',
-            'Ap_Materno0' => 'required',
-            'Calidad0'    => 'required',
-            'Nombre0'     => 'required',
-            'Alias0'      => 'required',
-            'Ap_Paterno1' => 'required',
-            'Ap_Materno1' => 'required',
-            'Calidad1'    => 'required',
-            'Nombre1'     => 'required',
-            'Alias1'      => 'required',
+            'Personas.*' => 'array',
+            
             //VALIDACION Delitos
             'Delitos'      => 'required',
             //VALIDACION Antecedentes
