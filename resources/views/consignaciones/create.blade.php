@@ -1,5 +1,5 @@
 <x-app-layout>
-    @vite(['resources/js/AgregarParticipante.js']) 
+    
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             {{ __('Crear nueva consignación') }}
@@ -103,6 +103,7 @@
                                                     </div>
 
                                                     {{-- Tabla Participantes --}}
+                                                    <button id="AgregarParticipante">Agregar</button>
                                                     <div class="w-full col-span-6 px-5 py-3">
                                                         <table class="w-full bg-cyan-900">
                                                             <thead class="text-white">
@@ -283,4 +284,5 @@
             </div>
         </div>
     </div>
+    
 </x-app-layout>
