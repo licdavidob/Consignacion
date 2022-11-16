@@ -8,12 +8,14 @@ function AgregarParticipante(){
     const ApellidoMaterno = AgregarCeldaText('ApellidoMaterno');
     const Calidad= AgregarCeldaCatalogoCalidad('Calidad');
     const Alias = AgregarCeldaText('Alias');
+    const Eliminar = AgregarCeldaEliminarFila();
 
     renglon.appendChild(Nombre)
     renglon.appendChild(ApellidoPaterno)
     renglon.appendChild(ApellidoMaterno)
     renglon.appendChild(Calidad)
     renglon.appendChild(Alias)
+    renglon.appendChild(Eliminar)
     participante.appendChild(renglon)
     
     return true;
@@ -51,6 +53,20 @@ function AgregarCeldaCatalogoCalidad(NombreCampo){
     return celda;
 }
 
+function AgregarCeldaEliminarFila(){
+    const celda = document.createElement("td");
+    celda.setAttribute("class", "borrar py-2 border-b-2");
+    celda.textContent = 'Eliminar';
+    return celda;
+}
+
+//Se asigna el boton para agregar filas
 $('#AgregarParticipante').click(function(){
     AgregarParticipante();
 });
+
+//Se asigna el boton para eliminar filas
+$(document).on('click', '.borrar', function(event) {
+    event.preventDefault();
+    $(this).closest('tr').remove();
+  });
