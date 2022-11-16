@@ -160,6 +160,9 @@
                                                                             <td class="py-2 border-b-2">
                                                                                 <input type="text" name="Personas[{{$i}}][Alias]" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{$Persona['Alias']}}">
                                                                             </td>
+                                                                            <td class="borrar py-2 border-b-2">
+                                                                                Eliminar
+                                                                            </td>
                                                                         </tr>
                                                                         @php
                                                                             $i ++   
