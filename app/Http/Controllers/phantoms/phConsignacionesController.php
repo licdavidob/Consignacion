@@ -278,20 +278,21 @@ class phConsignacionesController extends Controller
         // ]);
         // RECUPERACIÓN de datos específicos
         // Personas
-        $personasRequest= $request->except('Fecha', '_method','_token', 'Av_Previa', 'Detenido', 'Agencia', 'Reclusorio', 'Juzgado', 'Fojas', 'Delitos', 'Detenido_Ant', 'Juzgado_Ant', 'Fecha_Ant', 'Hora_Recibo', 'Hora_Entrega', 'Hora_Salida', 'Hora_Regreso', 'Hora_Llegada', 'Fecha_Entrega', 'Nota', 'Antecedente', 'contador');
+        $personasRequest= $request->Personas;
         // Función que construye el arreglo de personas
         $personas = array();
         foreach ($personasRequest as $persona) {
             $aux = array(
-                'ID_Persona' => intval($persona[0]),
-                'Nombre' => $persona[1],
-                'Ap_Paterno' => $persona[2],
-                'Ap_Materno' => $persona[3],
-                'Calidad' => intval($persona[4]),
-                'Alias' => array($persona[5]),
+                'ID_Persona' => intval($persona['ID_Persona']),
+                'Nombre' => $persona['Nombre'],
+                'Ap_Paterno' => $persona['Ap_Paterno'],
+                'Ap_Materno' => $persona['Ap_Materno'],
+                'Calidad' => intval($persona['Calidad']),
+                'Alias' => array($persona['Alias']),
             );
             array_push($personas,$aux);
         }
+        // return $personas;
         // Antecedente
         $antecedenteRequest = $request->only('Antecedente');
         // Función que construye el arreglo antecedentes

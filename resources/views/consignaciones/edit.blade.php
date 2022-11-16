@@ -62,7 +62,7 @@
                                                     {{-- Fecha --}}
                                                     <div class="col-span-6 sm:col-span-2">
                                                         <label for="Fecha" class="block text-sm font-medium text-gray-700">Fecha</label>
-                                                        <input type="date" name="Fecha" id="Fecha" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ $consignaciones['Fecha'] }}">
+                                                        <input type="date" name="Fecha" id="Fecha" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ $consignaciones['Fecha'] }}">
                                                         <span class=" text-xs text-red-600">@error('Fecha') {{ $message }} @enderror</span>
                                                     </div>
                                                     {{-- Reclusorio --}}
@@ -112,6 +112,7 @@
                                                                     <th class="w-1/5 py-5">Apellido Materno</th>
                                                                     <th class="w-1/5 py-5">Tipo</th>
                                                                     <th class="w-1/5 py-5">Alias</th>
+                                                                    <th class="w-1/5 py-5">Acciones</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody class="text-center bg-white">
@@ -124,19 +125,19 @@
                                                                 @foreach ($consignaciones['Personas'] as $persona)
                                                                 <tr>
                                                                     <td class="py-2 border-b-2">
-                                                                        <input type="hidden" name="Persona{{ $i }}[]" value="{{ $persona['ID_Persona'] }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                                        <input type="hidden" name="Personas[{{ $i }}][ID_Persona]" value="{{ $persona['ID_Persona'] }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                                                     </td>
                                                                     <td class="py-2 border-b-2">
-                                                                        <input type="text" name="Persona{{ $i }}[]" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ $persona['Nombre'] }}">
+                                                                        <input type="text" name="Personas[{{ $i }}][Nombre]" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ $persona['Nombre'] }}">
                                                                     </td>
                                                                         <td class="py-2 border-b-2">
-                                                                            <input type="text" name="Persona{{ $i }}[]" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ $persona['Ap_Paterno'] }}">
+                                                                            <input type="text" name="Personas[{{ $i }}][Ap_Paterno]" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ $persona['Ap_Paterno'] }}">
                                                                         </td>
                                                                         <td class="py-2 border-b-2">
-                                                                            <input type="text" name="Persona{{ $i }}[]" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ $persona['Ap_Materno'] }}">
+                                                                            <input type="text" name="Personas[{{ $i }}][Ap_Materno]" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ $persona['Ap_Materno'] }}">
                                                                         </td>
                                                                         <td class="py-2 border-b-2">
-                                                                            <select id="{{ $persona['ID_Persona'] }}" name="Persona{{ $i }}[]" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                                                            <select id="{{ $persona['ID_Persona'] }}" name="Personas[{{ $i }}][Calidad]" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                                                                                 <option value="{{ $persona['ID_Calidad'] }}">{{ $persona['Calidad'] }}</option>
                                                                                 {{-- <option value="">Seleccionar</option> --}}
                                                                                 @foreach ($tipoParticipante as $participante)
@@ -146,8 +147,11 @@
                                                                         </td>
                                                                         <td class="py-2 border-b-2">
                                                                             @foreach ( $persona['Alias'] as $alias)
-                                                                            <input type="text" name="Persona{{ $i }}[]" id="{{ $persona['ID_Persona'] }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ $alias }}">
+                                                                            <input type="text" name="Personas[{{ $i }}][Alias]" id="{{ $persona['ID_Persona'] }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ $alias }}">
                                                                             @endforeach
+                                                                        </td>
+                                                                        <td class="py-2 border-b-2">
+                                                                            Eliminar
                                                                         </td>
                                                                     </tr>
                                                                     {{-- <input type="text" name="contador" value="{{ $i }}"> {{ $i }} --}}
