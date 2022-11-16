@@ -50,3 +50,7 @@ function AgregarCeldaCatalogoCalidad(NombreCampo){
     celda.appendChild(select)
     return celda;
 }
+
+$('#AgregarParticipante').click(function(){
+    AgregarParticipante();
+});

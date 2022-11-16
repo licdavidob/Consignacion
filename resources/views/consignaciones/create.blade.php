@@ -1,17 +1,16 @@
 <x-app-layout>
-    {{-- @dd(session('PersonaSession')) --}}
+    <script>
+        $('#AgregarParticipante').click(function(){
+            AgregarParticipante();
+        });
+    </script>
+      
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             {{ __('Crear nueva consignación') }}
         </h2>
     </x-slot>
 
-    <script>
-        $('#AgregarParticipante').click(function(){
-            AgregarParticipante();
-        });
-    </script>
-    
     <script>
     
         const CatalogoCalidad = @json($tipoParticipante);
@@ -23,6 +22,8 @@
         @endif
         
     </script>
+
+
 
     <div class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -301,5 +302,5 @@
             </div>
         </div>
     </div>
-        
+    
 </x-app-layout>
