@@ -4,8 +4,8 @@ function AgregarParticipante(){
     const renglon = document.createElement("tr");
         
     const Nombre = AgregarCeldaText('Nombre');
-    const ApellidoPaterno = AgregarCeldaText('ApellidoPaterno');
-    const ApellidoMaterno = AgregarCeldaText('ApellidoMaterno');
+    const ApellidoPaterno = AgregarCeldaText('Ap_Paterno');
+    const ApellidoMaterno = AgregarCeldaText('Ap_Materno');
     const Calidad= AgregarCeldaCatalogoCalidad('Calidad');
     const Alias = AgregarCeldaText('Alias');
     const Eliminar = AgregarCeldaEliminarFila();
@@ -48,15 +48,25 @@ function AgregarCeldaCatalogoCalidad(NombreCampo){
         option.textContent = element['Calidad']
         select.appendChild(option)
     });
-
+    
     celda.appendChild(select)
     return celda;
 }
 
 function AgregarCeldaEliminarFila(){
     const celda = document.createElement("td");
+    const wrap = document.createElement("div");
+    const flex = document.createElement("div");
+    const icono = document.createElement("img");
+    
     celda.setAttribute("class", "borrar py-2 border-b-2");
-    celda.textContent = 'Eliminar';
+    wrap.setAttribute("class", "flex w-full justify-center");
+    flex.setAttribute("class", "py-2 px-2 text-md font-medium text-white w-10 bg-cyan-600 border border-transparent rounded-full shadow-sm hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 self-center");
+    icono.setAttribute("src", "img/delete.svg");
+
+    flex.appendChild(icono);
+    wrap.appendChild(flex);
+    celda.appendChild(wrap);
     return celda;
 }
 

@@ -1,11 +1,26 @@
 {{-- @dd($consignaciones) --}}
 <!-- TODO: Se tiene que trabajar con el arreglo -->
 <x-app-layout>
+    <script>
+        $('#AgregarParticipante').click(function(){
+            AgregarParticipante();
+        });
+    </script>
+
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             {{ __('Edición de Consignación') }}
         </h2>
     </x-slot>
+
+    <script>
+        const CatalogoCalidad = @json($tipoParticipante);
+        @if(session('PersonaSession')) 
+            var Participantes = {{count(session('PersonaSession'))}};
+        @else
+            var Participantes = 0;
+        @endif
+    </script>
 
     <div class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -101,32 +116,39 @@
                                                     </div>
 
                                                     {{-- Tabla Participantes --}}
+                                                    {{-- Botón de agregar participante --}}
+                                                    <div class="col-span-6 sm:col-span-6">
+                                                        <div class="flex w-full justify-end">
+                                                            <div id="AgregarParticipante" class="py-2 px-2 text-md font-medium text-white w-1/7 bg-cyan-600 border border-transparent rounded-full shadow-sm hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 self-center"><img src="img/add.svg" alt="">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {{-- Tabla de participantes --}}
                                                     <div class="w-full col-span-6 px-5 py-3">
                                                         <table class="w-full bg-cyan-900">
                                                             <thead class="text-white">
                                                                 <tr class="">
                                                                     {{-- <th class="w-1/6 py-5">ID</th> --}}
-                                                                    <th class="w-1/11 py-5"></th>
-                                                                    <th class="w-1/5 py-5">Nombre</th>
-                                                                    <th class="w-1/5 py-5">Apellido Paterno</th>
-                                                                    <th class="w-1/5 py-5">Apellido Materno</th>
-                                                                    <th class="w-1/5 py-5">Tipo</th>
-                                                                    <th class="w-1/5 py-5">Alias</th>
-                                                                    <th class="w-1/5 py-5">Acciones</th>
+                                                                    {{-- <th class="w-1/11 py-5"></th> --}}
+                                                                    <th class="w-1/7 py-5">Nombre</th>
+                                                                    <th class="w-1/7 py-5">Apellido Paterno</th>
+                                                                    <th class="w-1/7 py-5">Apellido Materno</th>
+                                                                    <th class="w-1/7 py-5">Tipo</th>
+                                                                    <th class="w-1/7 py-5">Alias</th>
+                                                                    <th class="w-1/7 py-5 pr-4">Acciones</th>
                                                                 </tr>
                                                             </thead>
-                                                            <tbody class="text-center bg-white">
+                                                            <tbody class="text-center bg-white" id="Participantes">
 
                                                                 {{-- PARTICIPANTES > REGISTROS --}}
-
                                                                 @php
                                                                 $i = 1;
                                                                 @endphp
                                                                 @foreach ($consignaciones['Personas'] as $persona)
                                                                 <tr>
-                                                                    <td class="py-2 border-b-2">
-                                                                        <input type="hidden" name="Personas[{{ $i }}][ID_Persona]" value="{{ $persona['ID_Persona'] }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                                                    </td>
+                                                                    <input type="hidden" name="Personas[{{ $i }}][ID_Persona]" value="{{ $persona['ID_Persona'] }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                                    {{-- <td class="py-2 border-b-2">
+                                                                    </td> --}}
                                                                     <td class="py-2 border-b-2">
                                                                         <input type="text" name="Personas[{{ $i }}][Nombre]" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ $persona['Nombre'] }}">
                                                                     </td>
@@ -150,8 +172,12 @@
                                                                             <input type="text" name="Personas[{{ $i }}][Alias]" id="{{ $persona['ID_Persona'] }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ $alias }}">
                                                                             @endforeach
                                                                         </td>
-                                                                        <td class="py-2 border-b-2">
-                                                                            Eliminar
+                                                                        <td class="borrar py-2 border-b-2">
+                                                                            <div class="flex w-full justify-center">
+                                                                                <div class="py-2 px-2 text-md font-medium text-white w-10 bg-cyan-600 border border-transparent rounded-full shadow-sm hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 self-center">
+                                                                                    <img src="img/delete.svg" alt="" class="w-full">
+                                                                                </div>
+                                                                            </div>
                                                                         </td>
                                                                     </tr>
                                                                     {{-- <input type="text" name="contador" value="{{ $i }}"> {{ $i }} --}}
@@ -159,6 +185,52 @@
                                                                         $i++;
                                                                     @endphp
                                                                 @endforeach
+
+
+                                                                @if(session('PersonaSession'))
+                                                                @php
+                                                                $i = 1   
+                                                                @endphp
+                                                                @foreach(session('PersonaSession') as $Persona)
+                                                                    <tr>
+                                                                        <td class="py-2 border-b-2">
+                                                                            <input type="text" name="Personas[{{$i}}][Nombre]" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{$Persona['Nombre']}}">
+                                                                        </td>
+                                                                        <td class="py-2 border-b-2">
+                                                                            <input type="text" name="Personas[{{$i}}][Ap_Paterno]" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{$Persona['Ap_Paterno']}}">
+                                                                        </td>
+                                                                        <td class="py-2 border-b-2">
+                                                                            <input type="text" name="Personas[{{$i}}][Ap_Materno]" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{$Persona['Ap_Materno']}}">
+                                                                        </td>
+                                                                        <td class="py-2 border-b-2">
+                                                                            <select name="Personas[{{$i}}][Calidad]" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                                                                @foreach ($tipoParticipante as $Calidad)
+                                                                                <option value="{{ $Calidad->ID_Calidad }}"
+                                                                                    @if ($Calidad->ID_Calidad == $Persona['Calidad'])
+                                                                                        selected="selected"
+                                                                                    @endif
+                                                                                    >{{ $Calidad->Calidad }}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </td>
+                                                                        <td class="py-2 border-b-2">
+                                                                            <input type="text" name="Personas[{{$i}}][Alias]" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{$Persona['Alias']}}">
+                                                                        </td>
+                                                                        <td class="borrar py-2 border-b-2">
+                                                                            <div class="flex w-full justify-center">
+                                                                                <div class="py-2 px-2 text-md font-medium text-white w-10 bg-cyan-600 border border-transparent rounded-full shadow-sm hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 self-center">
+                                                                                    <img src="img/delete.svg" alt="" class="w-full">
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    @php
+                                                                        $i ++   
+                                                                    @endphp
+                                                                @endforeach
+                                                            @endif
+
+
                                                             </tbody>
                                                         </table>
                                                         {{-- ELEMENTO Seccion --}}

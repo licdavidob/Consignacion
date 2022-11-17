@@ -118,16 +118,25 @@
                                                     </div>
 
                                                     {{-- Tabla Participantes --}}
-                                                    <div id="AgregarParticipante">Agregar</div>
-                                                    <div class="w-full col-span-6 px-5 py-3">
+
+                                                    {{-- Botón de agregar participante --}}
+                                                    <div class="col-span-6 sm:col-span-6">
+                                                        <div class="flex w-full justify-end">
+                                                            <div id="AgregarParticipante" class="py-2 px-2 text-md font-medium text-white w-1/7 bg-cyan-600 border border-transparent rounded-full shadow-sm hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 self-center"><img src="img/add.svg" alt="">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {{-- Tabla de participantes --}}
+                                                    <div class="w-full col-span-6 px-5">
                                                         <table class="w-full bg-cyan-900">
                                                             <thead class="text-white">
                                                                 <tr class="">
-                                                                    <th class="w-1/6 py-5">Nombre</th>
-                                                                    <th class="w-1/6 py-5">Apellido Paterno</th>
-                                                                    <th class="w-1/6 py-5">Apellido Materno</th>
-                                                                    <th class="w-1/6 py-5">Tipo</th>
-                                                                    <th class="w-1/6 py-5">Alias</th>
+                                                                    <th class="w-1/7 py-5">Nombre</th>
+                                                                    <th class="w-1/7 py-5">Apellido Paterno</th>
+                                                                    <th class="w-1/7 py-5">Apellido Materno</th>
+                                                                    <th class="w-1/7 py-5">Tipo</th>
+                                                                    <th class="w-1/7 py-5">Alias</th>
+                                                                    <th class="w-1/7 py-5 pr-4">Acciones</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody class="text-center bg-white" id="Participantes">
@@ -141,10 +150,10 @@
                                                                                 <input type="text" name="Personas[{{$i}}][Nombre]" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{$Persona['Nombre']}}">
                                                                             </td>
                                                                             <td class="py-2 border-b-2">
-                                                                                <input type="text" name="Personas[{{$i}}][ApellidoPaterno]" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{$Persona['ApellidoPaterno']}}">
+                                                                                <input type="text" name="Personas[{{$i}}][Ap_Paterno]" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{$Persona['Ap_Paterno']}}">
                                                                             </td>
                                                                             <td class="py-2 border-b-2">
-                                                                                <input type="text" name="Personas[{{$i}}][ApellidoMaterno]" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{$Persona['ApellidoMaterno']}}">
+                                                                                <input type="text" name="Personas[{{$i}}][Ap_Materno]" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{$Persona['Ap_Materno']}}">
                                                                             </td>
                                                                             <td class="py-2 border-b-2">
                                                                                 <select name="Personas[{{$i}}][Calidad]" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
@@ -161,7 +170,11 @@
                                                                                 <input type="text" name="Personas[{{$i}}][Alias]" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{$Persona['Alias']}}">
                                                                             </td>
                                                                             <td class="borrar py-2 border-b-2">
-                                                                                Eliminar
+                                                                                <div class="flex w-full justify-center">
+                                                                                    <div class="py-2 px-2 text-md font-medium text-white w-10 bg-cyan-600 border border-transparent rounded-full shadow-sm hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 self-center">
+                                                                                        <img src="img/delete.svg" alt="" class="w-full">
+                                                                                    </div>
+                                                                                </div>
                                                                             </td>
                                                                         </tr>
                                                                         @php
