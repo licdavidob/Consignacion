@@ -62,7 +62,7 @@ function AgregarCeldaEliminarFila(){
     celda.setAttribute("class", "borrar py-2 border-b-2");
     wrap.setAttribute("class", "flex w-full justify-center");
     flex.setAttribute("class", "py-2 px-2 text-md font-medium text-white w-10 bg-cyan-600 border border-transparent rounded-full shadow-sm hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 self-center");
-    icono.setAttribute("src", "img/delete.svg");
+    icono.setAttribute("src", "/img/delete.svg");
 
     flex.appendChild(icono);
     wrap.appendChild(flex);

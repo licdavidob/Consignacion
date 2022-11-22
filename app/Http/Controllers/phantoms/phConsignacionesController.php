@@ -179,7 +179,7 @@ class phConsignacionesController extends Controller
         session()->forget('PersonaSession');
         return to_route('dashboard');
     }
-
+    
     /**
      * Vista de la edición de una consignación
      *
@@ -188,6 +188,7 @@ class phConsignacionesController extends Controller
      */
     public function edit($consignacionId)
     {
+        // session()->put('PersonaSession');
         // Se llama al controlador consiginación y el método show
         $consignacion = new ConsignacionController;
         $consignaciones = $consignacion->show($consignacionId);
@@ -222,6 +223,7 @@ class phConsignacionesController extends Controller
     public function update(Request $request, $consignacionId)
     {
         session()->put('PersonaSession',$request->Personas);
+        // session()->put('PersonaSession',$request->Personas);
         // return $request;
         // VALIDACION DE ENTRADAS
         $request->validate([
