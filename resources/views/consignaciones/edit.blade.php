@@ -1,41 +1,24 @@
-{{-- @dd($consignaciones) --}}
-<!-- TODO: Se tiene que trabajar con el arreglo -->
 <x-app-layout>
 	<script>
-		$('#AgregarParticipante').click(function(){
-			AgregarParticipante();
-		});
+		const CatalogoCalidad = @json($tipoParticipante);
+		@if(session('PersonaSession'))
+			var Participantes = {{ count($consignaciones['Personas']) + count(session('PersonaSession'))}}
+		@else
+			var Participantes = {{ count($consignaciones['Personas']) }}
+		@endif
 	</script>
-
 	<x-slot name="header">
 		<h2 class="text-xl font-semibold leading-tight text-gray-800">
 			{{ __('Edición de Consignación') }}
 		</h2>
 	</x-slot>
-
-	<script>
-		const CatalogoCalidad = @json($tipoParticipante);
-		// var Participantes = {{ count($consignaciones['Personas']) }}
-		@if(session('PersonaSession'))
-		var Participantes = {{ count($consignaciones['Personas']) + count(session('PersonaSession'))}}
-		// 	var Participantes = {{count(session('PersonaSession'))}};
-		@else
-		var Participantes = {{ count($consignaciones['Personas']) }}
-		// 	var Participantes = 0;
-		// @endif
-	</script>
-
-	{{-- @dd($PersonaSession) --}}
-
 	<div class="py-12">
 		<div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
 			<div class="overflow-hidden bg-white shadow-xl sm:rounded-lg">
-
 				{{-- Contenido --}}
 				<div class="px-5 py-3">
 					<div class="w-full py-5 bg-gray-100">
 						{{-- ELEMENTO Form --}}
-
 						<div class="px-3 mt-10 sm:mt-0">
 							<div class="md:grid md:grid-cols-2 md:gap-6">
 								<div class="mt-5 md:col-span-2 md:mt-0">
@@ -133,8 +116,6 @@
 														<table class="w-full bg-cyan-900">
 															<thead class="text-white">
 																<tr class="">
-																	{{-- <th class="w-1/6 py-5">ID</th> --}}
-																	{{-- <th class="w-1/11 py-5"></th> --}}
 																	<th class="w-1/7 py-5">Nombre</th>
 																	<th class="w-1/7 py-5">Apellido Paterno</th>
 																	<th class="w-1/7 py-5">Apellido Materno</th>
@@ -152,9 +133,7 @@
 																@endphp
 																@foreach ($consignaciones['Personas'] as $persona)
 																<tr>
-																	<input type="hidden" name="Personas[{{ $i }}][ID_Persona]" value="{{ $persona['ID_Persona'] }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-																	{{-- <td class="py-2 border-b-2">
-																	</td> --}}
+																	<input type="hidden" name="Personas[{{ $i }}][ID_Persona]" value="{{ $persona['ID_Persona'] }}">
 																	<td class="py-2 border-b-2">
 																		<input type="text" name="Personas[{{ $i }}][Nombre]" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ $persona['Nombre'] }}">
 																	</td>
@@ -167,7 +146,6 @@
 																		<td class="py-2 border-b-2">
 																			<select id="{{ $persona['ID_Persona'] }}" name="Personas[{{ $i }}][Calidad]" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
 																				<option value="{{ $persona['ID_Calidad'] }}">{{ $persona['Calidad'] }}</option>
-																				{{-- <option value="">Seleccionar</option> --}}
 																				@foreach ($tipoParticipante as $participante)
 																				<option value="{{ $participante->ID_Calidad }}">{{ $participante->Calidad }}</option>
 																				@endforeach
@@ -186,7 +164,6 @@
 																			</div>
 																		</td>
 																	</tr>
-																	{{-- <input type="text" name="contador" value="{{ $i }}"> {{ $i }} --}}
 																	@php
 																		$i++;
 																	@endphp
@@ -196,7 +173,6 @@
 																	@php
 																	$i = 1;
 																	@endphp
-																	{{-- @dd(session('PersonaSession')) --}}
 
 																	@for ($j = count($consignaciones['Personas'])+1; $j <= count(session('PersonaSession')); $j++)
 																	<tr>
