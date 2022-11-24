@@ -34,7 +34,7 @@ class PersonaController extends Controller
         foreach ($Personas as $Persona) {
             $this->CreatePersona($Persona, $Consignacion);
         }
-        return true
+        return true;
     }
 
     public function CreatePersona($Persona, $Consignacion)
