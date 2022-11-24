@@ -70,18 +70,7 @@ class phConsignacionesController extends Controller
         $tipoParticipante = Calidad_Juridica::select('Calidad', 'ID_Calidad')->get();
         return view('consignaciones.create', compact('agencias', 'reclusorios', 'juzgados', 'delitos', 'tipoParticipante'));
     }
-
-    /**
-     * Función que guarda una nueva consignación
-     *
-     * @param Request request recibe los datos del formulario
-     * @return void
-     */
-    public function store(Request $request)
-    {
-        
-        session()->put('PersonaSession',$request->Personas);
-            // Validaciones
+    public function validar($request){
         $request->validate([
             //VALIDACION Datos generales
             'Reclusorio' => 'required',
@@ -92,22 +81,32 @@ class phConsignacionesController extends Controller
             'Fecha'      => 'required',
             'Fojas'      => 'required',
             //VALIDACION Personas
-            'Personas.*' => 'array',
+            'Personas.*.Nombre' => 'required',
+            'Personas.*.Ap_Paterno' => 'required',
+            'Personas.*.Calidad' => 'required',
+            'Personas.*.Alias' => 'required',
             //VALIDACION Delitos
             'Delitos'      => 'required',
-            //VALIDACION Antecedentes
-            // 'Detenido_Ant' => 'required',
-            // 'Juzgado_Ant'  => 'required',
-            // 'Fecha_Ant'    => 'required',
-            // VALIDACION Datos adicionales
             'Fecha_Entrega' => 'required',
             'Hora_Entrega'  => 'required',
             'Hora_Llegada'  => 'required',
             'Hora_Regreso'  => 'required',
             'Hora_Recibo'   => 'required',
             'Hora_Salida'   => 'required',
-            // 'Nota'          => 'required',
         ]);
+        return true;
+    }
+    /**
+     * Función que guarda una nueva consignación
+     *
+     * @param Request request recibe los datos del formulario
+     * @return void
+     */
+    public function store(Request $request)
+    {
+        session()->put('PersonaSession',$request->Personas);
+        // Validaciones
+        $this->validar($request);
         // CONSTRUCCIÓN de la consignación
 
 
@@ -125,6 +124,7 @@ class phConsignacionesController extends Controller
             array_push($personas,$aux);
         }
 
+        // Construyendo el arreglo
         if ($request->Detenido_Ant===null || $request->Juzgado_Ant===null || $request->Fecha_Ant===null) {
             $datos = array(
                 'Fecha' => $request->Fecha,
@@ -223,44 +223,8 @@ class phConsignacionesController extends Controller
     public function update(Request $request, $consignacionId)
     {
         session()->put('PersonaSession',$request->Personas);
-        // session()->put('PersonaSession',$request->Personas);
-        // return $request;
         // VALIDACION DE ENTRADAS
-        $request->validate([
-            //     //VALIDACION Datos generales
-            //     'Reclusorio' => 'required',
-                'Av_Previa'  => 'required',
-            //     'Detenido'   => 'required',
-            //     'Juzgado'    => 'required',
-            //     'Agencia'    => 'required',
-            //     'Fecha'      => 'required',
-            //     'Fojas'      => 'required',
-            //     //VALIDACION Personas
-            //     'Ap_Paterno0' => 'required',
-            //     'Ap_Materno0' => 'required',
-            //     'Calidad0'    => 'required',
-            //     'Nombre0'     => 'required',
-            //     'Alias0'      => 'required',
-            //     'Ap_Paterno1' => 'required',
-            //     'Ap_Materno1' => 'required',
-        //     'Calidad1'    => 'required',
-        //     'Nombre1'     => 'required',
-        //     'Alias1'      => 'required',
-        //     //VALIDACION Delitos
-        //     'Delitos'      => 'required',
-        //     //VALIDACION Antecedentes
-        //     'Detenido_Ant' => 'required',
-        //     'Juzgado_Ant'  => 'required',
-        //     'Fecha_Ant'    => 'required',
-        //     // VALIDACION Datos adicionales
-        //     'Fecha_Entrega' => 'required',
-        //     'Hora_Entrega'  => 'required',
-        //     'Hora_Llegada'  => 'required',
-        //     'Hora_Regreso'  => 'required',
-        //     'Hora_Recibo'   => 'required',
-        //     'Hora_Salida'   => 'required',
-        //     'Nota'          => 'required',
-        ]);
+        $this->validar($request);
         // RECUPERACIÓN de datos específicos
         // Personas
         $personasRequest= $request->Personas;
@@ -268,28 +232,21 @@ class phConsignacionesController extends Controller
         // Función que construye el arreglo de personas
         $personas = array();
         $aux = array();
-        // TODO: Arreglar el input manda un id que no debe existir, revisar que se esta mandandp en cada vuelta
+       
         foreach ($personasRequest as $persona) {
+            // Si se esta actualizando una persona
             if (array_key_exists('ID_Persona',$persona)) {
-                // Si la persona no es nueva se agrega el id
                 $aux['ID_Persona'] = intval($persona['ID_Persona']);
-                $aux['Nombre'] = $persona['Nombre'];
-                $aux['Ap_Paterno'] = $persona['Ap_Paterno'];
-                $aux['Ap_Materno'] = $persona['Ap_Materno'];
-                $aux['Calidad'] = intval($persona['Calidad']);
-                $aux['Alias'] = array($persona['Alias']);
-            } else {
-                // Si la persona es nueva se elimina el campo id
-                unset($aux['ID_Persona']);
-                $aux['Nombre'] = $persona['Nombre'];
-                $aux['Ap_Paterno'] = $persona['Ap_Paterno'];
-                $aux['Ap_Materno'] = $persona['Ap_Materno'];
-                $aux['Calidad'] = intval($persona['Calidad']);
-                $aux['Alias'] = array($persona['Alias']);
             }
+            $aux['Nombre'] = $persona['Nombre'];
+            $aux['Ap_Paterno'] = $persona['Ap_Paterno'];
+            $aux['Ap_Materno'] = $persona['Ap_Materno'];
+            $aux['Calidad'] = intval($persona['Calidad']);
+            $aux['Alias'] = array($persona['Alias']);
             array_push($personas,$aux);
+            unset($aux['ID_Persona']);
         }
-        // return $personas;
+
         // Antecedente
         $antecedenteRequest = $request->only('Antecedente');
         // Función que construye el arreglo antecedentes
@@ -300,6 +257,7 @@ class phConsignacionesController extends Controller
             'Fecha' => $antecedente[2]
             );
         }
+
         // AJUSTES especiales de datos
         $antecedente['Detenido'] = $antecedente['Detenido'] == 'No'?  2: 1;
         $request->Detenido = $request->Detenido == 'No' ? 2: 1;
@@ -308,52 +266,35 @@ class phConsignacionesController extends Controller
         $agencia = intval($request->Agencia);
         $juzgado = intval($request->Juzgado);
         $reclusorio = intval($request->Reclusorio);
+
         // CONSTRUCCIÓN del arreglo
-        if ($request->Detenido_Ant===null || $request->Juzgado_Ant===null || $request->Fecha_Ant===null) {
-            $datos = array(
-                'Fecha' => $request->Fecha,
-                'Agencia' => $agencia,
-                'Fojas' => $request->Fojas,
-                'Av_Previa' => $request->Av_Previa,
-                'Detenido' => $request->Detenido,
-                'Juzgado' => $juzgado,
-                'Reclusorio' => $reclusorio,
-                'Antecedente' => array(
-                ),
-                'Personas' => $personas,
-                'Delitos' =>  array($delitos),
-                'Hora_Recibo' => $request->Hora_Recibo,
-                'Hora_Entrega' => $request->Hora_Entrega,
-                'Hora_Salida' => $request->Hora_Salida,
-                'Hora_Regreso' => $request->Hora_Regreso,
-                'Hora_Llegada' => $request->Hora_Llegada,
-                'Fecha_Entrega' => $request->Fecha_Entrega,
-                'Nota' => $request->Nota,
-                );
+        $datos = array(
+            'Fecha' => $request->Fecha,
+            'Agencia' => $agencia,
+            'Fojas' => $request->Fojas,
+            'Av_Previa' => $request->Av_Previa,
+            'Detenido' => $request->Detenido,
+            'Juzgado' => $juzgado,
+            'Reclusorio' => $reclusorio,
+            'Antecedente' => array(
+            ),
+            'Personas' => $personas,
+            'Delitos' =>  array($delitos),
+            'Hora_Recibo' => $request->Hora_Recibo,
+            'Hora_Entrega' => $request->Hora_Entrega,
+            'Hora_Salida' => $request->Hora_Salida,
+            'Hora_Regreso' => $request->Hora_Regreso,
+            'Hora_Llegada' => $request->Hora_Llegada,
+            'Fecha_Entrega' => $request->Fecha_Entrega,
+            'Nota' => $request->Nota,
+            );
+        if (!($request->Detenido_Ant===null || $request->Juzgado_Ant===null || $request->Fecha_Ant===null)) {
+            $datos['Antecedente'] = $antecedente;
         }
-        else {
-            $datos = array(
-                'Fecha' => $request->Fecha,
-                'Agencia' => $agencia,
-                'Fojas' => $request->Fojas,
-                'Av_Previa' => $request->Av_Previa,
-                'Detenido' => $request->Detenido,
-                'Juzgado' => $juzgado,
-                'Reclusorio' => $reclusorio,
-                'Antecedente' => $antecedente,
-                'Personas' => $personas,
-                'Delitos' =>  array($delitos),
-                'Hora_Recibo' => $request->Hora_Recibo,
-                'Hora_Entrega' => $request->Hora_Entrega,
-                'Hora_Salida' => $request->Hora_Salida,
-                'Hora_Regreso' => $request->Hora_Regreso,
-                'Hora_Llegada' => $request->Hora_Llegada,
-                'Fecha_Entrega' => $request->Fecha_Entrega,
-                'Nota' => $request->Nota,
-                );
-        }
+
+
+
         // Llamando al controlador consignación y al método Update
-        // return $datos;
         $consignacion = new ConsignacionController;
         $consignacion->update($datos, $consignacionId);
         session()->forget('PersonaSession');
@@ -375,4 +316,3 @@ class phConsignacionesController extends Controller
     }
 
 }
-// TODO: Buscar sobre las variables de sesión para trabajar con búsquedas que queden almacenadas
