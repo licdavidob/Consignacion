@@ -85,7 +85,7 @@ class phConsignacionesController extends Controller
             'Personas.*.Nombre' => 'required',
             'Personas.*.Ap_Paterno' => 'required',
             'Personas.*.Calidad' => 'required',
-            'Personas.*.Alias' => 'required',
+            // 'Personas.*.Alias' => 'required',
             //VALIDACION Delitos
             'Delitos'      => 'required',
             // 'Fecha_Entrega' => 'required',
