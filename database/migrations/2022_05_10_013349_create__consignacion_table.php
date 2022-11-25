@@ -24,9 +24,9 @@ class CreateConsignacionTable extends Migration
             $table->time('Hora_Regreso')->nullable();
             $table->time('Hora_Llegada')->nullable();
             $table->date('Fecha_Entrega')->nullable();
-            $table->tinyInteger('Estatus')->default(1)->comment('1 = Activo / 0 = Desactivado'); 
+            $table->tinyInteger('Estatus')->default(1)->comment('1 = Activo / 0 = Desactivado');
             $table->tinyInteger('Detenido')->comment('1 = Con Detenido / 2 = Sin Detenido');
-            $table->string('Nota', 255);
+            $table->string('Nota', 255)->nullable();
             $table->timestamps();
         });
     }
