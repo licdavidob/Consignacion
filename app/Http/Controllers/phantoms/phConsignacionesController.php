@@ -81,18 +81,20 @@ class phConsignacionesController extends Controller
             'Fecha'      => 'required',
             'Fojas'      => 'required',
             //VALIDACION Personas
+            'Personas' => 'required',
             'Personas.*.Nombre' => 'required',
             'Personas.*.Ap_Paterno' => 'required',
             'Personas.*.Calidad' => 'required',
             'Personas.*.Alias' => 'required',
             //VALIDACION Delitos
             'Delitos'      => 'required',
-            'Fecha_Entrega' => 'required',
-            'Hora_Entrega'  => 'required',
-            'Hora_Llegada'  => 'required',
-            'Hora_Regreso'  => 'required',
-            'Hora_Recibo'   => 'required',
-            'Hora_Salida'   => 'required',
+            // 'Fecha_Entrega' => 'required',
+            // 'Hora_Entrega'  => 'required',
+            // 'Hora_Llegada'  => 'required',
+            // 'Hora_Regreso'  => 'required',
+            // 'Hora_Recibo'   => 'required',
+            // 'Hora_Salida'   => 'required',
+            'Nota'   => 'required',
         ]);
         return true;
     }
@@ -104,6 +106,7 @@ class phConsignacionesController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request;
         session()->put('PersonaSession',$request->Personas);
         // Validaciones
         $this->validar($request);
