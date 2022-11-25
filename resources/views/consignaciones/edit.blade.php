@@ -37,13 +37,13 @@
 												<div class="grid grid-cols-6 gap-6">
 													{{-- Averiguación previa --}}
 													<div class="col-span-6 sm:col-span-6">
-														<label for="Av_Previa" class="block text-sm font-medium text-gray-700">Averiguación Previa</label>
+														<label for="Av_Previa" class="block text-sm font-medium text-gray-700">Averiguación Previa<span class=" text-red-600 ml-0.5">*</span></label>
 														<span class=" text-xs text-red-600">@error('Av_Previa') {{ $message }} @enderror</span>
 														<input type="text" name="Av_Previa" id="Av_Previa" autocomplete="given-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ $consignaciones['Av_Previa'] }}">
 													</div>
 													{{-- Con detenido --}}
 													<div class="col-span-6 sm:col-span-2">
-														<label for="Detenido" class="block text-sm font-medium text-gray-700">Con detenido</label>
+														<label for="Detenido" class="block text-sm font-medium text-gray-700">Con detenido<span class=" text-red-600 ml-0.5">*</span></label>
 														<select id="Detenido" name="Detenido" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
 															<!-- TODO: Revisar como se esta mandando la información, como cadena o como numero -->
 															<option value="{{ $consignaciones['Detenido'] }}">{{ $consignaciones['Detenido'] }}</option>
@@ -54,7 +54,7 @@
 													</div>
 													{{-- Agencia --}}
 													<div class="col-span-6 sm:col-span-2">
-														<label for="Agencia" class="block text-sm font-medium text-gray-700">Agencia</label>
+														<label for="Agencia" class="block text-sm font-medium text-gray-700">Agencia<span class=" text-red-600 ml-0.5">*</span></label>
 														<select id="Agencia" name="Agencia" autocomplete="Agencia-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
 															<option value="{{ $agenciaID[0]['ID_Agencia'] }}">{{ $consignaciones['Agencia'] }}</option>
 															@foreach ($agencias as $agencia)
@@ -65,13 +65,13 @@
 													</div>
 													{{-- Fecha --}}
 													<div class="col-span-6 sm:col-span-2">
-														<label for="Fecha" class="block text-sm font-medium text-gray-700">Fecha</label>
+														<label for="Fecha" class="block text-sm font-medium text-gray-700">Fecha<span class=" text-red-600 ml-0.5">*</span></label>
 														<input type="date" name="Fecha" id="Fecha" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ $consignaciones['Fecha'] }}">
 														<span class=" text-xs text-red-600">@error('Fecha') {{ $message }} @enderror</span>
 													</div>
 													{{-- Reclusorio --}}
 													<div class="col-span-6 sm:col-span-2">
-														<label for="Reclusorio" class="block text-sm font-medium text-gray-700">Reclusorio</label>
+														<label for="Reclusorio" class="block text-sm font-medium text-gray-700">Reclusorio<span class=" text-red-600 ml-0.5">*</span></label>
 														<select id="Reclusorio" name="Reclusorio" autocomplete="reclusorio-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
 															<option value="{{ $reclusoriosID[0]['ID_Reclusorio'] }}">{{ $consignaciones['Reclusorio'] }}</option>
 															@foreach ($reclusorios as $reclusorio)
@@ -82,7 +82,7 @@
 													</div>
 													{{-- Juzgado --}}
 													<div class="col-span-6 sm:col-span-2">
-														<label for="Juzgado" class="block text-sm font-medium text-gray-700">Juzgado</label>
+														<label for="Juzgado" class="block text-sm font-medium text-gray-700">Juzgado<span class=" text-red-600 ml-0.5">*</span></label>
 														<select id="Juzgado" name="Juzgado" autocomplete="juzgado-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
 															<option value="{{ $juzgadosID[0]['ID_Juzgado'] }}">{{ $consignaciones['Juzgado'] }}</option>
 															@foreach ($juzgados as $juzgado)
@@ -93,7 +93,7 @@
 													</div>
 													{{-- Fojas --}}
 													<div class="col-span-6 sm:col-span-2">
-														<label for="Fojas" class="block text-sm font-medium text-gray-700">Fojas</label>
+														<label for="Fojas" class="block text-sm font-medium text-gray-700">Fojas<span class=" text-red-600 ml-0.5">*</span></label>
 														<input type="number" name="Fojas" id="Fojas" autocomplete="family-name" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ $consignaciones['Fojas'] }}">
 														<span class=" text-xs text-red-600">@error('Fojas') {{ $message }} @enderror</span>
 													</div>
@@ -113,14 +113,20 @@
 														</div>
 													</div>
 													{{-- Tabla de participantes --}}
+													@if ($errors->has('Personas*'))
+                            <x-alert>
+                              <p>Revisa los datos de los participantes
+                              </p>
+                            </x-alert>
+                            @endif
 													<div class="w-full col-span-6 px-5 py-3">
 														<table class="w-full bg-cyan-900">
 															<thead class="text-white">
 																<tr class="">
-																	<th class="w-1/7 py-5">Nombre</th>
-																	<th class="w-1/7 py-5">Apellido Paterno</th>
+																	<th class="w-1/7 py-5">Nombre<span class=" text-red-600 ml-0.5">*</span></th>
+																	<th class="w-1/7 py-5">Apellido Paterno<span class=" text-red-600 ml-0.5">*</span></th>
 																	<th class="w-1/7 py-5">Apellido Materno</th>
-																	<th class="w-1/7 py-5">Tipo</th>
+																	<th class="w-1/7 py-5">Tipo<span class=" text-red-600 ml-0.5">*</span></th>
 																	<th class="w-1/7 py-5">Alias</th>
 																	<th class="w-1/7 py-5 pr-4">Acciones</th>
 																</tr>
@@ -222,7 +228,7 @@
 															<table class="w-10/12 bg-cyan-900">
 																<thead class="text-white">
 																	<tr class="">
-																		<th class="w-1/2 py-5">Delitos</th>
+																		<th class="w-1/2 py-5">Delitos<span class=" text-red-600 ml-0.5">*</span></th>
 																	</tr>
 																</thead>
 																<tbody class="text-center bg-white">

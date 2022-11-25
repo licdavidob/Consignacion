@@ -94,7 +94,7 @@ class phConsignacionesController extends Controller
             // 'Hora_Regreso'  => 'required',
             // 'Hora_Recibo'   => 'required',
             // 'Hora_Salida'   => 'required',
-            'Nota'   => 'required',
+            // 'Nota'   => 'required',
         ]);
         return true;
     }
