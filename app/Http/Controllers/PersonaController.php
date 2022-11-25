@@ -28,11 +28,13 @@ class PersonaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store($Personas, $Consignacion)
     {
         foreach ($Personas as $Persona) {
             $this->CreatePersona($Persona, $Consignacion);
         }
+        return true;
     }
 
     public function CreatePersona($Persona, $Consignacion)
@@ -87,7 +89,11 @@ class PersonaController extends Controller
 
     public function SearchEachPersonaByConsignacion($ID_Consignacion)
     {
-        $BusquedaPersona = Persona::select('ID_Persona')->where('ID_Consignacion', $ID_Consignacion)->get();
+        $BusquedaPersona =
+            Persona::select('ID_Persona')
+                ->where('ID_Consignacion', $ID_Consignacion)
+                ->where('Estatus', 1)
+                ->get();
         $Personas = array();
         $i = 0;
         foreach ($BusquedaPersona as $ID_Persona) {
@@ -130,6 +136,9 @@ class PersonaController extends Controller
 
     public function ValidarActualizacion($PersonasActualizada, $Consignacion)
     {
+        //Se eliminan a las personas que no se encuentren en la petición de la actualización
+        $this->EliminarPersona($PersonasActualizada,$Consignacion);
+
         foreach ($PersonasActualizada as $PersonaActualizada) {
             //Si la persona cuenta con un ID, entonces se va a actualizar el registro
             if (isset($PersonaActualizada['ID_Persona'])) {
@@ -141,6 +150,30 @@ class PersonaController extends Controller
         }
     }
 
+    public function EliminarPersona($PersonasActualizancion,$Consignacion){
+
+        //Se obtienen a las personas actuales dentro de la cosignacion y se almacenan en un array
+        $BusquedaPersonasActualesEnConsignacion = Persona::select('ID_Persona')->where('ID_Consignacion', $Consignacion)->get();
+        $i = 0;
+        foreach ($BusquedaPersonasActualesEnConsignacion as $PersonaActual){
+            $PersonasActualesEnConsignacion[$i] = $PersonaActual->ID_Persona;
+            $i++;
+        }
+
+        //Se compara las personas actuales contra las recibidas en la petición
+        foreach ($PersonasActualizancion as $PersonaActualizacion) {
+            if (isset($PersonaActualizacion['ID_Persona'])) {
+                $clave = array_search($PersonaActualizacion['ID_Persona'], $PersonasActualesEnConsignacion);
+                unset($PersonasActualesEnConsignacion[$clave]);
+            }
+        }
+
+        //Las personas que no esten en la petición de actualización se desactivan
+        foreach ($PersonasActualesEnConsignacion as $DesactivarPersona){
+            $this->destroy($DesactivarPersona);
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -149,6 +182,9 @@ class PersonaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $BusquedaPersona = Persona::find($id);
+        $BusquedaPersona->Estatus = 0;
+        $BusquedaPersona->save();
+        return true;
     }
 }
