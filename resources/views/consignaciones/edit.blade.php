@@ -47,7 +47,7 @@
 															<!-- TODO: Revisar como se esta mandando la información, como cadena o como numero -->
 															<option value="{{ $consignaciones['Detenido'] }}">{{ $consignaciones['Detenido'] }}</option>
 															<option value="1">Si</option>
-															<option value="0">No</option>
+															<option value="2">No</option>
 														</select>
 														<span class=" text-xs text-red-600">@error('Detenido') {{ $message }} @enderror</span>
 													</div>
@@ -258,7 +258,7 @@
 															<select id="Detenido_Ant" name="Antecedente[]" autocomplete="con_detenido_Ant-name" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
 																<option value="{{ $consignaciones['Antecedente']['Con Detenido'] }}">{{ $consignaciones['Antecedente']['Con Detenido'] }}</option>
 																<option value="1">Si</option>
-																<option value="0">No</option>
+																<option value="2">No</option>
 															</select>
 															<span class=" text-xs text-red-600">@error('Detenido_Ant') {{ $message }} @enderror</span>
 														</div>

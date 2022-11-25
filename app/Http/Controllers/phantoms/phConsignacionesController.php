@@ -222,13 +222,13 @@ class phConsignacionesController extends Controller
      */
     public function update(Request $request, $consignacionId)
     {
+        // return $request;
         session()->put('PersonaSession',$request->Personas);
         // VALIDACION DE ENTRADAS
         $this->validar($request);
         // RECUPERACIÓN de datos específicos
         // Personas
         $personasRequest= $request->Personas;
-        // return $personasRequest;
         // Función que construye el arreglo de personas
         $personas = array();
         $aux = array();
@@ -259,8 +259,8 @@ class phConsignacionesController extends Controller
         }
 
         // AJUSTES especiales de datos
-        $antecedente['Detenido'] = $antecedente['Detenido'] == 'No'?  2: 1;
-        $request->Detenido = $request->Detenido == 'No' ? 2: 1;
+        // $antecedente['Detenido'] = $antecedente['Detenido'] == 'No'?  2: 1;
+        // $request->Detenido = $request->Detenido === 'No' ? 2: 1;
         // Cambiando a enteros datos de request
         $delitos = intval($request->Delitos[0]);
         $agencia = intval($request->Agencia);
@@ -273,7 +273,7 @@ class phConsignacionesController extends Controller
             'Agencia' => $agencia,
             'Fojas' => $request->Fojas,
             'Av_Previa' => $request->Av_Previa,
-            'Detenido' => $request->Detenido,
+            'Detenido' => intval($request->Detenido),
             'Juzgado' => $juzgado,
             'Reclusorio' => $reclusorio,
             'Antecedente' => array(
@@ -292,7 +292,7 @@ class phConsignacionesController extends Controller
             $datos['Antecedente'] = $antecedente;
         }
 
-
+        // return $datos;
 
         // Llamando al controlador consignación y al método Update
         $consignacion = new ConsignacionController;
