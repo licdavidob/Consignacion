@@ -222,7 +222,7 @@ class phConsignacionesController extends Controller
      */
     public function update(Request $request, $consignacionId)
     {
-        // return $request;
+        // return $request->Antecedente;
         session()->put('PersonaSession',$request->Personas);
         // VALIDACION DE ENTRADAS
         $this->validar($request);
@@ -232,7 +232,6 @@ class phConsignacionesController extends Controller
         // Función que construye el arreglo de personas
         $personas = array();
         $aux = array();
-       
         foreach ($personasRequest as $persona) {
             // Si se esta actualizando una persona
             if (array_key_exists('ID_Persona',$persona)) {
@@ -246,21 +245,20 @@ class phConsignacionesController extends Controller
             array_push($personas,$aux);
             unset($aux['ID_Persona']);
         }
-
         // Antecedente
         $antecedenteRequest = $request->only('Antecedente');
         // Función que construye el arreglo antecedentes
         foreach ($antecedenteRequest as $antecedente) {
             $antecedente = array(
-            'Detenido' => $antecedente[0],
+            'Detenido' => intval($antecedente[0]),
             'Juzgado' => intval($antecedente[1]),
             'Fecha' => $antecedente[2]
             );
         }
-
-        // AJUSTES especiales de datos
-        // $antecedente['Detenido'] = $antecedente['Detenido'] == 'No'?  2: 1;
-        // $request->Detenido = $request->Detenido === 'No' ? 2: 1;
+        // Validamos si se registro antecedente | si, se manda el antecedente | no, se manda arreglo vacío
+        if ($antecedente['Detenido']===0 || $antecedente['Juzgado']===0|| $antecedente['Fecha']===null) {
+            $antecedente = array();
+        }
         // Cambiando a enteros datos de request
         $delitos = intval($request->Delitos[0]);
         $agencia = intval($request->Agencia);
@@ -276,8 +274,7 @@ class phConsignacionesController extends Controller
             'Detenido' => intval($request->Detenido),
             'Juzgado' => $juzgado,
             'Reclusorio' => $reclusorio,
-            'Antecedente' => array(
-            ),
+            'Antecedente' => $antecedente,
             'Personas' => $personas,
             'Delitos' =>  array($delitos),
             'Hora_Recibo' => $request->Hora_Recibo,
@@ -288,12 +285,6 @@ class phConsignacionesController extends Controller
             'Fecha_Entrega' => $request->Fecha_Entrega,
             'Nota' => $request->Nota,
             );
-        if (!($request->Detenido_Ant===null || $request->Juzgado_Ant===null || $request->Fecha_Ant===null)) {
-            $datos['Antecedente'] = $antecedente;
-        }
-
-        // return $datos;
-
         // Llamando al controlador consignación y al método Update
         $consignacion = new ConsignacionController;
         $consignacion->update($datos, $consignacionId);
