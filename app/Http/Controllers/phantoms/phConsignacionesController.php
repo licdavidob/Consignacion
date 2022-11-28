@@ -114,18 +114,31 @@ class phConsignacionesController extends Controller
 
 
         $personasRequest= $request->Personas;
+        // return $personasRequest;
         // Función que construye el arreglo de personas
         $personas = array();
         foreach ($personasRequest as $persona) {
+            // echo '<pre>';
+            //     return empty($persona['Alias']);
+            // echo '</pre>';
+            // return $persona['Alias'];
+            // return $persona['Alias'];
             $aux = array(
                 'Nombre' => $persona['Nombre'],
                 'Ap_Paterno' => $persona['Ap_Paterno'],
                 'Ap_Materno' => $persona['Ap_Materno'],
                 'Calidad' => intval($persona['Calidad']),
-                'Alias' => array($persona['Alias']),
             );
+            if (!empty($persona['Alias'])) {
+                // return 'Holi';
+                $aux['Alias'] = array($persona['Alias']);
+            }
+            else {
+                $aux['Alias'] = array();
+            }
             array_push($personas,$aux);
         }
+        // return $personas;
 
         // Construyendo el arreglo
         if ($request->Detenido_Ant===null || $request->Juzgado_Ant===null || $request->Fecha_Ant===null) {
@@ -175,7 +188,7 @@ class phConsignacionesController extends Controller
                 'Nota' => $request->Nota,
             );
         }
-
+        // return $datos;
         // Envío de datos al controlador de consignaciones
         $consignacion = new ConsignacionController;
         $consignacion->store($datos);
