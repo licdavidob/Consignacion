@@ -27,7 +27,7 @@ class AliasController extends Controller
      */
     public function store($Alias)
     {
-        $Alias = $Alias == null ? 'N/A' : $Alias;
+        $Alias = $Alias == null ? '' : $Alias;
         Alias::create(['Alias' => $Alias]);
 
         //Se obtiene la informacion del alias insertada

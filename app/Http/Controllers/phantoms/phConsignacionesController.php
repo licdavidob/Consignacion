@@ -32,8 +32,7 @@ class phConsignacionesController extends Controller
         // Módulo de búsqueda
         if ($request->averiguacion === NULL) {
             $Averiguacion = '';
-        }
-        else {
+        } else {
             $consignacion->Busqueda['Averiguacion'] = $request->averiguacion;
         }
         // Llamando al controlador index para devolver las consignaciones de la base de datos
@@ -70,7 +69,8 @@ class phConsignacionesController extends Controller
         $tipoParticipante = Calidad_Juridica::select('Calidad', 'ID_Calidad')->get();
         return view('consignaciones.create', compact('agencias', 'reclusorios', 'juzgados', 'delitos', 'tipoParticipante'));
     }
-    public function validar($request){
+    public function validar($request)
+    {
         $request->validate([
             //VALIDACION Datos generales
             'Reclusorio' => 'required',
@@ -107,13 +107,13 @@ class phConsignacionesController extends Controller
     public function store(Request $request)
     {
         // return $request;
-        session()->put('PersonaSession',$request->Personas);
+        session()->put('PersonaSession', $request->Personas);
         // Validaciones
         $this->validar($request);
         // CONSTRUCCIÓN de la consignación
 
 
-        $personasRequest= $request->Personas;
+        $personasRequest = $request->Personas;
         // return $personasRequest;
         // Función que construye el arreglo de personas
         $personas = array();
@@ -130,18 +130,14 @@ class phConsignacionesController extends Controller
                 'Calidad' => intval($persona['Calidad']),
             );
             if (!empty($persona['Alias'])) {
-                // return 'Holi';
                 $aux['Alias'] = array($persona['Alias']);
             }
-            else {
-                $aux['Alias'] = array();
-            }
-            array_push($personas,$aux);
+            array_push($personas, $aux);
         }
         // return $personas;
 
         // Construyendo el arreglo
-        if ($request->Detenido_Ant===null || $request->Juzgado_Ant===null || $request->Fecha_Ant===null) {
+        if ($request->Detenido_Ant === null || $request->Juzgado_Ant === null || $request->Fecha_Ant === null) {
             $datos = array(
                 'Fecha' => $request->Fecha,
                 'Agencia' => $request->Agencia,
@@ -150,8 +146,7 @@ class phConsignacionesController extends Controller
                 'Detenido' => $request->Detenido,
                 'Juzgado' => $request->Juzgado,
                 'Reclusorio' => $request->Reclusorio,
-                'Antecedente' => array(
-                ),
+                'Antecedente' => array(),
                 'Personas' => $personas,
                 'Delitos' =>  array(intval($request->Delitos)),
                 'Hora_Recibo' => $request->Hora_Recibo,
@@ -162,8 +157,7 @@ class phConsignacionesController extends Controller
                 'Fecha_Entrega' => $request->Fecha_Entrega,
                 'Nota' => $request->Nota,
             );
-        }
-        else {
+        } else {
             $datos = array(
                 'Fecha' => $request->Fecha,
                 'Agencia' => $request->Agencia,
@@ -188,14 +182,14 @@ class phConsignacionesController extends Controller
                 'Nota' => $request->Nota,
             );
         }
-        // return $datos;
         // Envío de datos al controlador de consignaciones
         $consignacion = new ConsignacionController;
         $consignacion->store($datos);
         session()->forget('PersonaSession');
-        return to_route('dashboard');
+        // return $datos;
+        // return to_route('dashboard');
     }
-    
+
     /**
      * Vista de la edición de una consignación
      *
@@ -222,14 +216,13 @@ class phConsignacionesController extends Controller
         $delitos = Delito::select('Nombre', 'ID_Delito')->get();
         // Calidad de participante
         $tipoParticipante = Calidad_Juridica::select('Calidad', 'ID_Calidad')->get();
-        if($consignaciones['Antecedente'])
-        {
+        if ($consignaciones['Antecedente']) {
             $juzgadoAntecedente = Juzgado::select('ID_Juzgado')->where('Nombre', $consignaciones['Antecedente']['Juzgado'])->get();
             return view('consignaciones.edit', compact('agencias', 'reclusorios', 'juzgados', 'delitos', 'tipoParticipante', 'consignaciones', 'consignacionId', 'juzgadosID', 'juzgadoAntecedente', 'agenciaID', 'reclusoriosID'));
         }
         return view('consignaciones.edit', compact('agencias', 'reclusorios', 'juzgados', 'delitos', 'tipoParticipante', 'consignaciones', 'consignacionId', 'juzgadosID', 'agenciaID', 'reclusoriosID'));
     }
-    
+
     /**
      *Función que realiza la actualización de la información de una consignación
      *
@@ -239,18 +232,18 @@ class phConsignacionesController extends Controller
     public function update(Request $request, $consignacionId)
     {
         // return $request->Antecedente;
-        session()->put('PersonaSession',$request->Personas);
+        session()->put('PersonaSession', $request->Personas);
         // VALIDACION DE ENTRADAS
         $this->validar($request);
         // RECUPERACIÓN de datos específicos
         // Personas
-        $personasRequest= $request->Personas;
+        $personasRequest = $request->Personas;
         // Función que construye el arreglo de personas
         $personas = array();
         $aux = array();
         foreach ($personasRequest as $persona) {
             // Si se esta actualizando una persona
-            if (array_key_exists('ID_Persona',$persona)) {
+            if (array_key_exists('ID_Persona', $persona)) {
                 $aux['ID_Persona'] = intval($persona['ID_Persona']);
             }
             $aux['Nombre'] = $persona['Nombre'];
@@ -258,7 +251,7 @@ class phConsignacionesController extends Controller
             $aux['Ap_Materno'] = $persona['Ap_Materno'];
             $aux['Calidad'] = intval($persona['Calidad']);
             $aux['Alias'] = array($persona['Alias']);
-            array_push($personas,$aux);
+            array_push($personas, $aux);
             unset($aux['ID_Persona']);
         }
         // Antecedente
@@ -266,13 +259,13 @@ class phConsignacionesController extends Controller
         // Función que construye el arreglo antecedentes
         foreach ($antecedenteRequest as $antecedente) {
             $antecedente = array(
-            'Detenido' => intval($antecedente[0]),
-            'Juzgado' => intval($antecedente[1]),
-            'Fecha' => $antecedente[2]
+                'Detenido' => intval($antecedente[0]),
+                'Juzgado' => intval($antecedente[1]),
+                'Fecha' => $antecedente[2]
             );
         }
         // Validamos si se registro antecedente | si, se manda el antecedente | no, se manda arreglo vacío
-        if ($antecedente['Detenido']===0 || $antecedente['Juzgado']===0|| $antecedente['Fecha']===null) {
+        if ($antecedente['Detenido'] === 0 || $antecedente['Juzgado'] === 0 || $antecedente['Fecha'] === null) {
             $antecedente = array();
         }
         // Cambiando a enteros datos de request
@@ -300,7 +293,7 @@ class phConsignacionesController extends Controller
             'Hora_Llegada' => $request->Hora_Llegada,
             'Fecha_Entrega' => $request->Fecha_Entrega,
             'Nota' => $request->Nota,
-            );
+        );
         // Llamando al controlador consignación y al método Update
         $consignacion = new ConsignacionController;
         $consignacion->update($datos, $consignacionId);
@@ -321,5 +314,4 @@ class phConsignacionesController extends Controller
         $consignaciones;
         return back();
     }
-
 }
