@@ -159,9 +159,13 @@
 																			</select>
 																		</td>
 																		<td class="py-2 border-b-2">
+																			@if (!$persona['Alias'])
+																			<input type="text" name="Personas[{{ $i }}][Alias]" id="{{ $persona['ID_Persona'] }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="">
+																			@else
 																			@foreach ( $persona['Alias'] as $alias)
 																			<input type="text" name="Personas[{{ $i }}][Alias]" id="{{ $persona['ID_Persona'] }}" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ $alias }}">
 																			@endforeach
+																			@endif
 																		</td>
 																		<td class="borrar py-2 border-b-2">
 																			<div class="flex w-full justify-center">
