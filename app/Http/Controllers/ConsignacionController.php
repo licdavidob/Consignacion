@@ -10,8 +10,8 @@ use App\Http\Controllers\AveriguacionController;
 use App\Http\Controllers\AntecedenteController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\DelitoController;
-use Illuminate\Http\Response;
-use Illuminate\Http\Request;
+use App\Http\Controllers\UserController;
+
 
 class ConsignacionController extends Controller
 {
@@ -30,7 +30,7 @@ class ConsignacionController extends Controller
 
     public function index(bool $Paginate = true): object|array
     {
-        if($Paginate){
+        if ($Paginate) {
             return $this->QueryBuilderSearch($Paginate);
         }
         $Consignacion_Busqueda = $this->QueryBuilderSearch($Paginate);
@@ -62,7 +62,7 @@ class ConsignacionController extends Controller
         $Operador_Detenido = $this->Busqueda['ID_Detenido'] == 0 ? '>=' : '=';
         $Operador_Agencia = $this->Busqueda['ID_Agencia'] == 0 ? '>=' : '=';
 
-        if($Paginate){
+        if ($Paginate) {
             return Consignacion::select('ID_Consignacion', 'ID_Agencia', 'Averiguacion', 'ID_Juzgado', 'Detenido')
                 ->join('averiguacion_previa', 'consignacion.ID_Averiguacion', '=', 'averiguacion_previa.ID_Averiguacion')
                 ->where('Detenido', $Operador_Detenido, $this->Busqueda['ID_Detenido'])
@@ -90,9 +90,7 @@ class ConsignacionController extends Controller
 
     public function store(array $Consignacion): bool
     {
-        if ($Consignacion == '') {
-            return false;
-        }
+        $User = UserController::logininfo();
 
         //Se obtiene la informacion de la averiguacion previa insertada
         $Averiguacion = new AveriguacionController;
@@ -114,6 +112,8 @@ class ConsignacionController extends Controller
             'Hora_Llegada' => $Consignacion['Hora_Llegada'],
             'Fecha_Entrega' => $Consignacion['Fecha_Entrega'],
             'Nota' => $Consignacion['Nota'],
+            'ID_created_by' => $User->id,
+            'ID_updated_by' => $User->id,
         ]);
 
         //Se obtiene la informacion de la Consignacion insertada

@@ -32,7 +32,9 @@ class Consignacion extends Model
         'Hora_Regreso',
         'Hora_Llegada',
         'Fecha_Entrega',
-        'Nota'
+        'Nota',
+        'ID_created_by',
+        'ID_updated_by',
     ];
 
     protected $hidden = [
@@ -65,6 +67,17 @@ class Consignacion extends Model
     public function Averiguacion()
     {
         return $this->belongsTo(Averiguacion_Previa::class, 'ID_Averiguacion', 'ID_Averiguacion');
+    }
+
+    //Usuarios
+    public function CreatebyUser()
+    {
+        return $this->belongsTo(User::class, 'id', 'ID_created_by');
+    }
+
+    public function UpdatebyUser()
+    {
+        return $this->belongsTo(User::class, 'id', 'ID_updated_by');
     }
 
     //Relación muchos a muchos

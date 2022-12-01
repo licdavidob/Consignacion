@@ -25,6 +25,15 @@ class AddLlavesforaneasConsignacion extends Migration
 
             $table->bigInteger('ID_Averiguacion')->unsigned();
             $table->foreign('ID_Averiguacion')->references('ID_Averiguacion')->on('averiguacion_previa');
+
+            $table->after('created_at', function ($table) {
+                $table->bigInteger('ID_created_by')->unsigned();
+                $table->foreign('ID_created_by')->references('id')->on('users');
+            });
+            $table->after('updated_at', function ($table) {
+                $table->bigInteger('ID_updated_by')->unsigned();
+                $table->foreign('ID_updated_by')->references('id')->on('users');
+            });
         });
     }
 
