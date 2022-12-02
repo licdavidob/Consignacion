@@ -204,6 +204,8 @@ class ConsignacionController extends Controller
         //Si la consignación es activa, se puede actualizar
         if ($ConsignacionBusqueda->Estatus == 1) {
 
+            $User = UserController::logininfo();
+
             //Se actualiza la informacion de la averiguacion previa
             $Averiguacion = new AveriguacionController;
             $Averiguacion = $Averiguacion->update($ConsignacionActualizada['Av_Previa'], $ConsignacionBusqueda->ID_Averiguacion);
@@ -234,6 +236,7 @@ class ConsignacionController extends Controller
             $ConsignacionBusqueda->Hora_Llegada = $ConsignacionActualizada['Hora_Llegada'];
             $ConsignacionBusqueda->Fecha_Entrega = $ConsignacionActualizada['Fecha_Entrega'];
             $ConsignacionBusqueda->Nota = $ConsignacionActualizada['Nota'];
+            $ConsignacionBusqueda->ID_updated_by = $User->id;
             $ConsignacionBusqueda->save();
         } else {
             return false;

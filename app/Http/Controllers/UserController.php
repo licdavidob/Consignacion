@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +15,7 @@ class UserController extends Controller
     /**
      * Muestra todos los usuario registrados en el sistema.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(bool $Activate = true)
     {
@@ -24,8 +25,8 @@ class UserController extends Controller
     /**
      * Registra un nuevo usuario en sistema.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -55,7 +56,7 @@ class UserController extends Controller
      * Muestra la información general de un usuario
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -65,9 +66,9 @@ class UserController extends Controller
     /**
      * Actualiza la información de un usuario.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -78,7 +79,7 @@ class UserController extends Controller
      * Desactiva a un usuario.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {

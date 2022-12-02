@@ -17,8 +17,8 @@ use App\Http\Controllers\UserController;
 Route::get('usuario', [UserController::class, 'index'])->name("usuario.index");
 Route::post('usuario', [UserController::class, 'store'])->name("usuario.store");
 
-// Route::group(['middleware' => ["auth:sanctum"]], function () {
-//     Route::get('Usuario/{id}', [UserController::class, 'show']);
-//     Route::put('Usuario/{id}', [UserController::class, 'update']);
-//     Route::delete('Usuario/{id}', [UserController::class, 'destroy']);
-// });
+ Route::group(['middleware' => ["auth:sanctum"]], function () {
+     Route::get('Usuario/{id}', [UserController::class, 'show']);
+     Route::put('Usuario/{id}', [UserController::class, 'update']);
+     Route::delete('Usuario/{id}', [UserController::class, 'destroy']);
+ });
