@@ -11,73 +11,21 @@ use App\Http\Controllers\AntecedenteController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\DelitoController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BusquedaController;
 
 
-class ConsignacionController extends Controller
+class ConsignacionController extends BusquedaController
 {
-    public array $Busqueda = array(
-        'Averiguacion' => '',
-        'ID_Detenido' => 0, //0 = Busqueda General, 1 = Con Detenido, 2 = Sin Detenido
-        'ID_Agencia' => 0,
-    );
 
     /**
      * Despliega todas las consignaciones registradas.
      *
-     * @param bool $Paginate
      * @return object|array
      */
 
-    public function index(bool $Paginate = true): object|array
+    public function index(): object|array
     {
-        if ($Paginate) {
-            return $this->QueryBuilderSearch($Paginate);
-        }
-        $Consignacion_Busqueda = $this->QueryBuilderSearch($Paginate);
-        $Consignaciones = array();
-        $i = 0;
-        foreach ($Consignacion_Busqueda as $ConsignacionObtenida) {
-            $Agencia = $ConsignacionObtenida->Agencia()->select('Nombre')->get();
-            $Consignacion['ID_Consignacion'] = $ConsignacionObtenida->ID_Consignacion;
-            $Consignacion['Con Detenido'] = $ConsignacionObtenida->Detenido == 1 ? 'Con Detenido' : 'Sin Detenido';
-            $Consignacion['Agencia'] = $Agencia[0]["Nombre"];
-            $Consignacion['Averiguacion'] = $ConsignacionObtenida->Averiguacion;
-            $Consignaciones[$i] = $Consignacion;
-            $i++;
-        }
-        return $Consignaciones;
-    }
-
-    /**
-     *Se encarga de buscar todas las consignaciones registradas
-     * con los parametros de busqueda establecidos dentro
-     * del atributo $Busqueda
-     *
-     * @param bool $Paginate
-     * @return object
-     */
-
-    public function QueryBuilderSearch(bool $Paginate): object
-    {
-        $Operador_Detenido = $this->Busqueda['ID_Detenido'] == 0 ? '>=' : '=';
-        $Operador_Agencia = $this->Busqueda['ID_Agencia'] == 0 ? '>=' : '=';
-
-        if ($Paginate) {
-            return Consignacion::select('ID_Consignacion', 'ID_Agencia', 'Averiguacion', 'ID_Juzgado', 'Detenido')
-                ->join('averiguacion_previa', 'consignacion.ID_Averiguacion', '=', 'averiguacion_previa.ID_Averiguacion')
-                ->where('Detenido', $Operador_Detenido, $this->Busqueda['ID_Detenido'])
-                ->where('ID_Agencia', $Operador_Agencia, $this->Busqueda['ID_Agencia'])
-                ->Where('Averiguacion', 'like', '%' . $this->Busqueda['Averiguacion'] . '%')
-                ->Where('Estatus', 1)
-                ->paginate();
-        }
-        return Consignacion::select('ID_Consignacion', 'ID_Agencia', 'Averiguacion', 'ID_Juzgado', 'Detenido')
-            ->join('averiguacion_previa', 'consignacion.ID_Averiguacion', '=', 'averiguacion_previa.ID_Averiguacion')
-            ->where('Detenido', $Operador_Detenido, $this->Busqueda['ID_Detenido'])
-            ->where('ID_Agencia', $Operador_Agencia, $this->Busqueda['ID_Agencia'])
-            ->Where('Averiguacion', 'like', '%' . $this->Busqueda['Averiguacion'] . '%')
-            ->Where('Estatus', 1)
-            ->get();
+        return $this->Consignacion();
     }
 
     /**

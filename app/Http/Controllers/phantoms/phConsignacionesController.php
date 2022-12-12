@@ -19,12 +19,14 @@ class phConsignacionesController extends Controller
 {
     /**
      * Función que devuelve todas las consignaciones
-     * 
+     *
      * @param $request
      * @return array|view
      */
     public function index(Request $request)
+
     {
+
         // Limpiando los datos de session
         session()->forget('PersonaSession');
         // Creamos una instancia de consignación
@@ -33,7 +35,7 @@ class phConsignacionesController extends Controller
         if ($request->averiguacion === NULL) {
             $Averiguacion = '';
         } else {
-            $consignacion->Busqueda['Averiguacion'] = $request->averiguacion;
+            $consignacion->BusquedaConsignacion['Averiguacion'] = $request->averiguacion;
         }
         // Llamando al controlador index para devolver las consignaciones de la base de datos
         $consignaciones = $consignacion->index();
@@ -226,7 +228,7 @@ class phConsignacionesController extends Controller
     /**
      *Función que realiza la actualización de la información de una consignación
      *
-     *@param Request|int $consignacionId Recibe los datos del formulario y recibe el id de la consignación a modificar 
+     *@param Request|int $consignacionId Recibe los datos del formulario y recibe el id de la consignación a modificar
      *@return array|view Devuelve la vista consignaciones con los datos de los modelos
      */
     public function update(Request $request, $consignacionId)
