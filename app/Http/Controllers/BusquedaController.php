@@ -16,18 +16,13 @@ class BusquedaController extends Controller
     public function __construct()
     {
         $this->BusquedaConsignacion = array(
-            'Averiguacion' => 'ccc',
+            'Averiguacion' => '',
             'ID_Detenido' => 0, //0 = Busqueda General, 1 = Con Detenido, 2 = Sin Detenido
             'ID_Agencia' => 0,
             'Estatus' => 1,
         );
 
-        $this->ClausulasWhere = array(
-            'Averiguacion' => ['Averiguacion', 'like', '%' . $this->BusquedaConsignacion['Averiguacion'] . '%'],
-            'ID_Detenido' => ['Detenido', '>=', $this->BusquedaConsignacion['ID_Detenido']],
-            'ID_Agencia' => ['ID_Agencia', '>=', $this->BusquedaConsignacion['ID_Agencia']],
-            'Estatus' => ['Estatus', '=', $this->BusquedaConsignacion['Estatus']],
-        );
+        $this->InicializarWhere();
     }
 
     /**
@@ -83,12 +78,27 @@ class BusquedaController extends Controller
     }
 
     /**
+     * @return bool
+     */
+    public function InicializarWhere(): bool
+    {
+        $this->ClausulasWhere = array(
+            'Averiguacion' => ['Averiguacion', 'like', '%' . $this->BusquedaConsignacion['Averiguacion'] . '%'],
+            'ID_Detenido' => ['Detenido', '>=', $this->BusquedaConsignacion['ID_Detenido']],
+            'ID_Agencia' => ['ID_Agencia', '>=', $this->BusquedaConsignacion['ID_Agencia']],
+            'Estatus' => ['Estatus', '=', $this->BusquedaConsignacion['Estatus']],
+        );
+        return true;
+    }
+
+    /**
      * @return mixed
      */
     public function Consignacion(): mixed
     {
 
         $BusquedaConsignacion = $this->BusquedaConsignacion;
+        $this->InicializarWhere();
         $this->DefineBusqueda($BusquedaConsignacion);
 
         if ($this->Paginate) {
