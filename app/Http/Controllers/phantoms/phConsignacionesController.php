@@ -189,7 +189,7 @@ class phConsignacionesController extends Controller
         $consignacion->store($datos);
         session()->forget('PersonaSession');
         // return $datos;
-        // return to_route('dashboard');
+        return to_route('dashboard');
     }
 
     /**
