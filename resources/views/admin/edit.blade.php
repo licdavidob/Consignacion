@@ -17,7 +17,7 @@
               {{-- left side --}}
               <div class="md:col-span-1">
                 <div class="px-4 sm:px-0">
-                  <h3 class="text-lg font-medium leading-6 text-gray-900">Perfil</h3>
+                  <h3 class="text-lg font-medium leading-6 text-cyan-900">Perfil</h3>
                   <p class="mt-1 text-sm text-gray-600">Selecciona los permisos que deseas seleccionar del usuario</p>
                   <div class="w-full py-5 flex flex-col justify-center">
                     <p class="w-full text-center font-bold text-lg text-gray-500">{{ $user->name }}</p>
@@ -29,10 +29,24 @@
               </div>
               {{-- right side --}}
               <div class="mt-5 md:col-span-2 md:mt-0">
+                {{-- Contenedor --}}
                 <div class="flex flex-col justify-center w-full">
+                  {{-- Usuario --}}
                   <div class="self-end">
                     <span class="text-xs inline-block py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-cyan-800 text-white rounded-full">Usuario: {{ $user->name }}</span>
                   </div>
+                  {{-- laravel collective --}}
+                  <h2>Listado de roles</h2>
+                  {!! Form::model($user, ['route' => ['admin.users.update', $user], 'method' => 'put']) !!}
+                    @foreach ($roles as $role)
+                      <div>
+                        <label>{!! Form::checkbox('roles[]', $role->id, null, ['class' => 'mr-1']) !!}
+                          {{ $role->name }}
+                        </label>
+                      </div>
+                    @endforeach
+                  {!! Form::close() !!}
+                  {{-- Dos --}}
 
                 </div>
               </div>
