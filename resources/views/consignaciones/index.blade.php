@@ -16,7 +16,9 @@
           </div>
         </div>
         {{-- Componente Botón --}}
-        <x-button leyend="Crear registro"></x-button>
+        @can('consignacion.crear')
+          <x-button leyend="Crear registro"></x-button>
+        @endcan
         {{-- ELEMENTO Tabla --}}
         <div class="w-full px-5 py-3">
             {{-- Condicional en caso de no existir registros --}}
@@ -48,12 +50,17 @@
                       <td class="py-2 border-b-2"> {{ $consignacion->Averiguacion }} </td>
                       <td class="py-2 border-b-2">
                         <div class="flex justify-center item-center align-middle">
-                          <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                            <a  href="{{ route('mostrar', $consignacion) }}"><img src="img/show.svg" alt=""></a>
-                          </div>
-                          <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                            <a href="{{ route('editar', $consignacion) }}"><img src="img/edit.svg" alt=""></a>
-                          </div>
+                          @can('consignacion.mostrar')
+                            <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                              <a  href="{{ route('mostrar', $consignacion) }}"><img src="img/show.svg" alt=""></a>
+                            </div>
+                          @endcan
+                          @can('consignacion.editar')
+                            <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                              <a href="{{ route('editar', $consignacion) }}"><img src="img/edit.svg" alt=""></a>
+                            </div>
+                          @endcan
+                          @can('consignacion.destroy')
                           <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                             <form action="{{ route('consignaciones.destroy', $consignacion) }}" method="POST">
                               @csrf
@@ -61,6 +68,7 @@
                               <input type="submit" value="x" class="px-2 text-white bg-gray-800 rounded " onclick="return confirm('¿Desea eliminar el registro?')">
                             </form>
                           </div>
+                          @endcan
                         </div>
                       </td>
                     </tr>

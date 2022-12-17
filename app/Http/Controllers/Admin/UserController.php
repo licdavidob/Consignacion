@@ -13,6 +13,7 @@ class UserController extends Controller
     public function index()
     {
         return view('admin.index');
+        // $this->authorize(['Admin']);
     }
 
     // Si colocamos $user se regresa solo el id del usuario 

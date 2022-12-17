@@ -27,8 +27,9 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'consignacion.index'])->syncRoles([$admin,$user,$editor,$creador]);
         Permission::create(['name' => 'consignacion.crear'])->syncRoles([$admin,$creador]);
         Permission::create(['name' => 'consignacion.guardar'])->syncRoles([$admin,$creador]);
-        Permission::create(['name' => 'consignacion.editar'])->syncRoles([$admin,$editor]);
-        Permission::create(['name' => 'consignacion.actualizar'])->syncRoles([$admin,$editor]);
+        Permission::create(['name' => 'consignacion.mostrar'])->syncRoles([$admin,$user,$editor,$creador]);
+        Permission::create(['name' => 'consignacion.editar'])->syncRoles([$admin,$editor,$creador]);
+        Permission::create(['name' => 'consignacion.actualizar'])->syncRoles([$admin,$editor,$creador]);
         Permission::create(['name' => 'consignacion.destroy'])->syncRoles([$admin]);
         
         // Permisos de usuarios
