@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\phantoms\phConsignacionesController;
 use App\Http\Controllers\Admin\UserController;
 
-Route::resource('/admin/users', UserController::class)->names('admin.users');
+Route::resource('/admin/users', UserController::class)->only(['index','edit','update'])->names('admin.users');
 
 Route::get('/', [phConsignacionesController::class, 'index'])->middleware('auth:sanctum')->name('dashboard');
 Route::post('/', [phConsignacionesController::class, 'store'])->name('guardar');
