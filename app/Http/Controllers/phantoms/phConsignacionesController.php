@@ -27,17 +27,17 @@ class phConsignacionesController extends Controller
 
     {
 
-        // Limpiando los datos de session
+        // Limpiando los datos de session de las personas
         session()->forget('PersonaSession');
-        // Creamos una instancia de consignación
+        // Creamos una instancia de consignación para uso del método index
         $consignacion = new ConsignacionController;
-        // Módulo de búsqueda
+        // Módulo de búsqueda con el parámetro de averiguación
         if ($request->averiguacion === NULL) {
             $Averiguacion = '';
         } else {
             $consignacion->BusquedaConsignacion['Averiguacion'] = $request->averiguacion;
         }
-        // Llamando al controlador index para devolver las consignaciones de la base de datos
+        // Llamando al controlador index 
         $consignaciones = $consignacion->index();
         return view('consignaciones.index', compact('consignaciones'));
     }
@@ -50,7 +50,7 @@ class phConsignacionesController extends Controller
      */
     public function show($consignacionId)
     {
-        // Llamamos al controlador y al método show
+        // Llamamos al controlador y al método show del controlador consignaciones
         $consignacion = new ConsignacionController;
         $consignaciones = $consignacion->show($consignacionId);
         return view('consignaciones.show', compact('consignaciones'));
@@ -64,6 +64,7 @@ class phConsignacionesController extends Controller
      */
     public function create()
     {
+        // Se recuperan información de los campos que requieren catalogos
         $agencias = Agencia::select('Nombre', 'ID_Agencia')->get();
         $reclusorios = Reclusorio::select('Nombre', 'ID_Reclusorio')->get();
         $juzgados = Juzgado::select('Nombre', 'ID_Juzgado')->get();
@@ -71,6 +72,12 @@ class phConsignacionesController extends Controller
         $tipoParticipante = Calidad_Juridica::select('Calidad', 'ID_Calidad')->get();
         return view('consignaciones.create', compact('agencias', 'reclusorios', 'juzgados', 'delitos', 'tipoParticipante'));
     }
+    /**
+     * Método de validación de datos para el formulario
+     *
+     * @param Request $request
+     * @return boolean
+     */
     public function validar($request)
     {
         $request->validate([
@@ -108,23 +115,16 @@ class phConsignacionesController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
+        // Se devuelve la información de la persona
         session()->put('PersonaSession', $request->Personas);
         // Validaciones
         $this->validar($request);
         // CONSTRUCCIÓN de la consignación
 
-
         $personasRequest = $request->Personas;
-        // return $personasRequest;
         // Función que construye el arreglo de personas
         $personas = array();
         foreach ($personasRequest as $persona) {
-            // echo '<pre>';
-            //     return empty($persona['Alias']);
-            // echo '</pre>';
-            // return $persona['Alias'];
-            // return $persona['Alias'];
             $aux = array(
                 'Nombre' => $persona['Nombre'],
                 'Ap_Paterno' => $persona['Ap_Paterno'],
@@ -136,9 +136,8 @@ class phConsignacionesController extends Controller
             }
             array_push($personas, $aux);
         }
-        // return $personas;
 
-        // Construyendo el arreglo
+        // Construyendo el arreglo de datos validando si tiene un antecedente
         if ($request->Detenido_Ant === null || $request->Juzgado_Ant === null || $request->Fecha_Ant === null) {
             $datos = array(
                 'Fecha' => $request->Fecha,
@@ -184,11 +183,10 @@ class phConsignacionesController extends Controller
                 'Nota' => $request->Nota,
             );
         }
-        // Envío de datos al controlador de consignaciones
+        // Envío de datos al controlador de consignaciones y el método store
         $consignacion = new ConsignacionController;
         $consignacion->store($datos);
         session()->forget('PersonaSession');
-        // return $datos;
         return to_route('dashboard');
     }
 
@@ -200,7 +198,6 @@ class phConsignacionesController extends Controller
      */
     public function edit($consignacionId)
     {
-        // session()->put('PersonaSession');
         // Se llama al controlador consiginación y el método show
         $consignacion = new ConsignacionController;
         $consignaciones = $consignacion->show($consignacionId);
@@ -233,7 +230,7 @@ class phConsignacionesController extends Controller
      */
     public function update(Request $request, $consignacionId)
     {
-        // return $request->Antecedente;
+        // Obtenemos datos de las personas
         session()->put('PersonaSession', $request->Personas);
         // VALIDACION DE ENTRADAS
         $this->validar($request);
@@ -311,6 +308,7 @@ class phConsignacionesController extends Controller
      */
     public function destroy($consignacionId)
     {
+        // Se llama al controlador consignaciones y al método destroy
         $consignacion = new ConsignacionController;
         $consignaciones = $consignacion->destroy($consignacionId);
         $consignaciones;
