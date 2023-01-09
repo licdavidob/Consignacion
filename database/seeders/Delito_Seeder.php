@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Imports\DelitosImport;
 use Illuminate\Database\Seeder;
 use App\Models\Delito;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Delito_Seeder extends Seeder
 {
@@ -15,10 +17,7 @@ class Delito_Seeder extends Seeder
     public function run()
     {
         Delito::query()->delete();
-        for ($i=1; $i<11 ; $i++) { 
-            Delito::create([
-                'Nombre' => "Delito $i"
-            ]);
-        }
+        //Ruta por defecto excel: storage/app
+        Excel::import(new DelitosImport, 'Cat_Delitos.xlsx');
     }
 }
