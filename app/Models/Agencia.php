@@ -8,18 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class Agencia extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'agencia';
 
     protected $fillable = [
+        'ID_Alcaldia',
         'Nombre',
     ];
 
-    public function getKeyName(){
+    public function getKeyName()
+    {
         return "ID_Agencia";
     }
 
-    public function Consignacion(){
-        return $this->hasMany(Consignacion::class,'ID_Consignacion','ID_Consignacion');
+    public function Consignacion()
+    {
+        return $this->hasMany(Consignacion::class, 'ID_Consignacion', 'ID_Consignacion');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAgenciaTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateAgenciaTable extends Migration
      */
     public function up()
     {
-        Schema::create('agencia', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-            $table->id('ID_Agencia');
-            $table->char('Nombre', 100);
-            $table->timestamps();
+        Schema::table('agencia', function (Blueprint $table) {
+            $table->bigInteger('ID_Alcaldia')->unsigned()->after('Nombre');
+            $table->foreign('ID_Alcaldia')->references('ID_Alcaldia')->on('alcaldia');
         });
     }
 
@@ -28,6 +26,8 @@ class CreateAgenciaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('agencia');
+        Schema::table('agencia', function (Blueprint $table) {
+            //
+        });
     }
-}
+};

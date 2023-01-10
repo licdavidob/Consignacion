@@ -14,12 +14,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
+            Alcaldia_Seeder::class,
             Agencia_Seeder::class,
             Calidad_Juridica_Seeder::class,
             Delito_Seeder::class,
             Juzgado_Seeder::class,
             Reclusorio_Seeder::class,
-            Alcaldia_Seeder::class,
         ]);
     }
 }

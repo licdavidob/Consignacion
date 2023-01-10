@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Agencia;
+use App\Imports\AgenciaImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Agencia_Seeder extends Seeder
 {
@@ -15,10 +17,6 @@ class Agencia_Seeder extends Seeder
     public function run()
     {
         Agencia::query()->delete();
-        for ($i=1; $i<11 ; $i++) { 
-            Agencia::create([
-                'Nombre' => "Agencia $i"
-            ]);
-        }
+        Excel::import(new AgenciaImport, 'Cat_Agencia.xlsx');
     }
 }

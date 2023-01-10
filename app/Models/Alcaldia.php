@@ -15,7 +15,13 @@ class Alcaldia extends Model
         'Alcaldia',
     ];
 
-    public function getKeyName(){
+    public function getKeyName()
+    {
         return "ID_Alcaldia";
+    }
+
+    public function Agencia()
+    {
+        return $this->hasMany(Agencia::class, 'ID_Agencia', 'ID_Agencia');
     }
 }
