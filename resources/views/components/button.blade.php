@@ -1,3 +1,3 @@
-<div class="flex justify-center md:justify-end mr-3">
-  <a href="{{ route('crear') }}" class="w-4/5 md:w-2/5 py-2.5 bg-cyan-600 text-white font-medium text-base leading-tight rounded shadow-md hover:bg-cyan-700 hover:shadow-lg focus:bg-cyan-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-cyan-800 active:shadow-lg transition duration-150 ease-in-out text-center">{{ $leyend }}</a>
+<div class="flex justify-end w-full px-6 md:pr-3">
+  <a href="{{ route('crear') }}" class="self-end w-full px-3 py-1 text-center transition duration-500 ease-out border-2 rounded-lg cursor-pointer md:w-2/5 text-cyan-600 border-cyan-600 hover:bg-cyan-700 hover:text-cyan-100 hover:border-white">{{ $leyend }}</a>
 </div>
