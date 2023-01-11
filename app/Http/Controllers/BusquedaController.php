@@ -9,8 +9,8 @@ class BusquedaController extends Controller
 {
     public array $BusquedaConsignacion;
     public bool $Paginate = true;
-    private array $Busqueda;
-    private array $ClausulasWhere;
+    private array $Busqueda = array();
+    public array $ClausulasWhere;
     private string $Operador;
 
     public function __construct()
@@ -21,7 +21,6 @@ class BusquedaController extends Controller
             'ID_Agencia' => 0,
             'Estatus' => 1,
         );
-
         $this->InicializarWhere();
     }
 
@@ -34,12 +33,15 @@ class BusquedaController extends Controller
      */
     public function DefineBusqueda($Busqueda): bool
     {
+        $i = 0;
         foreach ($Busqueda as $key => $value) {
             if (isset($this->ClausulasWhere[$key])) {
+                $this->InicializarWhere($value);
                 $this->DefineOperator($key, $Busqueda);
                 $this->ModificarOperadorClausulasWhere($key);
                 $this->Busqueda[] = $this->ClausulasWhere[$key];
             }
+
         }
         return true;
     }
@@ -58,7 +60,6 @@ class BusquedaController extends Controller
     {
         if (is_string($Busqueda[$keyBusqueda])) {
             $this->Operador = 'like';
-
         } else {
             $this->Operador = $Busqueda[$keyBusqueda] === 0 ? '>=' : '=';
         }
@@ -80,14 +81,16 @@ class BusquedaController extends Controller
     /**
      * @return bool
      */
-    public function InicializarWhere(): bool
+    public function InicializarWhere($value = ''): bool
     {
         $this->ClausulasWhere = array(
-            'Averiguacion' => ['Averiguacion', 'like', '%' . $this->BusquedaConsignacion['Averiguacion'] . '%'],
-            'ID_Detenido' => ['Detenido', '>=', $this->BusquedaConsignacion['ID_Detenido']],
-            'ID_Agencia' => ['ID_Agencia', '>=', $this->BusquedaConsignacion['ID_Agencia']],
-            'Estatus' => ['Estatus', '=', $this->BusquedaConsignacion['Estatus']],
+            'Averiguacion' => ['Averiguacion', 'like', '%' . $value . '%'],
+            'ID_Detenido' => ['Detenido', '>=', $value],
+            'ID_Agencia' => ['ID_Agencia', '>=', $value],
+            'Estatus' => ['Estatus', '=', $value],
+            'Prueba' => ['Prueba', '=', $value],
         );
+
         return true;
     }
 
@@ -96,9 +99,7 @@ class BusquedaController extends Controller
      */
     public function Consignacion(): mixed
     {
-
         $BusquedaConsignacion = $this->BusquedaConsignacion;
-        $this->InicializarWhere();
         $this->DefineBusqueda($BusquedaConsignacion);
 
         if ($this->Paginate) {
