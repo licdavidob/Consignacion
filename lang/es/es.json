@@ -122,4 +122,8 @@
     "user": "No encontramos ningún usuario con ese correo electrónico.",
     "uuid": "El campo :attribute debe ser un UUID válido.",
     "Whoops! Something went wrong": "Algo salio mal",
+    "Showing": "Mostrando",
+    "to": "de",
+    "of": "de",
+    "results": "resultados"
 }

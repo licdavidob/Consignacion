@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             Delito_Seeder::class,
             Juzgado_Seeder::class,
             Reclusorio_Seeder::class,
+            RoleSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }

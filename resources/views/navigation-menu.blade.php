@@ -16,6 +16,14 @@
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Consignaciones') }}
                     </x-jet-nav-link>
+                    @can('admin.users.index')
+                        <x-jet-nav-link href="{{ route('admin.users.index') }}" :active="request()->routeIs('admin.users.index')">
+                            {{ __('Usuarios') }}
+                        </x-jet-nav-link>
+                        <x-jet-nav-link href="{{ route('admin.roles.index') }}" :active="request()->routeIs('admin.roles.index')">
+                            {{ __('Roles') }}
+                        </x-jet-nav-link>
+                    @endcan
                 </div>
             </div>
 
@@ -141,6 +149,15 @@
             <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Consignaciones') }}
             </x-jet-responsive-nav-link>
+            @can('admin.users.index')
+                <x-jet-responsive-nav-link href="{{ route('admin.users.index') }}" :active="request()->routeIs('admin.users.index')">
+                    {{ __('Usuarios') }}
+                </x-jet-responsive-nav-link>
+                <x-jet-responsive-nav-link href="{{ route('admin.roles.index') }}" :active="request()->routeIs('admin.roles.index')">
+                    {{ __('Roles') }}
+                </x-jet-responsive-nav-link>
+                
+            @endcan
         </div>
 
         <!-- Responsive Settings Options -->
